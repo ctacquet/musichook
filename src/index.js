@@ -3,10 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import firebase from "firebase/app";
 
-const firebaseConfig = {
+firebase.initializeApp({
   apiKey: "AIzaSyCGlsQFeV4hf1PnIYUgXGuNhR1TGhMJJf0",
   authDomain: "musichook-7e5d1.firebaseapp.com",
   projectId: "musichook-7e5d1",
@@ -14,11 +13,7 @@ const firebaseConfig = {
   messagingSenderId: "193549723974",
   appId: "1:193549723974:web:5328ffce3a1f75eef51d47",
   measurementId: "G-WS6THVDRZG"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+});
 
 ReactDOM.render(
   <React.StrictMode>
