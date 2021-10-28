@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import firebase from "firebase/app";
+import { initializeApp } from "firebase/app";
 
-firebase.initializeApp({
+initializeApp({
   apiKey: "AIzaSyCGlsQFeV4hf1PnIYUgXGuNhR1TGhMJJf0",
   authDomain: "musichook-7e5d1.firebaseapp.com",
   projectId: "musichook-7e5d1",
