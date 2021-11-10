@@ -1,0 +1,45 @@
+
+.postButton {
+    background:  linear-gradient(25deg,#AB0BF6, #F60B0B);
+    border: none !important;
+    color: white !important;
+    font-weight: 700 !important;
+    text-transform: inherit !important;
+    border-radius: 20px !important;
+    height: 50px !important;
+    margin-top: 20px !important;
+}
+.sidebar {
+
+    flex: 3;
+    height: calc(100vh - 62px );
+
+
+
+
+    /*display: flex;
+    align-items: center;*/
+
+
+    /*min-width: 300px;
+    padding: 20px;
+    height: 500px;
+    margin-top: 10%;*/
+
+}
+
+.sidebarWrapper{
+
+    border: 1px solid #DBDBDB;
+    border-radius: 12px;
+    height: 500px;
+    padding: 8px;
+    width: calc(20vw - 50px );
+    margin: 40px 0 0 120px;
+
+
+}
+.link{
+    text-decoration: none;
+    color: black;
+}

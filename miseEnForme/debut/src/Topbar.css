@@ -1,0 +1,73 @@
+.topbarContainer{
+    height: 60px;
+    width: 100%;
+   /* background-color: #AB0BF6;*/
+    display: flex;
+    align-items: center;
+    position: static;
+    top: 0;
+}
+.routeName{
+    font-size: 25px;
+}
+
+.topbarLeft{
+    flex: 0.5;
+    padding-left: 20%;
+    display: flex;
+    /*background-color: #0bf63a;*/
+}
+
+.topbarCenter{
+    flex: 8;
+   /* background-color: #F60B0B;*/
+    border: 2px #DBDBDB solid;
+    border-top: none;
+    border-radius: 12px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin-left: 12%;
+
+
+}
+.back{
+    font-size: 24px !important;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.topbarRight{
+    flex: 3;
+    margin-right: 10%;
+    margin-left: 10%;
+}
+
+.searchTopbar{
+    width: 100%;
+    height: 30px;
+    border: 2px #DBDBDB solid;
+    background-color: white;
+
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+
+}
+.searchIcon{
+    font-size: 20px !important;
+    margin-left: 10px;
+}
+.searchTopbarInput{
+    border: none;
+    width: 80%;
+}
+.searchTopbarInput:focus{
+    outline: none;
+}
+
+.logo{
+
+    height: 40px;
+    width: auto;
+}
