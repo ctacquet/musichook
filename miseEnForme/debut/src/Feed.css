@@ -1,4 +1,15 @@
+
 .feed{
     flex: 5;
+   /* background-color: beige;*/
 
+}
+
+
+.feedWrapper{
+   /* background-color: aliceblue;*/
+    padding: 20px;
+}
+.hr{
+    margin: 30px;
 }
