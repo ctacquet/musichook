@@ -5,11 +5,24 @@
 @tailwind utilities;
 
 @layer components {
+    body {
+        @apply font-Poppins;
+    }
+
     .navBtn {
         @apply hidden h-6 md:inline-flex cursor-pointer;
+    }
+
+    .navDiv {
+        @apply flex pl-2 items-center space-x-2 cursor-pointer;
     }
 
     .btn {
         @apply h-7 hover:scale-125 cursor-pointer transition-all duration-150 ease-out;
     }
+
+    .loginBtn {
+        @apply text-black hover:bg-gradient-to-l from-purple-600 to-red-600 hover:text-white rounded-sm p-1;
+    }
+    
 }
