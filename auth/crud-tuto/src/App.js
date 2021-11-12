@@ -89,120 +89,81 @@ function App() {
   }, [])
 
   return  (
-      <div className="App">
-          <input placeholder="Name" onChange={(event) => {
-              setNewName(event.target.value);} }
-          />
-          <input type="number" placeholder="Age" onChange={(event) => {
-              setNewAge(event.target.value);} }
-          />
-          <button onClick={creatUser}>Create User</button>
-              {users.map((user)=> {
-                  return <div>
-                      <h1>{user.name}</h1>
-                      <h1>{user.age}</h1>
-                      <button onClick={()=> {updateUser(user.id,user.age);}}>Increase age</button>
-                      <button onClick={()=> {deleteUser(user.id);}}>Delete User</button>
-                  </div>;
-                })}
 
-          <div>
-              <h3> Register User </h3>
-              <input
-                  placeholder="Email..."
-                  onChange={(event) => {
-                      setRegisterEmail(event.target.value);
-                  }}
-              />
-              <input
-                  placeholder="Password..."
-                  onChange={(event) => {
-                      setRegisterPassword(event.target.value);
-                  }}
-              />
+      /* <div className="App">
+            <input placeholder="Name" onChange={(event) => {
+                setNewName(event.target.value);} }
+            />
+            <input type="number" placeholder="Age" onChange={(event) => {
+                setNewAge(event.target.value);} }
+            />
+            <button onClick={creatUser}>Create User</button>
+                {users.map((user)=> {
+                    return <div>
+                        <h1>{user.name}</h1>
+                        <h1>{user.age}</h1>
+                        <button onClick={()=> {updateUser(user.id,user.age);}}>Increase age</button>
+                        <button onClick={()=> {deleteUser(user.id);}}>Delete User</button>
+                    </div>;
+                  })}
 
-              <button onClick={register}> Create User</button>
-          </div>
+            <div>
+                <h3> Register User </h3>
+                <input
+                    placeholder="Email..."
+                    onChange={(event) => {
+                        setRegisterEmail(event.target.value);
+                    }}
+                />
+                <input
+                    placeholder="Password..."
+                    onChange={(event) => {
+                        setRegisterPassword(event.target.value);
+                    }}
+                />
 
-          <div>
-              <h3> Login </h3>
-              <input
-                  placeholder="Email..."
-                  onChange={(event) => {
-                      setLoginEmail(event.target.value);
-                  }}
-              />
-              <input
-                  placeholder="Password..."
-                  onChange={(event) => {
-                      setLoginPassword(event.target.value);
-                  }}
-              />
+                <button onClick={register}> Create User</button>
+            </div>
 
-              <button onClick={login}> Login</button>
-          </div>
+            <div>
+                <h3> Login </h3>
+                <input
+                    placeholder="Email..."
+                    onChange={(event) => {
+                        setLoginEmail(event.target.value);
+                    }}
+                />
+                <input
+                    placeholder="Password..."
+                    onChange={(event) => {
+                        setLoginPassword(event.target.value);
+                    }}
+                />
 
-          <h4> User Logged In: </h4>
-          {user?.email}
+                <button onClick={login}> Login</button>
+            </div>
 
-          <button onClick={logout}> Sign Out </button>
+            <h4> User Logged In: </h4>
+            {user?.email}
 
-        </div>
+            <button onClick={logout}> Sign Out </button>
+
+          </div>*/
 
 
-      /*<Router>
+      <Router>
             <Switch>
-                <Route path='/' component={
-                    <>
-                        <div>
-                            <h3> Register User </h3>
-                            <input
-                                placeholder="Email..."
-                                onChange={(event) => {
-                                    setRegisterEmail(event.target.value);
-                                }}
-                            />
-                            <input
-                                placeholder="Password..."
-                                onChange={(event) => {
-                                    setRegisterPassword(event.target.value);
-                                }}
-                            />
-
-                            <button onClick={register}> Create User</button>
-                        </div>
-
-                        <div>
-                            <h3> Login </h3>
-                            <input
-                                placeholder="Email..."
-                                onChange={(event) => {
-                                    setLoginEmail(event.target.value);
-                                }}
-                            />
-                            <input
-                                placeholder="Password..."
-                                onChange={(event) => {
-                                    setLoginPassword(event.target.value);
-                                }}
-                            />
-
-                            <button onClick={login}> Login</button>
-                        </div>
-
-                        <h4> User Logged In: </h4>
-                        {user?.email}
-
-                        <button onClick={logout}> Sign Out </button>
-
-                    </>
-
-                } />
-                <ProtectedRoute path="/profile" component={Profile} isAuth={isAuthenticated}/>
+                <Route exact path="/" >
+                    <button>login</button>
+                </Route>
             </Switch>
 
 
-      </Router>*/
+
+          {/*<ProtectedRoute path="/profile" component={Profile} isAuth={isAuthenticated}/>*/}
+
+
+      </Router>
 
 
     );
