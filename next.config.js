@@ -1,5 +1,3 @@
 module.exports = {
-    images: {
-        
-    }
+    target: "serverless",
 }
