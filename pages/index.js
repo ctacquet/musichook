@@ -10,12 +10,16 @@ export default function Home() {
         <title>MusicHook</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#000000" />
-        <meta name="description" content="Share your musics together !" />
-        <meta property="og:title" content="MusicHook" />
-        <meta property="og:description" content="Ce site me sert de portfolio, j'y poste principalement mes informations professionelles" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://musichook.vercel.app/" /> 
+        <meta property="og:title" property="og:title" content="MusicHook" />
+        <meta property="og:description" property="og:description" content="Share and discover songs !" />
         <meta property="og:image" content="/preview.jpg" />
+        <meta name="twitter:card" content="summary" /> 
+        <meta name="twitter:title" content="MusicHook" />
+        <meta name="twitter:description" content="Share and discover songs !" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/favicon.ico" />
       </Head>
 
       <Header pageTitle="Home"/>
