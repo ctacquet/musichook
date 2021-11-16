@@ -3,35 +3,41 @@ import {
   LogoutIcon,
   UserCircleIcon,
 } from "@heroicons/react/outline";
-import { signOut, useSession } from "next-auth/react";
+import { auth } from "../firebase";
+import { signOut } from 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 function MiniProfile() {
-  const { data: session } = useSession();
+  const [user] = useAuthState(auth);
+
+  const logout = () => {
+    signOut(auth)
+  };
 
   return (
     <div>
-      {session ? (
+      {user ? (
         <div className="bg-white my-7 border rounded-sm">
           <div className="flex justify-between items-center h-16">
             <div className="flex-shrink-0 group block cursor-pointer space-x-2">
               <div className="inline-block pl-4">
                 <img
                   className="h-10 w-10 rounded-full"
-                  src={session?.user?.image}
+                  src={user?.photoURL}
                   alt=""
                 />
               </div>
               <div className="inline-block">
                 <p className="text-base leading-6 font-medium text-black">
-                  {session?.user?.name}
+                  {user?.displayName}
                 </p>
                 <p className="text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">
-                  @{session?.user?.username}
+                  @{user?.displayName}
                 </p>
               </div>
             </div>
             <div className="inline-block">
-              <a onClick={signOut} className="loginBtn space-x-2 rounded-lg">
+              <a onClick={logout} className="loginBtn space-x-2 rounded-lg">
                 <LogoutIcon className="h-8 w-8 inline-block" />
               </a>
             </div>

@@ -23,12 +23,13 @@ import {
   ThumbUpIcon as ThumbUpIconFilled,
   AnnotationIcon as AnnotationIconFilled,
 } from "@heroicons/react/solid";
-import { useSession } from "next-auth/react";
 import { useState, useEffect, useRef } from "react";
 import { db } from "../firebase";
 import Moment from "react-moment";
 import Link from "next/link";
 import { DropdownButton } from "./Dropdown";
+import { auth } from "../firebase";
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 function Post({
   id,
@@ -41,7 +42,7 @@ function Post({
   title,
   timestamp,
 }) {
-  const { data: session } = useSession();
+  const [user] = useAuthState(auth);
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const [likes, setLikes] = useState([]);
@@ -95,19 +96,19 @@ function Post({
   useEffect(
     () =>
       setHasLiked(
-        likes.findIndex((like) => like.id == session?.user?.uid) !== -1
+        likes.findIndex((like) => like.id == user?.uid) !== -1
       ),
-    [likes]
+    [likes, user]
   );
 
-  useEffect(() => setHasPosted(uid == session?.user?.uid), [uid]);
+  useEffect(() => setHasPosted(uid == user?.uid), [user]);
 
   const likePost = async () => {
     if (hasLiked) {
-      await deleteDoc(doc(db, "posts", id, "likes", session.user.uid));
+      await deleteDoc(doc(db, "posts", id, "likes", user.uid));
     } else {
-      await setDoc(doc(db, "posts", id, "likes", session.user.uid), {
-        username: session.user.username,
+      await setDoc(doc(db, "posts", id, "likes", user.uid), {
+        username: user.displayName,
       });
     }
   };
@@ -120,8 +121,8 @@ function Post({
 
     await addDoc(collection(db, "posts", id, "comments"), {
       comment: commentToSend,
-      username: session.user.username,
-      userImg: session.user.image,
+      username: user.username,
+      userImg: user.photoURL,
       timestamp: serverTimestamp(),
     });
   };
@@ -171,20 +172,20 @@ function Post({
         </div>
         <div className="flex space-x-4">
           <div className="space-x-1 items-center">
-            {session && hasLiked ? (
+            {user && hasLiked ? (
               <ThumbUpIconFilled
                 onClick={likePost}
                 className="btn text-purple-600 inline-block"
               />
             ) : (
-              <ThumbUpIcon onClick={session && likePost} className="btn inline-block" />
+              <ThumbUpIcon onClick={user && likePost} className="btn inline-block" />
             )}
             {likes.length > 0 && (
               <p className="font-bold inline-block">{likes.length}</p>
             )}
           </div>
           <div className="space-x-1 items-center">
-            {(session && isCommentOpen) || (isCommentOpen && comments.length > 0) ? (
+            {(user && isCommentOpen) || (isCommentOpen && comments.length > 0) ? (
               <AnnotationIconFilled
                 className="btn inline-block text-purple-600"
                 onClick={toggleComments}
@@ -232,7 +233,7 @@ function Post({
         </CommentCollapse>
 
         {/* Input box */}
-        {session && (
+        {user && (
           <form className="flex items-center p-4">
             <ChatIcon className="h-7 text-black" />
             <input
