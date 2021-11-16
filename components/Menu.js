@@ -61,27 +61,27 @@ function Menu() {
                     <HomeIcon className="h-4 w-4" color="purple" />
                     <p>Home</p>
                 </a>
-                <a disabled className="navDiv">
+                <a disabled={true} className="navDiv text-gray-500">
                     <UserGroupIcon className="h-4 w-4" />
                     <p>Discover</p>
                 </a>
-                <a disabled className="navDiv">
+                <a disabled={true} className="navDiv text-gray-500">
                     <BellIcon className="h-4 w-4" />
                     <p>Notifications</p>
                 </a>
-                <a disabled className="navDiv">
+                <a disabled={true} className="navDiv text-gray-500">
                     <UserIcon className="h-4 w-4" />
                     <p>Profile</p>
                 </a>
-                <a disabled className="navDiv">
+                <a disabled={true} className="navDiv text-gray-500">
                     <HeartIcon className="h-4 w-4" />
                     <p>Favorites</p>
                 </a>
-                <a disabled className="navDiv">
+                <a disabled={true} className="navDiv text-gray-500">
                     <CalendarIcon className="h-4 w-4" />
                     <p>Events</p>
                 </a>
-                <button disabled="true" className="mt-3 p-1 bg-gray-300 rounded-lg w-full">
+                <button disabled={true} className="mt-3 p-1 bg-gray-300 rounded-lg w-full">
                     Post
                 </button>
             </div>
