@@ -8,19 +8,20 @@ import {
 import {
     HomeIcon
 } from "@heroicons/react/solid";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 import { modalState } from "../atoms/modalAtom";
+import { auth } from "../firebase";
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 function Menu() {
-    const { data: session } = useSession();
+    const [user] = useAuthState(auth);
     const [open, setOpen] = useRecoilState(modalState);
     const router = useRouter();
 
     return (
         <div>
-            {session ? (
+            {user ? (
             <div className="bg-white my-7 border rounded-sm p-2 space-y-2">
                 <a onClick={() => {
                         return router.push("/");

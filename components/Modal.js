@@ -11,10 +11,11 @@ import {
 } from "@heroicons/react/outline";
 import { db, storage } from "../firebase";
 import { addDoc, collection, serverTimestamp } from "@firebase/firestore";
-import { useSession } from "next-auth/react";
+import { auth } from "../firebase";
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 function Modal() {
-  const { data: session } = useSession();
+  const [user] = useAuthState(auth);
   const searchRef = useRef(null);
   const [open, setOpen] = useRecoilState(modalState);
   const [loading, setLoading] = useState(null);
@@ -37,9 +38,9 @@ function Modal() {
     // 4 - Update the original post with the link of the song
 
     const docRef = await addDoc(collection(db, "posts"), {
-      username: session.user.username,
-      uid: session.user.uid,
-      userImg: session.user.image,
+      username: user.displayName,
+      uid: user.uid,
+      userImg: user.photoURL,
       search: searchRef.current.value,
       artist: artistRef.current.value,
       title: titleRef.current.value,

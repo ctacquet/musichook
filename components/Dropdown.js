@@ -5,13 +5,14 @@ import {
     deleteDoc,
   } from "@firebase/firestore";
   import { db } from "../firebase";
-  import { useSession } from "next-auth/react";
+  import { auth } from "../firebase";
+  import { useAuthState } from 'react-firebase-hooks/auth';
 
 export function DropdownButton({postId, uid}) {
-    const { data: session } = useSession();
+    const [user] = useAuthState(auth);
     const [hasPosted, setHasPosted] = useState(false);
 
-    useEffect(() => setHasPosted(uid == session?.user?.uid), [uid]);
+    useEffect(() => setHasPosted(uid == user?.uid), [uid]);
 
     const deletePost = async () => {
       if (hasPosted) {
