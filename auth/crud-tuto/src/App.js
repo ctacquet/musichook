@@ -11,6 +11,7 @@ import {AuthProvider} from "./contexts/AuthContext";
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 import UpdateProfile from "./components/UpdateProfile";
+import Signup from "./components/SignUp";
 
 
 
@@ -107,21 +108,18 @@ function App(props) {
 
   return  (
 
-
-
               <Router>
                   <AuthProvider>
                       <Switch>
                           <ProtectedRoute exact path="/" component={Dashboard} />
                           <ProtectedRoute path="/update-profile" component={UpdateProfile} />
-                         {/* <Route path="/signup" component={Signup} />*/}
+                          <Route path="/signup" component={Signup} />
                           <Route path="/login" component={Login} />
+                          <Route path="/profile" component={Profile} />
                          {/* <Route path="/forgot-password" component={ForgotPassword} />*/}
                       </Switch>
                   </AuthProvider>
               </Router>
-
-
 
 
 
