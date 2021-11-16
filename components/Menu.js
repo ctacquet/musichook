@@ -21,13 +21,13 @@ function Menu() {
     return (
         <div>
             {session ? (
-            <div className="bg-white my-7 border rounded-sm">
+            <div className="bg-white my-7 border rounded-sm p-2 space-y-2">
                 <a onClick={() => {
                         return router.push("/");
                     }} 
                     className="navDiv text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600">
                     <HomeIcon className="h-4 w-4" color="purple" />
-                    <p>Home</p>
+                    <p className="font-semibold">Home</p>
                 </a>
                 <a onClick={() => {
                         return router.push("/discover");
@@ -51,39 +51,43 @@ function Menu() {
                     <CalendarIcon className="h-4 w-4" />
                     <p>Events</p>
                 </a>
-                <button onClick={() => setOpen(true)} className="mt-3 p-1 bg-gradient-to-l from-purple-600 to-red-600 rounded-lg text-white w-full">
-                    Post
-                </button>
+                <div className="flex justify-center">
+                    <button onClick={() => setOpen(true)} className="mt-3 p-1 bg-gradient-to-l from-purple-600 to-red-600 rounded-lg text-white w-6/12 min-w-max">
+                        Post
+                    </button>
+                </div>
             </div>
             ) : (
-            <div className="bg-white my-7 border rounded-sm">
+            <div className="bg-white my-7 border rounded-sm p-2 space-y-2">
                 <a onClick={() => router.push("/")} className="navDiv text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600">
                     <HomeIcon className="h-4 w-4" color="purple" />
                     <p>Home</p>
                 </a>
-                <a disabled={true} className="navDiv text-gray-500">
+                <a disabled={true} className="navDiv text-gray-500 cursor-not-allowed">
                     <UserGroupIcon className="h-4 w-4" />
                     <p>Discover</p>
                 </a>
-                <a disabled={true} className="navDiv text-gray-500">
+                <a disabled={true} className="navDiv text-gray-500 cursor-not-allowed">
                     <BellIcon className="h-4 w-4" />
                     <p>Notifications</p>
                 </a>
-                <a disabled={true} className="navDiv text-gray-500">
+                <a disabled={true} className="navDiv text-gray-500 cursor-not-allowed">
                     <UserIcon className="h-4 w-4" />
                     <p>Profile</p>
                 </a>
-                <a disabled={true} className="navDiv text-gray-500">
+                <a disabled={true} className="navDiv text-gray-500 cursor-not-allowed">
                     <HeartIcon className="h-4 w-4" />
                     <p>Favorites</p>
                 </a>
-                <a disabled={true} className="navDiv text-gray-500">
+                <a disabled={true} className="navDiv text-gray-500 cursor-not-allowed">
                     <CalendarIcon className="h-4 w-4" />
                     <p>Events</p>
                 </a>
-                <button disabled={true} className="mt-3 p-1 bg-gray-300 rounded-lg w-full">
-                    Post
-                </button>
+                <div className="flex justify-center">
+                    <button disabled={true} className="mt-3 p-1 bg-gray-300 rounded-lg w-6/12 min-w-max cursor-not-allowed">
+                        Post
+                    </button>
+                </div>
             </div>
             )}
         </div>

@@ -11,10 +11,10 @@ export default function Discover() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header pageTitle="Discover" />
-      <main className="grid grid-cols-1 md:grid-cols-6 md:max-w-6xl xl:grid-cols-6 xl:max-w-12xl mx-auto">
-        {/* Left section */}
-        <section className="col-span-1">
+      <Header pageTitle="Profile" />
+        <main className="grid grid-cols-1 md:grid-cols-4 md:max-w-4xl xl:grid-cols-4 xl:max-w-8xl min-w-full px-8">
+          {/* Left section */}
+          <section className="col-span-1 pr-8">
           <div className="flex flex-col">
             <div className="">
               {/* Menu */}
@@ -30,7 +30,7 @@ export default function Discover() {
         </section>
 
         {/* Middle section */}
-        <section className="col-span-4">
+        <section className="col-span-2">
           <h1 className="text-center mt-4 font-bold">This is profile page</h1>
         </section>
 

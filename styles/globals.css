@@ -14,7 +14,7 @@
     }
 
     .navDiv {
-        @apply flex pl-2 items-center space-x-2 cursor-pointer;
+        @apply flex pl-2 items-center space-x-2 cursor-pointer text-xl;
     }
 
     .btn {

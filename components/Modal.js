@@ -25,8 +25,9 @@ function Modal() {
   const coverLinkRef = useRef(null);
   const spotifyLinkRef = useRef(null);
 
-  const uploadPost = async () => {
+  const uploadPost = async (e) => {
     if (loading) return;
+    e.preventDefault();
 
     setLoading(true);
 
@@ -37,7 +38,7 @@ function Modal() {
 
     const docRef = await addDoc(collection(db, "posts"), {
       username: session.user.username,
-      userUID: session.user.uid,
+      uid: session.user.uid,
       userImg: session.user.image,
       search: searchRef.current.value,
       artist: artistRef.current.value,
@@ -137,7 +138,6 @@ function Modal() {
                     className="bg-white block w-full pl-10 sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md"
                     type="text"
                     ref={coverLinkRef}
-                    required
                     placeholder="Cover link"
                   />
                 </div>
@@ -149,7 +149,6 @@ function Modal() {
                     className="bg-white block w-full pl-10 sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md"
                     type="text"
                     ref={spotifyLinkRef}
-                    required
                     placeholder="Spotify link"
                   />
                 </div>

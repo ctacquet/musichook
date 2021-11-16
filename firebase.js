@@ -14,11 +14,11 @@ const firebaseConfig = {
   storageBucket: "musichook-7e5d1.appspot.com",
   messagingSenderId: "193549723974",
   appId: "1:193549723974:web:5328ffce3a1f75eef51d47",
-  measurementId: "G-WS6THVDRZG"
+  measurementId: "G-WS6THVDRZG",
 };
 
 // Initialize Firebase
-    //  Check if server-side as single time pattern
+//  Check if server-side as single time pattern
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const db = getFirestore();
 const storage = getStorage();
