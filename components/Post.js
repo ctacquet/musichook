@@ -229,6 +229,7 @@ function Post({
             ))}
           </div>
         )}
+        </CommentCollapse>
 
         {/* Input box */}
         {session && (
@@ -254,7 +255,6 @@ function Post({
             </button>
           </form>
         )}
-      </CommentCollapse>
     </div>
   );
 }
