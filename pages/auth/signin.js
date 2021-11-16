@@ -1,4 +1,3 @@
-import { getProviders, signIn as SignIntoProvider } from "next-auth/react";
 import Image from "next/image";
 import Head from "next/head";
 import { useRouter } from "next/router";
