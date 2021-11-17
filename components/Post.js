@@ -24,12 +24,12 @@ import {
   AnnotationIcon as AnnotationIconFilled,
 } from "@heroicons/react/solid";
 import { useState, useEffect, useRef } from "react";
-import { db } from "../firebase";
+import { auth, db } from "../firebase";
 import Moment from "react-moment";
 import Link from "next/link";
 import { DropdownButton } from "./Dropdown";
-import { auth } from "../firebase";
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { useAuthState } from "react-firebase-hooks/auth";
+import Comments from './Comments';
 
 function Post({
   id,
@@ -43,35 +43,11 @@ function Post({
   timestamp,
 }) {
   const [user] = useAuthState(auth);
-  const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const [likes, setLikes] = useState([]);
   const [hasLiked, setHasLiked] = useState(false);
   const [hasPosted, setHasPosted] = useState(false);
   const [isCommentOpen, setCommentIsOpen] = useState(false);
-
-  const toggleComments = () => {
-    setCommentIsOpen(!isCommentOpen);
-  };
-
-  const CommentCollapse = ({ isCommentOpen, children }) => {
-    const ref = useRef(null);
-
-    const inlineStyle = isCommentOpen
-      ? { height: ref.current?.scrollHeight }
-      : { height: 0 };
-
-    return (
-      <div
-        ref={ref}
-        aria-hidden={!isCommentOpen}
-        style={inlineStyle}
-        className="transition-height ease mt-2 text-gray-600 overflow-hidden duration-300"
-      >
-        {children}
-      </div>
-    );
-  };
 
   useEffect(
     () =>
@@ -85,6 +61,10 @@ function Post({
     [db, id]
   );
 
+  const toggleComments = () => {
+    setCommentIsOpen(!isCommentOpen);
+  };
+
   useEffect(
     () =>
       onSnapshot(collection(db, "posts", id, "likes"), (snapshot) =>
@@ -94,10 +74,7 @@ function Post({
   );
 
   useEffect(
-    () =>
-      setHasLiked(
-        likes.findIndex((like) => like.id == user?.uid) !== -1
-      ),
+    () => setHasLiked(likes.findIndex((like) => like.id == user?.uid) !== -1),
     [likes, user]
   );
 
@@ -111,20 +88,6 @@ function Post({
         username: user.displayName,
       });
     }
-  };
-
-  const sendComment = async (e) => {
-    e.preventDefault();
-
-    const commentToSend = comment;
-    setComment("");
-
-    await addDoc(collection(db, "posts", id, "comments"), {
-      comment: commentToSend,
-      username: user.username,
-      userImg: user.photoURL,
-      timestamp: serverTimestamp(),
-    });
   };
 
   return (
@@ -178,14 +141,18 @@ function Post({
                 className="btn text-purple-600 inline-block"
               />
             ) : (
-              <ThumbUpIcon onClick={user && likePost} className="btn inline-block" />
+              <ThumbUpIcon
+                onClick={user && likePost}
+                className="btn inline-block"
+              />
             )}
             {likes.length > 0 && (
               <p className="font-bold inline-block">{likes.length}</p>
             )}
           </div>
           <div className="space-x-1 items-center">
-            {(user && isCommentOpen) || (isCommentOpen && comments.length > 0) ? (
+            {(user && isCommentOpen) ||
+            (isCommentOpen && comments.length > 0) ? (
               <AnnotationIconFilled
                 className="btn inline-block text-purple-600"
                 onClick={toggleComments}
@@ -204,58 +171,7 @@ function Post({
         </div>
       </div>
 
-      <CommentCollapse isCommentOpen={isCommentOpen}>
-        {/* Comments */}
-        {comments.length > 0 && (
-          <div className="ml-10 h-20 overflow-y-scroll scrollbar-thumb-black scrollbar-thin">
-            {comments.map((comment) => (
-              <div
-                key={comment.id}
-                className="flex items-center space-x-2 mb-3"
-              >
-                <img
-                  className="w-7 rounded-full"
-                  src={comment.data().userImg}
-                  alt=""
-                />
-                <p className="text-sm flex-1">
-                  <span className="font-bold">{comment.data().username}</span>{" "}
-                  {comment.data().comment}
-                </p>
-
-                <Moment fromNow className="pr-5 text-xs">
-                  {comment.data().timestamp?.toDate()}
-                </Moment>
-              </div>
-            ))}
-          </div>
-        )}
-        </CommentCollapse>
-
-        {/* Input box */}
-        {user && (
-          <form className="flex items-center p-4">
-            <ChatIcon className="h-7 text-black" />
-            <input
-              type="text"
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              placeholder="Add a comment..."
-              className="border-none flex-1 focus:ring-0 outline-none"
-            />
-            <button
-              type="submit"
-              disabled={!comment.trim()}
-              onClick={sendComment}
-              className="font-semibold text-purple-600"
-            >
-              <div className="flex space-x-2 items-end">
-                <p className="flex-1">Post</p>
-                <PaperAirplaneIcon className="btn flex-1 transform rotate-45" />
-              </div>
-            </button>
-          </form>
-        )}
+      <Comments isCommentOpen={isCommentOpen} comments={comments} id={id} />
     </div>
   );
 }
