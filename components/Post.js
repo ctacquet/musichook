@@ -171,7 +171,7 @@ function Post({
         </div>
       </div>
 
-      <Comments isCommentOpen={isCommentOpen} comments={comments} id={id} />
+      <Comments isCommentOpen={isCommentOpen} comments={comments} setComments={setComments} id={id} />
     </div>
   );
 }

@@ -12,10 +12,9 @@ import { ChatIcon, PaperAirplaneIcon } from "@heroicons/react/outline";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Moment from "react-moment";
 
-function Comments({ id, comments, isCommentOpen }) {
+function Comments({ id, comments, setComments, isCommentOpen }) {
   const [user] = useAuthState(auth);
   const [comment, setComment] = useState("");
-  const [comments, setComments] = useState([]);
   const ref = useRef(null);
 
   const inlineStyle = isCommentOpen
