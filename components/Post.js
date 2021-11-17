@@ -40,7 +40,7 @@ function Post({
   spotifyLink,
   artist,
   title,
-  timestamp,
+  timestamp, socket, USER,
 }) {
   const [user] = useAuthState(auth);
   const [comment, setComment] = useState("");
@@ -88,7 +88,8 @@ function Post({
   useEffect(
     () =>
       onSnapshot(collection(db, "posts", id, "likes"), (snapshot) =>
-        setLikes(snapshot.docs)
+        setLikes(snapshot.docs),
+
       ),
     [db, id]
   );
@@ -103,9 +104,27 @@ function Post({
 
   useEffect(() => setHasPosted(uid == user?.uid), [user]);
 
+  const [liked, setLiked] = useState(false);
+
+  const handleNotification = (type) => {
+    console.log("uid" , user.uid)
+    console.log("id" , id)
+    console.log("post uid" , uid)
+
+    type === 1 && setLiked(true);
+    socket.emit("sendNotification", {
+      senderId: user.uid,
+      receiverId: uid,
+      type
+    })
+  };
+
+
   const likePost = async () => {
     if (hasLiked) {
+
       await deleteDoc(doc(db, "posts", id, "likes", user.uid));
+
     } else {
       await setDoc(doc(db, "posts", id, "likes", user.uid), {
         username: user.displayName,
@@ -172,13 +191,13 @@ function Post({
         </div>
         <div className="flex space-x-4">
           <div className="space-x-1 items-center">
-            {user && hasLiked ? (
+            {user && hasLiked && liked ? (
               <ThumbUpIconFilled
                 onClick={likePost}
                 className="btn text-purple-600 inline-block"
               />
-            ) : (
-              <ThumbUpIcon onClick={user && likePost} className="btn inline-block" />
+            ) : (//user && likePost
+              <ThumbUpIcon onClick={(() => handleNotification(1))} className="btn inline-block" />
             )}
             {likes.length > 0 && (
               <p className="font-bold inline-block">{likes.length}</p>

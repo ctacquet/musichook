@@ -3,7 +3,7 @@ import { collection, onSnapshot, orderBy, query } from "@firebase/firestore";
 import { db } from "../firebase";
 import { useEffect, useState } from "react";
 
-function Posts() {
+function Posts({socket,user}) {
   const [posts, setPosts] = useState([]);
 
   useEffect(
@@ -31,6 +31,8 @@ function Posts() {
           artist={post.data().artist}
           title={post.data().title}
           timestamp={post.data().timestamp}
+          socket={socket}
+          user={user}
         />
       ))}
     </div>
