@@ -152,29 +152,33 @@ function Post({
       {/* Post */}
       <div className="flex items-center pr-5 pb-5">
         {/* User and Date */}
-        <div className="flex-1 max-w-xs w-32 flex-col p-5 mr-5">
-          <div className="border-r border-gray-300 justify-center text-center">
-            <Image
-              src={userImg}
-              className="rounded-full h-12 w-12 object-cover border p-1 mr-3"
-              alt=""
-              width={50}
-              height={50}
-            />
-            <div>
-              <p className="font-bold">{username}</p>
+        <div className="flex-1 max-w-xs w-32 p-5">
+          <div className="flex flex-col border-r border-gray-300 justify-center text-center content-center">
+            <div className="border p-1 w-12 mx-auto rounded-full content-center">
+              <Image
+                src={userImg}
+                className="rounded-full"
+                alt=""
+                width="100%"
+                height="100%"
+                layout="responsive"
+                objectFit="contain"
+              />
             </div>
-            <Moment fromNow className="flex-none">
+            <div>
+              <p className="font-bold overflow-ellipsis overflow-hidden">{username}</p>
+            </div>
+            <Moment fromNow>
               {timestamp?.toDate()}
             </Moment>
           </div>
         </div>
         {/* Cover, Artist and Title */}
         <div className="flex flex-none align-middle">
-          <div className="mr-2 w-16">
+          <div className="w-24 border mr-2">
             <Image
               src={coverLink}
-              className="object-cover"
+              className="object-cover z-0"
               alt=""
               quality={100}
               width="100%"
@@ -184,8 +188,8 @@ function Post({
             />
           </div>
           <div className="flex flex-col">
-            <p className="flex font-bold">{artist}</p>
-            <p className="flex font-normal">{title}</p>
+            <p className="flex font-bold overflow-ellipsis overflow-hidden">{artist}</p>
+            <p className="flex font-normal overflow-ellipsis overflow-hidden">{title}</p>
           </div>
         </div>
 

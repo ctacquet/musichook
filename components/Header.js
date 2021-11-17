@@ -71,10 +71,10 @@ function Header({ pageTitle }) {
   }, [pageTitle]);
 
   return (
-    <div className="sticky top-0 z-5">
+    <div className="sticky top-0 z-10">
       <main className="grid grid-cols-1 md:grid-cols-4 md:max-w-4xl xl:grid-cols-4 xl:max-w-8xl min-w-full px-8">
         {/* Left - Logo */}
-        <div className="col-span-1 flex pl-36">
+        <div className="col-span-1 flex pl-32">
           <div
             onClick={() => router.push("/")}
             className="relative hidden lg:inline-grid w-8 cursor-pointer"
