@@ -11,17 +11,16 @@ import {
 } from "@firebase/firestore";
 import {
   AnnotationIcon,
-  ChatIcon,
   HeartIcon,
   ShareIcon,
   ThumbUpIcon,
   ExternalLinkIcon,
-  PaperAirplaneIcon,
 } from "@heroicons/react/outline";
 import {
   HeartIcon as HeartIconFilled,
   ThumbUpIcon as ThumbUpIconFilled,
   AnnotationIcon as AnnotationIconFilled,
+  ShareIcon as ShareIconFilled,
 } from "@heroicons/react/solid";
 import { useState, useEffect, useRef } from "react";
 import { auth, db } from "../firebase";
@@ -29,7 +28,8 @@ import Moment from "react-moment";
 import Link from "next/link";
 import { DropdownButton } from "./Dropdown";
 import { useAuthState } from "react-firebase-hooks/auth";
-import Comments from './Comments';
+import Comments from "./Comments";
+import Image from "next/image";
 
 function Post({
   id,
@@ -45,9 +45,47 @@ function Post({
   const [user] = useAuthState(auth);
   const [comments, setComments] = useState([]);
   const [likes, setLikes] = useState([]);
+  const [favorites, setFavorites] = useState([]);
+  const [shares, setShares] = useState([]);
   const [hasLiked, setHasLiked] = useState(false);
+  const [hasFaved, setHasFaved] = useState(false);
   const [hasPosted, setHasPosted] = useState(false);
+  const [hasShared, setHasShared] = useState(false);
   const [isCommentOpen, setCommentIsOpen] = useState(false);
+
+  const toggleComments = () => {
+    setCommentIsOpen(!isCommentOpen);
+  };
+
+  const likePost = async () => {
+    if (hasLiked) {
+      await deleteDoc(doc(db, "posts", id, "likes", user.uid));
+    } else {
+      await setDoc(doc(db, "posts", id, "likes", user.uid), {
+        username: user.displayName,
+      });
+    }
+  };
+
+  const favPost = async () => {
+    if (hasFaved) {
+      await deleteDoc(doc(db, "posts", id, "favorites", user.uid));
+    } else {
+      await setDoc(doc(db, "posts", id, "favorites", user.uid), {
+        username: user.displayName,
+      });
+    }
+  };
+
+  const sharePost = async () => {
+    if (hasShared) {
+      await deleteDoc(doc(db, "posts", id, "shares", user.uid));
+    } else {
+      await setDoc(doc(db, "posts", id, "shares", user.uid), {
+        username: user.displayName,
+      });
+    }
+  };
 
   useEffect(
     () =>
@@ -60,10 +98,6 @@ function Post({
       ),
     [db, id]
   );
-
-  const toggleComments = () => {
-    setCommentIsOpen(!isCommentOpen);
-  };
 
   useEffect(
     () =>
@@ -78,60 +112,105 @@ function Post({
     [likes, user]
   );
 
-  useEffect(() => setHasPosted(uid == user?.uid), [user]);
+  useEffect(
+    () =>
+      onSnapshot(collection(db, "posts", id, "favorites"), (snapshot) =>
+        setFavorites(snapshot.docs)
+      ),
+    [db, id]
+  );
 
-  const likePost = async () => {
-    if (hasLiked) {
-      await deleteDoc(doc(db, "posts", id, "likes", user.uid));
-    } else {
-      await setDoc(doc(db, "posts", id, "likes", user.uid), {
-        username: user.displayName,
-      });
-    }
-  };
+  useEffect(
+    () =>
+      setHasFaved(
+        favorites.findIndex((favorite) => favorite.id == user?.uid) !== -1
+      ),
+    [favorites, user]
+  );
+
+  useEffect(
+    () =>
+      onSnapshot(collection(db, "posts", id, "shares"), (snapshot) =>
+        setShares(snapshot.docs)
+      ),
+    [db, id]
+  );
+
+  useEffect(
+    () =>
+      setHasShared(shares.findIndex((share) => share.id == user?.uid) !== -1),
+    [shares, user]
+  );
+
+  useEffect(() => setHasPosted(uid == user?.uid), [user]);
 
   return (
     <div className="bg-white my-7 border rounded-sm">
-      {/* Header */}
-      <div className="flex items-center p-5">
-        <img
-          src={userImg}
-          className="rounded-full h-12 w-12 object-cover border p-1 mr-3"
-          alt=""
-        />
-        <p className="flex-1 font-bold">{username}</p>
-        {hasPosted && <DropdownButton postId={id} uid={uid} />}
+      <div className="flex items-start justify-end p-1">
+        <DropdownButton postId={id} uid={uid} />
       </div>
-
-      {/* Title */}
-      <div className="flex items-center p-5">
-        <div className="mr-2">
-          <img src={coverLink} className="object-cover w-16" alt="" />
+      {/* Post */}
+      <div className="flex items-center pr-5 pb-5">
+        {/* User and Date */}
+        <div className="flex-1 max-w-xs w-32 flex-col p-5 mr-5">
+          <div className="border-r border-gray-300 justify-center text-center">
+            <Image
+              src={userImg}
+              className="rounded-full h-12 w-12 object-cover border p-1 mr-3"
+              alt=""
+              width={50}
+              height={50}
+            />
+            <div>
+              <p className="font-bold">{username}</p>
+            </div>
+            <Moment fromNow className="flex-none">
+              {timestamp?.toDate()}
+            </Moment>
+          </div>
         </div>
-        <div className="flex-1">
-          <p className="font-bold">{artist}</p>
-          <p className="font-normal">{title}</p>
+        {/* Cover, Artist and Title */}
+        <div className="flex flex-none align-middle">
+          <div className="mr-2 w-16">
+            <Image
+              src={coverLink}
+              className="object-cover"
+              alt=""
+              quality={100}
+              width="100%"
+              height="100%"
+              layout="responsive"
+              objectFit="contain"
+            />
+          </div>
+          <div className="flex flex-col">
+            <p className="flex font-bold">{artist}</p>
+            <p className="flex font-normal">{title}</p>
+          </div>
         </div>
 
-        {spotifyLink && (
-          <div className="flex-auto">
+        <div className="flex flex-1 justify-end">
+          {spotifyLink && (
             <Link href={spotifyLink}>
               <a target="_blank">
                 <ExternalLinkIcon className="h-5 text-green-700" />
               </a>
             </Link>
-          </div>
-        )}
-
-        <Moment fromNow className="flex-none">
-          {timestamp?.toDate()}
-        </Moment>
+          )}
+        </div>
       </div>
 
       {/* Buttons */}
       <div className="flex justify-between p-4">
         <div className="flex space-x-4">
-          <HeartIcon className="btn" />
+          {user && hasFaved ? (
+            <HeartIconFilled
+              onClick={favPost}
+              className="btn text-red-600 inline-block"
+            />
+          ) : (
+            <HeartIcon onClick={user && favPost} className="btn inline-block" />
+          )}
         </div>
         <div className="flex space-x-4">
           <div className="space-x-1 items-center">
@@ -151,15 +230,14 @@ function Post({
             )}
           </div>
           <div className="space-x-1 items-center">
-            {(user && isCommentOpen) ||
-            (isCommentOpen && comments.length > 0) ? (
+            {(user == null && comments.length > 0 && isCommentOpen) || (user && isCommentOpen) ? (
               <AnnotationIconFilled
                 className="btn inline-block text-purple-600"
                 onClick={toggleComments}
               />
             ) : (
               <AnnotationIcon
-                className="btn inline-block"
+                className={"btn inline-block"}
                 onClick={toggleComments}
               />
             )}
@@ -167,11 +245,31 @@ function Post({
               <p className="font-bold inline-block">{comments.length}</p>
             )}
           </div>
-          <ShareIcon className="btn" />
+          <div className="space-x-1 items-center">
+            {user && hasShared ? (
+              <ShareIconFilled
+                className="btn inline-block text-purple-600"
+                onClick={sharePost}
+              />
+            ) : (
+              <ShareIcon
+                className="btn inline-block"
+                onClick={user && sharePost}
+              />
+            )}
+            {shares.length > 0 && (
+              <p className="font-bold inline-block">{shares.length}</p>
+            )}
+          </div>
         </div>
       </div>
 
-      <Comments isCommentOpen={isCommentOpen} comments={comments} setComments={setComments} id={id} />
+      <Comments
+        isCommentOpen={isCommentOpen}
+        comments={comments}
+        setComments={setComments}
+        id={id}
+      />
     </div>
   );
 }

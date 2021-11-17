@@ -4,14 +4,15 @@ import {
   UserCircleIcon,
 } from "@heroicons/react/outline";
 import { auth } from "../firebase";
-import { signOut } from 'firebase/auth';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { signOut } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import Image from "next/image";
 
 function MiniProfile() {
   const [user] = useAuthState(auth);
 
   const logout = () => {
-    signOut(auth)
+    signOut(auth);
   };
 
   return (
@@ -21,11 +22,17 @@ function MiniProfile() {
           <div className="flex justify-between items-center h-16">
             <div className="flex-shrink-0 group block cursor-pointer space-x-2">
               <div className="inline-block pl-4">
-                <img
-                  className="h-10 w-10 rounded-full"
-                  src={user?.photoURL}
-                  alt=""
-                />
+                <div className="h-10 w-10">
+                  <Image
+                    className="rounded-full"
+                    src={user?.photoURL}
+                    alt=""
+                    width="100%"
+                    height="100%"
+                    layout="responsive"
+                    objectFit="contain"
+                  />
+                </div>
               </div>
               <div className="inline-block">
                 <p className="text-base leading-6 font-medium text-black">
