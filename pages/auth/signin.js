@@ -10,6 +10,8 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { auth } from "../../firebase";
 import Error from "../../components/Error";
 
+import background from "../../public/bg.png";
+
 // Browser...
 function signIn() {
   const [user, loading, error] = useAuthState(auth);
@@ -41,7 +43,7 @@ function signIn() {
       </Head>
 
       <div className="flex flex-wrap w-full">
-        <div className="flex flex-col w-full md:w-1/2 bg-gray-100">
+        <div className="flex flex-col w-full md:w-1/2 bg-gray-100 z-10">
           <div className="flex justify-center pt-12 md:justify-start md:pl-12 md:-mb-24 p-10">
             <a
               href="/"
@@ -56,11 +58,15 @@ function signIn() {
             {error && <Error msg={error} />}
           </div>
         </div>
-        <div className="w-1/2 shadow-2xl">
-          <img
-            className="hidden object-cover w-full h-screen md:block"
-            src="/bg.png"
-          />
+        <div className="hidden w-1/2 h-screen md:block">
+            <Image
+              className="z-0"
+              src={background}
+              quality={100}
+              layout="fill"
+              objectFit="cover"
+              objectPosition="center"
+            />
         </div>
       </div>
     </>

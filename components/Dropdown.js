@@ -1,42 +1,60 @@
 import { useEffect, useRef, useState } from "react";
 import { DotsHorizontalIcon } from "@heroicons/react/outline";
-import {
-    doc,
-    deleteDoc,
-  } from "@firebase/firestore";
-  import { db } from "../firebase";
-  import { auth } from "../firebase";
-  import { useAuthState } from 'react-firebase-hooks/auth';
+import { doc, deleteDoc } from "@firebase/firestore";
+import { db } from "../firebase";
+import { auth } from "../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-export function DropdownButton({postId, uid}) {
-    const [user] = useAuthState(auth);
-    const [hasPosted, setHasPosted] = useState(false);
+export function DropdownButton({ postId, uid }) {
+  const [user] = useAuthState(auth);
+  const [hasPosted, setHasPosted] = useState(false);
 
-    useEffect(() => setHasPosted(uid == user?.uid), [uid]);
+  useEffect(() => setHasPosted(uid == user?.uid), [uid]);
 
-    const deletePost = async () => {
-      if (hasPosted) {
-        await deleteDoc(doc(db, "posts", postId));
-        alert("Your post has been deleted");
-      }
-    };
+  const deletePost = async () => {
+    if (hasPosted) {
+      await deleteDoc(doc(db, "posts", postId));
+      alert("Your post has been deleted");
+    }
+  };
 
-    return (
-  <Dropdown>
-    <Dropdown.Toggle>
-      <span className="flex bg-purple-600 text-white px-3 py-1 rounded-md border border-transparent shadow-sm text-base font-medium hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
-        <DotsHorizontalIcon className="h-5" />
-      </span>
-    </Dropdown.Toggle>
-    <Dropdown.Menu>
-      <Dropdown.Item disabled={true}>Details</Dropdown.Item>
-      <Dropdown.Divider />
-      <Dropdown.Item disabled={false} className="text-red-500" action={deletePost}>
-        Delete
-      </Dropdown.Item>
-    </Dropdown.Menu>
-  </Dropdown>
-)};
+  return (
+    <Dropdown>
+      <Dropdown.Toggle>
+        {hasPosted ? (
+          <span className="flex bg-gradient-to-l from-purple-500 to-red-500 text-white px-3 py-1 rounded-md shadow-md text-base font-medium">
+            <DotsHorizontalIcon className="h-5" />
+          </span>
+        ) : (
+          <span className="flex bg-purple-600 text-white px-3 py-1 rounded-md shadow-md text-base font-medium">
+            <DotsHorizontalIcon className="h-5" />
+          </span>
+        )}
+      </Dropdown.Toggle>
+      <Dropdown.Menu>
+        <Dropdown.Item disabled={true}>Details</Dropdown.Item>
+        <Dropdown.Divider />
+        {hasPosted ? (
+          <Dropdown.Item
+            disabled={false}
+            className="text-red-500"
+            action={deletePost}
+          >
+            Delete
+          </Dropdown.Item>
+        ) : (
+          <Dropdown.Item
+            disabled={true}
+            className="text-red-500"
+            action={deletePost}
+          >
+            Delete
+          </Dropdown.Item>
+        )}
+      </Dropdown.Menu>
+    </Dropdown>
+  );
+}
 
 /* Logic*/
 const useToggle = () => {
