@@ -3,6 +3,8 @@ import {
   FacebookAuthProvider,
   TwitterAuthProvider,
   GithubAuthProvider,
+  PhoneAuthProvider,
+  EmailAuthProvider,
 } from "firebase/auth";
 
 export const uiConfig = {
@@ -18,15 +20,6 @@ export const uiConfig = {
   signInFlow: "popup",
   signInSuccessUrl: "/",
   signInOptions: [
-    // Leave the lines as is for the providers you want to offer your users.
-    /* 
-    GoogleAuthProvider.PROVIDER_ID,
-    FacebookAuthProvider.PROVIDER_ID,
-    TwitterAuthProvider.PROVIDER_ID,
-    GithubAuthProvider.PROVIDER_ID,
-    EmailAuthProvider.PROVIDER_ID,
-    PhoneAuthProvider.PROVIDER_ID
-    */
     {
       provider: GoogleAuthProvider.PROVIDER_ID,
       //scopes: ["https://www.googleapis.com/auth/contacts.readonly"],
@@ -39,12 +32,9 @@ export const uiConfig = {
     {
       provider: FacebookAuthProvider.PROVIDER_ID,
       scopes: ["public_profile", "email"],
-      customParameters: {
-        // Forces password re-entry.
-        auth_type: "reauthenticate",
-      },
     },
-    // PhoneAuthProvider.PROVIDER_ID,
+    //PhoneAuthProvider.PROVIDER_ID,
+    EmailAuthProvider.PROVIDER_ID,
     TwitterAuthProvider.PROVIDER_ID,
     GithubAuthProvider.PROVIDER_ID,
   ],
