@@ -20,21 +20,29 @@ export const uiConfig = {
     signInSuccessWithAuthResult: async function (authResult, redirectUrl) {
       if (authResult.additionalUserInfo.isNewUser) {
         const user = authResult.user;
-        const userRef = doc(db, "users", user.uid);
-        await setDoc(
-          userRef,
-          {
-            username: user.displayName.split(" ").join("").toLocaleLowerCase(),
-          },
-          {
-            userImg: user.photoURL,
-          },
-          {
-            timestamp: serverTimestamp(),
-          }
-        );
+
+        console.log("NewUser into FirebaseAuth");
+        console.log(user);
+
+        await setDoc(doc(db, "users", user.uid), {
+          username: user.displayName.split(" ").join("").toLocaleLowerCase(),
+          userImg: user.photoURL,
+          timestamp: serverTimestamp(),
+          description: "",
+          posts: 0,
+          followers: 0,
+          follows: 0,
+          genres: ["", "", ""],
+          links: [],
+          certified: false,
+          public: true,
+        })
+          .then(console.log("Firestore added NewUser"))
+          .catch((error) => {
+            console.log(error);
+          });
       }
-      return false;
+      return true;
     },
   },
   // Will use popup for IDP Providers sign-in flow instead of the default, redirect.

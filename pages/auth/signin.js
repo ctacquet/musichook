@@ -58,11 +58,12 @@ function signIn() {
             {error && <Error msg={error} />}
           </div>
         </div>
-        <div className="hidden w-1/2 h-screen md:block">
+        <div className="hidden relative w-1/2 h-screen md:block">
             <Image
               className="z-0"
               src={background}
               quality={100}
+              priority="false"
               layout="fill"
               objectFit="cover"
               objectPosition="center"
