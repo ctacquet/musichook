@@ -181,6 +181,7 @@ function Post({
               className="object-cover z-0"
               alt=""
               quality={100}
+              priority="false"
               width="100%"
               height="100%"
               layout="responsive"

@@ -45,7 +45,11 @@ function Menu() {
               <HomeIcon className="icon" />
             )}
 
-            <p className={window.location.pathname == "/" && "font-semibold"}>
+            <p
+              className={
+                "menuText " + (window.location.pathname == "/" && "font-semibold")
+              }
+            >
               Home
             </p>
           </a>
@@ -66,7 +70,7 @@ function Menu() {
             )}
             <p
               className={
-                window.location.pathname == "/discover" && "font-semibold"
+                "menuText " + (window.location.pathname == "/discover" && "font-semibold")
               }
             >
               Discover
@@ -87,17 +91,20 @@ function Menu() {
             )}
             <p
               className={
-                window.location.pathname == "/notifications" && "font-semibold"
+                "menuText " + (window.location.pathname == "/notifications" && "font-semibold")
               }
             >
               Notifications
             </p>
           </a>
-          <a onClick={() => router.push("/profile")} className={
+          <a
+            onClick={() => router.push("/profile")}
+            className={
               "navDiv " +
               (window.location.pathname == "/profile" &&
                 "text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600")
-            }>
+            }
+          >
             {window.location.pathname == "/profile" ? (
               <UserIconFilled className="icon text-red-500" />
             ) : (
@@ -105,17 +112,20 @@ function Menu() {
             )}
             <p
               className={
-                window.location.pathname == "/profile" && "font-semibold"
+                "menuText " + (window.location.pathname == "/profile" && "font-semibold")
               }
             >
               Profile
             </p>
           </a>
-          <a onClick={() => router.push("/favorites")} className={
+          <a
+            onClick={() => router.push("/favorites")}
+            className={
               "navDiv " +
               (window.location.pathname == "/favorites" &&
                 "text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600")
-            }>
+            }
+          >
             {window.location.pathname == "/favorites" ? (
               <HeartIconFilled className="icon text-red-500" />
             ) : (
@@ -123,17 +133,20 @@ function Menu() {
             )}
             <p
               className={
-                window.location.pathname == "/favorites" && "font-semibold"
+                "menuText " + (window.location.pathname == "/favorites" && "font-semibold")
               }
             >
               Favorites
             </p>
           </a>
-          <a onClick={() => router.push("/events")} className={
+          <a
+            onClick={() => router.push("/events")}
+            className={
               "navDiv " +
               (window.location.pathname == "/events" &&
                 "text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600")
-            }>
+            }
+          >
             {window.location.pathname == "/events" ? (
               <CalendarIconFilled className="icon text-red-500" />
             ) : (
@@ -141,7 +154,7 @@ function Menu() {
             )}
             <p
               className={
-                window.location.pathname == "/events" && "font-semibold"
+                "menuText " + (window.location.pathname == "/events" && "font-semibold")
               }
             >
               Events
@@ -162,7 +175,7 @@ function Menu() {
             onClick={() => router.push("/")}
             className="navDiv text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600"
           >
-            <HomeIcon className="icon" color="purple" />
+            <HomeIconFilled className="icon" color="red" />
             <p>Home</p>
           </a>
           <a
