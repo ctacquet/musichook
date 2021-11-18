@@ -6,14 +6,35 @@ import {
   PhoneAuthProvider,
   EmailAuthProvider,
 } from "firebase/auth";
+import { db } from "./firebase";
+import {
+  doc,
+  addDoc,
+  setDoc,
+  collection,
+  serverTimestamp,
+} from "@firebase/firestore";
 
 export const uiConfig = {
   callbacks: {
-    signInSuccessWithAuthResult: function (authResult, redirectUrl) {
-      // User successfully signed in.
-      // Return type determines whether we continue the redirect automatically
-      // or whether we leave that to developer to handle.
-      return true;
+    signInSuccessWithAuthResult: async function (authResult, redirectUrl) {
+      if (authResult.additionalUserInfo.isNewUser) {
+        const user = authResult.user;
+        const userRef = doc(db, "users", user.uid);
+        await setDoc(
+          userRef,
+          {
+            username: user.displayName.split(" ").join("").toLocaleLowerCase(),
+          },
+          {
+            userImg: user.photoURL,
+          },
+          {
+            timestamp: serverTimestamp(),
+          }
+        );
+      }
+      return false;
     },
   },
   // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
