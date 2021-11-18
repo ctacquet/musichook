@@ -23,15 +23,19 @@ function MiniProfile() {
             <div className="flex-shrink-0 group block cursor-pointer space-x-2">
               <div className="inline-block pl-4">
                 <div className="h-10 w-10">
-                  <Image
-                    className="rounded-full"
-                    src={user?.photoURL}
-                    alt=""
-                    width="100%"
-                    height="100%"
-                    layout="responsive"
-                    objectFit="contain"
-                  />
+                  {user?.photoURL ? (
+                    <Image
+                      className="rounded-full"
+                      src={user?.photoURL}
+                      alt=""
+                      width="100%"
+                      height="100%"
+                      layout="responsive"
+                      objectFit="contain"
+                    />
+                  ) : (
+                    <UserCircleIcon className="w-12" />
+                  )}
                 </div>
               </div>
               <div className="inline-block">

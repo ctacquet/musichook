@@ -155,7 +155,7 @@ function Post({
         <div className="flex-1 max-w-xs w-32 p-5">
           <div className="flex flex-col border-r border-gray-300 justify-center text-center content-center">
             <div className="border p-1 w-12 mx-auto rounded-full content-center">
-              <Image
+              {userImg && (<Image
                 src={userImg}
                 className="rounded-full"
                 alt=""
@@ -163,7 +163,7 @@ function Post({
                 height="100%"
                 layout="responsive"
                 objectFit="contain"
-              />
+              />)}
             </div>
             <div>
               <p className="font-bold overflow-ellipsis overflow-hidden">{username}</p>
@@ -175,7 +175,7 @@ function Post({
         </div>
         {/* Cover, Artist and Title */}
         <div className="flex flex-none align-middle">
-          <div className="w-24 border mr-2">
+          <div className="relative w-24 border mr-2">
             <Image
               src={coverLink}
               className="object-cover z-0"
