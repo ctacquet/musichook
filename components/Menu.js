@@ -13,11 +13,13 @@ import { useRecoilState } from "recoil";
 import { modalState } from "../atoms/modalAtom";
 import { auth } from "../firebase";
 import { useAuthState } from 'react-firebase-hooks/auth';
+import {useState} from "react";
 
-function Menu() {
+function Menu({notifications, setNotifications}) {
     const [user] = useAuthState(auth);
     const [open, setOpen] = useRecoilState(modalState);
     const router = useRouter();
+
 
     return (
         <div>
@@ -36,9 +38,10 @@ function Menu() {
                     <UserGroupIcon className="h-4 w-4" />
                     <p>Discover</p>
                 </a>
-                <a onClick={() => router.push("/notifications")} className="navDiv">
+                <a onClick={() => (router.push("/notifications"), notifications && (setNotifications([])))} className="navDiv">
                     <BellIcon className="h-4 w-4" />
                     <p>Notifications</p>
+                    {notifications && (<div className=" text-xs w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse">{notifications.length}</div>)}
                 </a>
                 <a onClick={() => router.push("/profile")} className="navDiv">
                     <UserIcon className="h-4 w-4" />

@@ -104,9 +104,9 @@ function Post({
 
   useEffect(() => setHasPosted(uid == user?.uid), [user]);
 
-  const [liked, setLiked] = useState(false);
 
-  const handleNotification = (type) => {
+
+/*  const handleNotification = (type) => {
     console.log("uid" , user.uid)
     console.log("id" , id)
     console.log("post uid" , uid)
@@ -117,7 +117,7 @@ function Post({
       receiverId: uid,
       type
     })
-  };
+  };*/
 
 
   const likePost = async () => {
@@ -129,6 +129,15 @@ function Post({
       await setDoc(doc(db, "posts", id, "likes", user.uid), {
         username: user.displayName,
       });
+
+      if(socket) {
+        socket.emit("sendNotification", {
+          senderId: user.uid,
+          receiverId: uid,
+          type:1
+        })
+      };
+
     }
   };
 
@@ -191,13 +200,13 @@ function Post({
         </div>
         <div className="flex space-x-4">
           <div className="space-x-1 items-center">
-            {user && hasLiked && liked ? (
+            {user && hasLiked ? (
               <ThumbUpIconFilled
                 onClick={likePost}
                 className="btn text-purple-600 inline-block"
               />
             ) : (//user && likePost
-              <ThumbUpIcon onClick={(() => handleNotification(1))} className="btn inline-block" />
+              <ThumbUpIcon onClick={user && (likePost)} className="btn inline-block" />
             )}
             {likes.length > 0 && (
               <p className="font-bold inline-block">{likes.length}</p>

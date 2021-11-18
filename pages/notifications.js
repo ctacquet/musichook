@@ -13,14 +13,23 @@ export default function Notifications() {
 
   const [socket, setSocket] = useState(null);
   const [user] = useAuthState(auth);
+  const [notifications, setNotifications] = useState([]);
 
-  useEffect(() => {
-    setSocket(io("http://localhost:5000"));
+
+  useEffect(async () => {
+    setSocket(await io("http://localhost:5000"));
   }, []);
 
-  useEffect(() => {
-    socket?.emit("newUser", user);
+  useEffect( () => {
+    (user && (socket?.emit("newUser", user)));
   }, [socket, user]);
+
+  useEffect(() => {
+    (socket && (socket.on("getNotification", (data) => {
+      setNotifications((prev) => [...prev, data]);
+    })));
+  }, [socket]);
+
 
 
 
@@ -40,7 +49,7 @@ export default function Notifications() {
                   <div className="flex flex-col">
                     <div className="">
                       {/* Menu */}
-                      <Menu />
+                      <Menu notifications={notifications} setNotifications={setNotifications} />
                       {/* Post button */}
                     </div>
                     <div className="flex-grow"></div>
@@ -62,7 +71,7 @@ export default function Notifications() {
                 <section className="col-span-1">
                   {/* Events */}
                   {/* Favorites */}
-                  <Notification socket={socket} />
+                  {/*<Notification socket={socket} />*/}
                 </section>
               </main>
             </div>
