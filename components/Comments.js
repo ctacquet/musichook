@@ -5,7 +5,7 @@ import {
   collection,
   addDoc,
 } from "@firebase/firestore";
-import { ChatIcon, PaperAirplaneIcon } from "@heroicons/react/outline";
+import { ChatIcon, PaperAirplaneIcon, ReplyIcon } from "@heroicons/react/outline";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Moment from "react-moment";
 import Image from "next/image";
@@ -42,7 +42,7 @@ function Comments({ id, comments, setComments, isCommentOpen }) {
         className="transition-height ease mt-2 text-gray-600 overflow-hidden duration-300 border-t"
       >
         {comments.length > 0 && (
-          <div className="h-20 overflow-y-scroll scrollbar-thumb-black scrollbar-thin border-b">
+          <div className="h-20 overflow-y-scroll scrollbar-thumb-black scrollbar-thin border-b align">
             <div className="ml-2 mt-1">
               {comments.map((comment) => (
                 <div
@@ -91,7 +91,7 @@ function Comments({ id, comments, setComments, isCommentOpen }) {
             >
               <div className="flex space-x-2 items-end">
                 <p className="flex-1">Post</p>
-                <PaperAirplaneIcon className="btn flex-1 transform rotate-45" />
+                <ReplyIcon className="btn flex-1" />
               </div>
             </button>
           </form>

@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import Menu from "../components/Menu";
 import MiniProfile from "../components/MiniProfile";
 
-export default function Discover() {
+export default function Favorites() {
   return (
     <div className="bg-gray-50 h-screen overflow-y-scroll scrollbar-hide">
       <Head>
