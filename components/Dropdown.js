@@ -14,7 +14,6 @@ export function DropdownButton({ postId, uid }) {
   const deletePost = async () => {
     if (hasPosted) {
       await deleteDoc(doc(db, "posts", postId));
-      alert("Your post has been deleted");
     }
   };
 

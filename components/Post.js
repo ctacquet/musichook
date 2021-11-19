@@ -175,8 +175,8 @@ function Post({
         </div>
         {/* Cover, Artist and Title */}
         <div className="flex flex-none align-middle">
-          <div className="relative w-24 border mr-2">
-            <Image
+          <div className="relative w-24 h-24 border mr-2">
+            {coverLink && (<Image
               src={coverLink}
               className="object-cover z-0"
               alt=""
@@ -186,7 +186,7 @@ function Post({
               height="100%"
               layout="responsive"
               objectFit="contain"
-            />
+            />)}
           </div>
           <div className="flex flex-col">
             <p className="flex font-bold overflow-ellipsis overflow-hidden">{artist}</p>

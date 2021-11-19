@@ -182,7 +182,7 @@ function Menu() {
             disabled={true}
             className="navDiv text-gray-500 cursor-not-allowed"
           >
-            <UserGroupIcon className="h-4 w-4" />
+            <UserGroupIcon className="icon" />
             <p>Discover</p>
           </a>
           <a
