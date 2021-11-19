@@ -1,11 +1,13 @@
 import { useRecoilState } from "recoil";
-import { modalState } from "../atoms/modalAtom";
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useRef, useState, useEffect } from "react";
-import { db } from "../firebase";
+import { Fragment, useState } from "react";
 import { addDoc, collection, serverTimestamp } from "@firebase/firestore";
 import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import ReactLoading from "react-loading";
+
+import { modalState } from "../atoms/modalAtom";
+import { db } from "../firebase";
 import Search from "./Search";
 
 function Modal() {
@@ -20,6 +22,10 @@ function Modal() {
 
   const uploadPost = async (e) => {
     if (loading) return;
+    if (!track){
+      setOpen(false);
+      return;
+    } 
     e.preventDefault();
 
     setLoading(true);
@@ -83,23 +89,35 @@ function Modal() {
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            <form
-              onSubmit={uploadPost}
+            <div
               className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6"
             >
               <div>
-                <Search setTrack={setTrack}/>
+                <Search setTrack={setTrack} />
 
-                <div className="mt-10 sm:mt-70">
+                <div className="mt-2">
+                  {loading && (
+                    <ReactLoading
+                      type="spin"
+                      color="black"
+                      className="mx-auto"
+                      width={20}
+                      height={20}
+                    />
+                  )}
+                </div>
+
+                <div className="mt-2 sm:mt-4">
                   <button
-                    type="submit"
+                    type="button"
+                    onClick={uploadPost}
                     className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-gradient-to-l from-purple-600 to-red-600 text-base font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:text-sm disabled:bg-gray-300 disabled:cursor-not-allowed disabled:hover:bg-gray-300"
                   >
                     {loading ? "Uploading..." : "Upload Song"}
                   </button>
                 </div>
               </div>
-            </form>
+            </div>
           </Transition.Child>
         </div>
       </Dialog>
