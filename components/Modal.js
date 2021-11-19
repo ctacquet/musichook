@@ -1,30 +1,22 @@
 import { useRecoilState } from "recoil";
 import { modalState } from "../atoms/modalAtom";
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useRef, useState } from "react";
-import {
-  LinkIcon,
-  MusicNoteIcon,
-  SearchIcon,
-  TemplateIcon,
-  UsersIcon,
-} from "@heroicons/react/outline";
-import { db, storage } from "../firebase";
+import { Fragment, useRef, useState, useEffect } from "react";
+import { db } from "../firebase";
 import { addDoc, collection, serverTimestamp } from "@firebase/firestore";
 import { auth } from "../firebase";
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { useAuthState } from "react-firebase-hooks/auth";
+import Search from "./Search";
 
 function Modal() {
   const [user] = useAuthState(auth);
-  const searchRef = useRef(null);
-  const [open, setOpen] = useRecoilState(modalState);
+  const [artist, setArtist] = useState(null);
+  const [title, setTitle] = useState(null);
+  const [coverLink, setCoverLink] = useState(null);
+  const [spotifyLink, setSpotifyLink] = useState(null);
   const [loading, setLoading] = useState(null);
-
-  /* Temporary variables */
-  const artistRef = useRef(null);
-  const titleRef = useRef(null);
-  const coverLinkRef = useRef(null);
-  const spotifyLinkRef = useRef(null);
+  const [open, setOpen] = useRecoilState(modalState);
+  const [track, setTrack] = useState(null);
 
   const uploadPost = async (e) => {
     if (loading) return;
@@ -41,11 +33,12 @@ function Modal() {
       username: user.displayName,
       uid: user.uid,
       userImg: user.photoURL,
-      search: searchRef.current.value,
-      artist: artistRef.current.value,
-      title: titleRef.current.value,
-      coverLink: coverLinkRef.current.value,
-      spotifyLink: spotifyLinkRef.current.value,
+      search: track.search,
+      artist: track.artist,
+      title: track.title,
+      coverLink: track.coverLink,
+      spotifyLink: track.spotifyLink,
+      spotifyId: track.spotifyId,
       timestamp: serverTimestamp(),
     });
 
@@ -95,65 +88,9 @@ function Modal() {
               className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6"
             >
               <div>
-                <div className="relative mt-1 p-3 rounded-md">
-                  <div className="absolute inset-y-0 pl-3 flex items-center pointer-events-none">
-                    <SearchIcon className="h-5 w-5 text-gray-500" />
-                  </div>
-                  <input
-                    className="bg-gray-300 block w-full pl-10 sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md"
-                    type="text"
-                    ref={searchRef}
-                    disabled={true}
-                    placeholder="Search"
-                  />
-                </div>
-                <div className="relative mt-1 p-3 rounded-md">
-                  <div className="absolute inset-y-0 pl-3 flex items-center pointer-events-none">
-                    <UsersIcon className="h-5 w-5 text-gray-500" />
-                  </div>
-                  <input
-                    className="bg-white block w-full pl-10 sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md"
-                    type="text"
-                    ref={artistRef}
-                    required
-                    placeholder="Artist *"
-                  />
-                </div>
-                <div className="relative mt-1 p-3 rounded-md">
-                  <div className="absolute inset-y-0 pl-3 flex items-center pointer-events-none">
-                    <MusicNoteIcon className="h-5 w-5 text-gray-500" />
-                  </div>
-                  <input
-                    className="bg-white block w-full pl-10 sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md"
-                    type="text"
-                    ref={titleRef}
-                    required
-                    placeholder="Title *"
-                  />
-                </div>
-                <div className="relative mt-1 p-3 rounded-md">
-                  <div className="absolute inset-y-0 pl-3 flex items-center pointer-events-none">
-                    <LinkIcon className="h-5 w-5 text-gray-500" />
-                  </div>
-                  <input
-                    className="bg-white block w-full pl-10 sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md"
-                    type="text"
-                    ref={coverLinkRef}
-                    placeholder="Cover link"
-                  />
-                </div>
-                <div className="relative mt-1 p-3 rounded-md">
-                  <div className="absolute inset-y-0 pl-3 flex items-center pointer-events-none">
-                    <TemplateIcon className="h-5 w-5 text-gray-500" />
-                  </div>
-                  <input
-                    className="bg-white block w-full pl-10 sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md"
-                    type="text"
-                    ref={spotifyLinkRef}
-                    placeholder="Spotify link"
-                  />
-                </div>
-                <div className="mt-5 sm:mt-6">
+                <Search setTrack={setTrack}/>
+
+                <div className="mt-10 sm:mt-70">
                   <button
                     type="submit"
                     className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-gradient-to-l from-purple-600 to-red-600 text-base font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:text-sm disabled:bg-gray-300 disabled:cursor-not-allowed disabled:hover:bg-gray-300"

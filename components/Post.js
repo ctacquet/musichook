@@ -2,9 +2,7 @@ import {
   onSnapshot,
   orderBy,
   query,
-  serverTimestamp,
   collection,
-  addDoc,
   setDoc,
   doc,
   deleteDoc,
@@ -14,7 +12,6 @@ import {
   HeartIcon,
   ShareIcon,
   ThumbUpIcon,
-  ExternalLinkIcon,
 } from "@heroicons/react/outline";
 import {
   HeartIcon as HeartIconFilled,
@@ -22,6 +19,10 @@ import {
   AnnotationIcon as AnnotationIconFilled,
   ShareIcon as ShareIconFilled,
 } from "@heroicons/react/solid";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { faSpotify }  from '@fortawesome/free-brands-svg-icons';
+
 import { useState, useEffect, useRef } from "react";
 import { auth, db } from "../firebase";
 import Moment from "react-moment";
@@ -150,7 +151,7 @@ function Post({
         <DropdownButton postId={id} uid={uid} />
       </div>
       {/* Post */}
-      <div className="flex items-center pr-5 pb-5">
+      <div className="flex items-center pb-5">
         {/* User and Date */}
         <div className="flex-1 max-w-xs w-32 p-5">
           <div className="flex flex-col border-r border-gray-300 justify-center text-center content-center">
@@ -188,20 +189,20 @@ function Post({
               objectFit="contain"
             />)}
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col max-w-xs">
             <p className="flex font-bold overflow-ellipsis overflow-hidden">{artist}</p>
             <p className="flex font-normal overflow-ellipsis overflow-hidden">{title}</p>
           </div>
         </div>
 
-        <div className="flex flex-1 justify-end">
-          {spotifyLink && (
-            <Link href={spotifyLink}>
-              <a target="_blank">
-                <ExternalLinkIcon className="h-5 text-green-700" />
-              </a>
-            </Link>
-          )}
+        <div className="flex flex-1">
+            {spotifyLink && (
+              <Link href={spotifyLink}>
+                <a target="_blank" className="flex w-full justify-end pr-3">
+                  <FontAwesomeIcon icon={faSpotify} className="h-8 text-green-500 btn" />
+                </a>
+              </Link>
+            )}
         </div>
       </div>
 
