@@ -1,4 +1,5 @@
 import Layout from '../components/Layout';
+import Caroussel from '../components/Caroussel';
 
 export default function Discover() {
   return (
@@ -7,6 +8,7 @@ export default function Discover() {
         <h1 className="text-center mt-4 font-bold">
           This is discover page
         </h1>
+        <Caroussel/>
       </section>
     </Layout>
   );
