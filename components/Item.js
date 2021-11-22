@@ -1,4 +1,4 @@
-import {Rerousel} from "rerousel";
+
 import {useRef, useState} from "react";
 
 import {clientCarouselItems as clients, wordCarouselItems} from "./data";

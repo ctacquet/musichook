@@ -1,4 +1,5 @@
 import Posts from "./Posts";
+import Test from "../components/Test";
 
 function Feed() {
     return (
