@@ -1,6 +1,7 @@
 import Menu from "./Menu";
 import MiniProfile from "./MiniProfile";
 import Posts from "./Posts";
+import Test from "../components/Test";
 
 function Feed() {
     return (
@@ -32,6 +33,7 @@ function Feed() {
                 
             {/* Right section */}
             <section className="col-span-1">
+            <Test/>
                 {/* Events */} 
                 {/* Favorites */} 
             </section>
