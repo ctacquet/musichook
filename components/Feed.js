@@ -1,5 +1,6 @@
 import Posts from "./Posts";
 import Test from "../components/Test";
+import Greeter from "./Greeter";
 
 function Feed() {
     return (
