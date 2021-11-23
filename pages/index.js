@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Header from '../components/Header';
 import Feed from '../components/Feed';
 import Modal from '../components/Modal';
+import Greeter from '../components/Greeter';
 
 export default function Home() {
   return (
@@ -25,7 +26,9 @@ export default function Home() {
       <Header pageTitle="Home"/>
       <Feed />
     
-      <Modal />
+      {/* <Modal /> */}
+      {/* <div id="tata" className="sticky bottom-0 bg-red-500 h-50 "></div> */}
+     
     </div>
   )
 }

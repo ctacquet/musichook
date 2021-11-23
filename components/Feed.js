@@ -2,6 +2,7 @@ import Menu from "./Menu";
 import MiniProfile from "./MiniProfile";
 import Posts from "./Posts";
 import Test from "../components/Test";
+import Greeter from "./Greeter";
 
 function Feed() {
     return (
@@ -34,6 +35,7 @@ function Feed() {
             {/* Right section */}
             <section className="col-span-1">
             <Test/>
+            <Greeter/>
                 {/* Events */} 
                 {/* Favorites */} 
             </section>
