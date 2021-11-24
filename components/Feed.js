@@ -35,7 +35,7 @@ function Feed() {
             {/* Right section */}
             <section className="col-span-1">
             <Test/>
-            <Greeter/>
+            {/* <Greeter/> */} {/*test avec modal idée faire scroller derrière*/}
                 {/* Events */} 
                 {/* Favorites */} 
             </section>
