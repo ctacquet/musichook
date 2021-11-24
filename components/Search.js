@@ -1,5 +1,4 @@
 import { useCallback, useRef, useState } from "react";
-import Link from "next/link";
 import {
   LinkIcon,
   MusicNoteIcon,

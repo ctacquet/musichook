@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { auth, db } from "../firebase";
+import { auth, db } from "../lib/firebase";
 import {
   serverTimestamp,
   collection,

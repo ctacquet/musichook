@@ -2,12 +2,12 @@ import Image from "next/image";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import ReactLoading from "react-loading";
-import { uiConfig } from "../../firebaseUI";
+import { uiConfig } from "../../lib/firebaseUI";
 
 // Firebase related
 import { useAuthState } from "react-firebase-hooks/auth";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import { auth } from "../../firebase";
+import { auth } from "../../lib/firebase";
 import Error from "../../components/Error";
 
 import background from "../../public/bg.png";

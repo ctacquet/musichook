@@ -3,7 +3,7 @@ import {
   LogoutIcon,
   UserCircleIcon,
 } from "@heroicons/react/outline";
-import { auth } from "../firebase";
+import { auth } from "../lib/firebase";
 import { signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Image from "next/image";

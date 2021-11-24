@@ -2,12 +2,12 @@ import { useRecoilState } from "recoil";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { addDoc, collection, serverTimestamp } from "@firebase/firestore";
-import { auth } from "../firebase";
+import { auth } from "../lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import ReactLoading from "react-loading";
 
 import { modalState } from "../atoms/modalAtom";
-import { db } from "../firebase";
+import { db } from "../lib/firebase";
 import Search from "./Search";
 
 function Modal() {

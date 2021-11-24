@@ -1,6 +1,6 @@
 import Post from "./Post";
 import { collection, onSnapshot, orderBy, query } from "@firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../lib/firebase";
 import { useEffect, useState } from "react";
 
 function Posts() {

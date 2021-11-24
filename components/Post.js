@@ -24,7 +24,7 @@ import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import { faSpotify }  from '@fortawesome/free-brands-svg-icons';
 
 import { useState, useEffect, useRef } from "react";
-import { auth, db } from "../firebase";
+import { auth, db } from "../lib/firebase";
 import Moment from "react-moment";
 import Link from "next/link";
 import { DropdownButton } from "./Dropdown";
