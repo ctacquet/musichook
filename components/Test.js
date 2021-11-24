@@ -23,12 +23,13 @@ Modal.setAppElement('#__next');
     
 function Test() {
 
-  const [open, setOpen] = useRecoilState(modalState2);
+ // const [open, setOpen] = useRecoilState(modalState2);
+  const [isPopupVisible, setPopupVisibility] = useRecoilState(modalState2);
   
   // const [isPopupVisible, setPopupVisibility] = useState(true);
-  // const togglePopup = () => {
-  //     setPopupVisibility(!isPopupVisible);
-  // };
+   const togglePopup = () => {
+       setPopupVisibility(!isPopupVisible);
+   };
 
 
   // let subtitle;
@@ -50,7 +51,7 @@ function Test() {
     return (
         <div>
                 {/* <div className="h-25 w-25 bg-green-200">div</div> */}
-                <button className="h-25 w-25 bg-green-200" onClick={() => setOpen(true)}>click me</button>
+                <button className="h-25 w-25 bg-green-200" onClick={() => togglePopup(true)}>click me</button>
                    {/* <Popup setup={isPopupVisible}></Popup>    */}
 
                 
