@@ -11,12 +11,10 @@ import {
   HeartIcon,
   UserIcon,
 } from "@heroicons/react/outline";
-import {
-  QuestionMarkCircleIcon,
-} from "@heroicons/react/solid";
+import { QuestionMarkCircleIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import Head from 'next/head';
+import Head from "next/head";
 
 function Header({ pageTitle }) {
   const router = useRouter();
@@ -78,11 +76,15 @@ function Header({ pageTitle }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://musichook.vercel.app/" /> 
+        <meta property="og:url" content="https://musichook.vercel.app/" />
         <meta property="og:title" property="og:title" content="MusicHook" />
-        <meta property="og:description" property="og:description" content="Share and discover songs !" />
+        <meta
+          property="og:description"
+          property="og:description"
+          content="Share and discover songs !"
+        />
         <meta property="og:image" content="/preview.jpg" />
-        <meta name="twitter:card" content="summary" /> 
+        <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content="MusicHook" />
         <meta name="twitter:description" content="Share and discover songs !" />
         <link rel="icon" href="/favicon.ico" />
@@ -90,37 +92,47 @@ function Header({ pageTitle }) {
       </Head>
 
       <div className="sticky top-0 z-10">
-        <main className="grid grid-cols-1 md:grid-cols-4 md:max-w-4xl xl:grid-cols-4 xl:max-w-8xl min-w-full px-8 bg-white shadow-sm border">
+        <header class="grid grid-cols-4 gap-4 justify-between items-center bg-white p-4 shadow-sm border">
           {/* Left - Logo */}
-          <div className="col-span-1 flex">
+          <div class="col-span-1 text-center">
+            {/* Logo and text for large device */}
             <div
               onClick={() => router.push("/")}
-              className="hidden lg:inline-grid w-8 cursor-pointer"
+              className="hidden lg:inline-block"
             >
-              <div className="relative h-8 inline-block">
-                <Image src="/icon.png" layout="fill" objectFit="contain" />
-              </div>
-              <div className="text-transparent pl-10 bg-clip-text bg-gradient-to-l from-purple-600 to-red-600">
-                <p className="font-bold text-2xl">MusicHook</p>
+              <div onClick={() => router.push("/")} className="cursor-pointer flex">
+                <div>
+                  <Image
+                    src="/icon.png"
+                    width="40"
+                    height="40"
+                    objectFit="contain"
+                  />
+                </div>
+                <p className="text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600 font-bold text-2xl">MusicHook</p>
               </div>
             </div>
-            <div
-              onClick={() => router.push("/")}
-              className="relative w-8 h-8 lg:hidden flex-shrink-0 cursor-pointer"
-            >
-              <Image src="/icon.png" layout="fill" objectFit="contain" />
+            {/* Only logo for small device */}
+            <div className="flex lg:hidden">
+              {" "}
+              <Image
+                src="/icon.png"
+                width="40"
+                height="40"
+                objectFit="contain"
+              />
             </div>
           </div>
-
-          {/* Middle - Page title */}
-          <div className="flex flex-wrap items-center justify-center space-x-2 col-span-2">
-            {icon}
-            <p>{pageTitle}</p>
+          {/* Middle - Title page */}
+          <div class="col-span-2">
+            <div className="flex flex-wrap items-center justify-center space-x-2">
+              {icon}
+              <p>{pageTitle}</p>
+            </div>
           </div>
-
-          {/* Right - Search bar */}
-          <div className="col-span-1 min-w-max">
-            <div className="relative mt-1 p-3 rounded-md">
+          <div class="col-span-1">
+            {/* Right - Search bar */}
+            <div className="hidden lg:block relative p-3 rounded-md">
               <div className="absolute inset-y-0 pl-3 flex items-center pointer-events-none">
                 <SearchIcon className="h-5 w-5 text-gray-500" />
               </div>
@@ -131,7 +143,7 @@ function Header({ pageTitle }) {
               />
             </div>
           </div>
-        </main>
+        </header>
       </div>
     </>
   );

@@ -32,5 +32,9 @@
     .loginBtn {
         @apply text-black hover:bg-gradient-to-l from-purple-600 to-red-600 hover:text-white rounded-sm p-1;
     }
+
+    .mainStyle {
+        @apply grid grid-cols-1 lg:grid-cols-4 lg:max-w-4xl lg:gap-4 xl:grid-cols-4 xl:gap-4 min-w-full;
+    }
     
 }

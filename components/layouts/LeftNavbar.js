@@ -3,18 +3,10 @@ import MiniProfile from '../MiniProfile';
 
 export default function LeftNavbar() {
   return (
-    <section className="col-span-1 pr-8">
-      <div className="flex flex-col">
-        <div className="">
-          {/* Menu */}
-          <Menu />
-          {/* Post button */}
-        </div>
-        <div className="flex-grow"></div>
-        <div className="">
-          {/* Mini profile */}
-          <MiniProfile />
-        </div>
+    <section className="col-span-1 pl-4">
+      <div className="sticky top-24 hidden lg:flex lg:flex-col">
+        <Menu/>
+        <MiniProfile className="bottom-0"/>
       </div>
     </section>
   );

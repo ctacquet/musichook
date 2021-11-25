@@ -15,7 +15,7 @@ export default function Homepage() {
 
       <Header pageTitle="Home" />
 
-      <main className="grid grid-cols-1 md:grid-cols-4 md:max-w-4xl xl:grid-cols-4 xl:max-w-8xl min-w-full px-8">
+      <main className="mainStyle">
         <LeftNavbar />
         <Feed />
         <RightBar />

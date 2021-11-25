@@ -18,7 +18,7 @@ function MiniProfile() {
   return (
     <div>
       {user ? (
-        <div className="bg-white my-7 border rounded-sm">
+        <div className="bg-white border rounded-sm">
           <div className="flex justify-between items-center h-16">
             <div className="flex-shrink-0 group block cursor-pointer space-x-2">
               <div className="inline-block pl-4">
@@ -55,7 +55,7 @@ function MiniProfile() {
           </div>
         </div>
       ) : (
-        <div className="bg-white my-7 border rounded-sm content-center p-2">
+        <div className="bg-white border rounded-sm content-center p-2">
           <div className="flex justify-between">
             <div>
               <UserCircleIcon className="inline-block w-10" />
