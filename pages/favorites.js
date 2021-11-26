@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Header from "../components/layouts/Header";
+import TopBar from "../components/layouts/TopBar";
 import LeftNavbar from "../components/layouts/LeftNavbar";
 import RightBar from "../components/layouts/RightBar";
 import Footer from "../components/layouts/Footer";
@@ -7,23 +8,29 @@ import Modal from "../components/Modal";
 
 export default function Favorites() {
   return (
-    <div className="bg-gray-50 h-screen overflow-y-scroll scrollbar-hide">
+    <>
+      <Header />
+
       <Head>
         <title>Favorites - MusicHook</title>
       </Head>
 
-      <Header pageTitle="Favorites" />
+      <div className="bg-gray-50 h-screen overflow-y-scroll scrollbar-hide">
+        <TopBar pageTitle="Favorites" />
 
-      <main className="mainStyle">
-        <LeftNavbar />
-        <section className="col-span-2">
-          <h1 className="text-center mt-4 font-bold">This is favorites page</h1>
-        </section>
-        <RightBar />
-        <Modal />
-      </main>
+        <main className="mainStyle">
+          <LeftNavbar />
+          <section className="col-span-2">
+            <h1 className="text-center mt-4 font-bold">
+              This is favorites page
+            </h1>
+          </section>
+          <RightBar />
+          <Modal />
+        </main>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </>
   );
 }

@@ -16,7 +16,7 @@ function MiniProfile() {
   };
 
   return (
-    <div>
+    <>
       {user ? (
         <div className="bg-white border rounded-sm">
           <div className="flex justify-between items-center h-16">
@@ -67,7 +67,7 @@ function MiniProfile() {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
 
