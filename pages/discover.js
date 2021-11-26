@@ -4,13 +4,7 @@ import Menu from "../components/Menu";
 import MiniProfile from "../components/MiniProfile";
 import Caroussel from "../components/Caroussel";
 
-
-
-
 export default function Discover() {
-
-  
-
   return (
     <div className="bg-gray-50 h-screen overflow-y-scroll scrollbar-hide">
       <Head>
@@ -35,24 +29,15 @@ export default function Discover() {
             </div>
           </div>
         </section>
-
         {/* Middle section */}
         <section className="col-span-2">
           <h1 className="text-center mt-4 font-bold">This is discover page</h1>
           <Caroussel/>
-         
-         
-         
         </section>
-
         {/* Right section */}
         <section className="col-span-1">
           {/* Events */}
           {/* Favorites */}
-         
-        
-               
-         
         </section>
       </main>
     </div>
