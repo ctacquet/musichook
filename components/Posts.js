@@ -8,6 +8,7 @@ function Posts() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+
   useEffect(
     () =>
       onSnapshot(
@@ -19,6 +20,26 @@ function Posts() {
       ),
     [db]
   );
+
+
+  /*partie ouverture sticky bottom */
+  const [isPopupVisible, setPopupVisibility] = useRecoilState(modalState2);
+  //const [opened, setOpened] = useState(true);
+  const [selectedId, setSelectedId] = useState(null);
+
+
+  const togglePopup = ({ id }) => {
+  
+    setSelectedId(id);
+    setPopupVisibility(!isPopupVisible);
+    // setOpened(!opened);
+    posts.find((post) =>  post.active = true);
+  };
+
+
+
+
+
 
   return (
     <>
@@ -36,6 +57,8 @@ function Posts() {
       {
       posts.map((post) => (
         <Post
+          
+          togglePopup={togglePopup}
           key={post.id}
           id={post.id}
           uid={post.data().uid}
