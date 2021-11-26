@@ -1,19 +1,7 @@
-
-import { useRef, useState } from "react";
-
-import { clientCarouselItems as clients, wordCarouselItems } from "./data";
 import Image from "next/image";
 
-
 function Item({ data }) {
-
-    // const pathBackground = 'https://source.unsplash.com/random';
-    
-
     return (
-
-
-
         <div className="bg-white my-12 pb-6 w-full justify-center items-center overflow-hidden md:max-w-sm rounded-lg shadow-sm mx-auto">
             <div className="relative h-40">
                 {data.background && <Image className=" "
@@ -22,7 +10,6 @@ function Item({ data }) {
                     layout="fill"
                     objectFit="cover"
                     priority="false"
-
                 />}
             </div>
             <div className="relative shadow mx-auto h-24 w-24 -my-12 border-white rounded-full overflow-hidden border-4">
@@ -32,8 +19,6 @@ function Item({ data }) {
                     layout="fill"
                     objectFit="cover"
                     priority="false"
-
-
                 />}
             </div>
             <div className="mt-16 ">
@@ -75,7 +60,6 @@ function Item({ data }) {
                             No genres
                         </div>
                     )
-
                 }
                 {data.genres[1] ? (
                     <div
@@ -89,7 +73,6 @@ function Item({ data }) {
                             No genres
                         </div>
                     )
-
                 }
                 {data.genres[2] ? (
                     <div
@@ -103,9 +86,8 @@ function Item({ data }) {
                             No genres
                         </div>
                     )
-
                 }
-               
+
             </div>
         </div>
 

@@ -1,13 +1,7 @@
 import Layout from '../components/Layout';
 import Caroussel from '../components/Caroussel';
 
-
-
-
 export default function Discover() {
-
-  
-
   return (
     <Layout pageTitle="Discover">
       <section className="col-span-2">
