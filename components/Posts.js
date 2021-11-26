@@ -2,8 +2,6 @@ import Post from "./Post";
 import { collection, onSnapshot, orderBy, query } from "@firebase/firestore";
 import { db } from "../firebase";
 import { useEffect, useState } from "react";
-import { modalState2 } from '../atoms/modalAtom2';
-import { useRecoilState } from "recoil";
 
 function Posts() {
   const [posts, setPosts] = useState([]);
@@ -20,32 +18,10 @@ function Posts() {
     [db]
   );
 
-
-  /*partie ouverture sticky bottom */
-  const [isPopupVisible, setPopupVisibility] = useRecoilState(modalState2);
-  //const [opened, setOpened] = useState(true);
-  const [selectedId, setSelectedId] = useState(null);
-
-
-  const togglePopup = ({ id }) => {
-  
-    setSelectedId(id);
-    setPopupVisibility(!isPopupVisible);
-    // setOpened(!opened);
-    posts.find((post) =>  post.active = true);
-  };
-
-
-
-
-
-
   return (
     <div>
       {posts.map((post) => (
         <Post
-          
-          togglePopup={togglePopup}
           key={post.id}
           id={post.id}
           uid={post.data().uid}

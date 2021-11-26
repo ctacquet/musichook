@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import Menu from "../components/Menu";
 import MiniProfile from "../components/MiniProfile";
 import Caroussel from "../components/Caroussel";
-import Test from "../components/Test";
+
 
 
 

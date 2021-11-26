@@ -33,8 +33,6 @@ import Image from "next/image";
 
 
 function Post({
-  active,
-  togglePopup,
   id,
   uid,
   username,
@@ -145,15 +143,10 @@ function Post({
     [shares, user]
   );
 
-  useEffect(() => setHasPosted(uid == user?.uid), [user]);
-
-  const unselectedStyle = "bg-white my-7 border rounded-sm";
-  const selectedStyle = "bg-white my-7 border-4 border-red-500 border-opacity-100 rounded-sm";
-
-  
+  useEffect(() => setHasPosted(uid == user?.uid), [user]);  
 
   return (
-    <div className={active ? selectedStyle : unselectedStyle} onClick={() => togglePopup(id)}  >
+    <div className="bg-white my-7 border rounded-sm"  >
       <div className="flex items-start justify-end p-1">
         <DropdownButton postId={id} uid={uid} />
       </div>

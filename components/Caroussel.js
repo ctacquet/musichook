@@ -13,31 +13,8 @@ import { auth } from "../firebase";
 function Caroussel() {
 
     const outermostItemRef = useRef(null);
-    const [suggestions, setSuggestions] = useState([]);
     const [users, setUsers] = useState([]);
     const [currentUser] = useAuthState(auth);
-
-
-    useEffect(
-        onSnapshot(
-            query(collection(db, "users"),where("uid","!=",currentUser.uid)),
-            (snapshot) => {
-                setUsers(snapshot.docs);
-            }
-        ),
-        [db]
-    );
-
-
-
-    // useEffect(() => {
-    //     fetch("https://jsonplaceholder.typicode.com/users")
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //             setSuggestions(data);
-    //         });
-    // }, []);
-
     const properties = {
         duration: 3000,
         transitionDuration: 500,
@@ -47,11 +24,25 @@ function Caroussel() {
         indicators: i => (<div className="indicator"></div>),
     };
 
+    useEffect(
+        () => {
+            if (currentUser) {
+                onSnapshot(
+                    query(collection(db, "users"), where("uid", "!=", currentUser?.uid)),
+                    (snapshot) => {
+                        setUsers(snapshot.docs);
+                    }
+                )
+            }
+
+        },
+        [db]
+    );
+
     return (
         <div>
             {
                 users.length > 2 ? (
-
                     <Slide className="container" {...properties}>
                         {users.map((user) => {
                             return (
@@ -64,15 +55,12 @@ function Caroussel() {
                     </Slide>
                 ) : (
                     <div className="flex justify-center">
-
                         {users.map((user) => {
                             return (
                                 //if c.word.contains les genres du current user
                                 <div className="card slide pr-0" ref={outermostItemRef} key={user.data().uid}>
                                     <Item data={user.data()} />
                                 </div>
-
-
                             );
                         })}
                     </div>
