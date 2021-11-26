@@ -15,14 +15,14 @@ function Footer() {
             {isPopupVisible && (
 
                 <div className="fixed bottom-0 z-10 inset-x-0 flex  grid grid-cols-1 md:grid-cols-4 md:max-w-4xl xl:grid-cols-4 xl:max-w-8xl min-w-full px-8 ">
-                    <div className="flex-1  p-8 " />
+                    
 
 
-                    <div className="flex-1 bg-white p-8 flex-wrap items-center justify-center space-x-2 col-span-2 border-4 border-red-500 border-opacity-100 shadow-sm rounded-lg">
+                    <div className="flex-1 bg-white p-8 flex-wrap items-center justify-center space-x-2 col-span-2 col-start-2 border-4 bg-gradient-to-l from-purple-500 to-red-500  shadow-sm rounded-xl">
 
                         fdsqdsqdss
                     </div>
-                    <div className="flex-1 p-8" />
+                    
 
 
                 </div>

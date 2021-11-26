@@ -39,7 +39,7 @@ export default function Discover() {
         {/* Middle section */}
         <section className="col-span-2">
           <h1 className="text-center mt-4 font-bold">This is discover page</h1>
-          {/* <Caroussel/> */}
+          <Caroussel/>
          
          
          
