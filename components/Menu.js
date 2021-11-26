@@ -19,20 +19,18 @@ import { useRecoilState } from "recoil";
 import { modalState } from "../atoms/modalAtom";
 import { auth } from "../lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import Link from 'next/link';
 
 function Menu() {
   const [user] = useAuthState(auth);
   const [open, setOpen] = useRecoilState(modalState);
-  const router = useRouter();
 
   return (
     <div>
       {user ? (
         <div className="bg-white my-7 border rounded-sm p-2 space-y-2">
+          <Link href="/">
           <a
-            onClick={() => {
-              return router.push("/");
-            }}
             className={
               "navDiv " +
               (window.location.pathname == "/" &&
@@ -53,10 +51,9 @@ function Menu() {
               Home
             </p>
           </a>
+          </Link>
+          <Link href="/discover">
           <a
-            onClick={() => {
-              return router.push("/discover");
-            }}
             className={
               "navDiv " +
               (window.location.pathname == "/discover" &&
@@ -76,8 +73,9 @@ function Menu() {
               Discover
             </p>
           </a>
+          </Link>
+          <Link href="/notifications">
           <a
-            onClick={() => router.push("/notifications")}
             className={
               "navDiv " +
               (window.location.pathname == "/notifications" &&
@@ -97,8 +95,9 @@ function Menu() {
               Notifications
             </p>
           </a>
+          </Link>
+          <Link href="/profile">
           <a
-            onClick={() => router.push("/profile")}
             className={
               "navDiv " +
               (window.location.pathname == "/profile" &&
@@ -118,8 +117,9 @@ function Menu() {
               Profile
             </p>
           </a>
+          </Link>
+          <Link href="/favorites">
           <a
-            onClick={() => router.push("/favorites")}
             className={
               "navDiv " +
               (window.location.pathname == "/favorites" &&
@@ -139,8 +139,9 @@ function Menu() {
               Favorites
             </p>
           </a>
+          </Link>
+          <Link href="/events">
           <a
-            onClick={() => router.push("/events")}
             className={
               "navDiv " +
               (window.location.pathname == "/events" &&
@@ -160,6 +161,7 @@ function Menu() {
               Events
             </p>
           </a>
+          </Link>
           <div className="flex justify-center">
             <button
               onClick={() => setOpen(true)}

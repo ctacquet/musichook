@@ -110,7 +110,7 @@ function TopBar({ pageTitle }) {
         </div>
         <div className="col-span-1">
           {/* Right - Search bar */}
-          <div className="hidden lg:block relative p-3 rounded-md">
+          <div className="hidden lg:block relative rounded-md">
             <div className="absolute inset-y-0 pl-3 flex items-center pointer-events-none">
               <SearchIcon className="h-5 w-5 text-gray-500" />
             </div>

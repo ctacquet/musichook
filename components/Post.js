@@ -175,7 +175,7 @@ function Post({
           </div>
         </div>
         {/* Cover, Artist and Title */}
-        <div className="flex flex-none align-middle">
+        <div className="flex flex-none">
           <div className="relative w-24 h-24 border mr-2">
             {coverLink && (<Image
               src={coverLink}
