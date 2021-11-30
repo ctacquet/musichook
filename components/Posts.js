@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { modalState2 } from '../atoms/modalAtom2';
 import { useRecoilState } from "recoil";
 
+
 function Posts() {
   const [posts, setPosts] = useState([]);
 
@@ -26,18 +27,19 @@ function Posts() {
   //const [opened, setOpened] = useState(true);
   const [selectedId, setSelectedId] = useState(null);
 
+  
 
   const togglePopup = ({ id }) => {
-  
+
     setSelectedId(id);
-    setPopupVisibility(!isPopupVisible);
+    //setPopupVisibility(!isPopupVisible);
     // setOpened(!opened);
-    posts.find((post) =>  post.active = true);
+    posts.find((post) => post.active = true);
   };
 
-
-
-
+  
+  
+  
 
 
   return (
