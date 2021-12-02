@@ -2,20 +2,16 @@ import { useRecoilState } from "recoil";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { addDoc, collection, serverTimestamp } from "@firebase/firestore";
-import { auth } from "../firebase";
+import { auth } from "../lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import ReactLoading from "react-loading";
 
 import { modalState } from "../atoms/modalAtom";
-import { db } from "../firebase";
+import { db } from "../lib/firebase";
 import Search from "./Search";
 
 function Modal() {
   const [user] = useAuthState(auth);
-  const [artist, setArtist] = useState(null);
-  const [title, setTitle] = useState(null);
-  const [coverLink, setCoverLink] = useState(null);
-  const [spotifyLink, setSpotifyLink] = useState(null);
   const [loading, setLoading] = useState(null);
   const [open, setOpen] = useRecoilState(modalState);
   const [track, setTrack] = useState(null);
@@ -29,11 +25,6 @@ function Modal() {
     e.preventDefault();
 
     setLoading(true);
-
-    // 1 - Create a post and add to firestore "posts" collection    DONE
-    // 2 - Get post ID for the newly created post
-    // 3 - Get ID of the song from API call
-    // 4 - Update the original post with the link of the song
 
     const docRef = await addDoc(collection(db, "posts"), {
       username: user.displayName,
@@ -90,7 +81,7 @@ function Modal() {
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <div
-              className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6"
+              className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all lg:max-w-xl sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6"
             >
               <div>
                 <Search setTrack={setTrack} />

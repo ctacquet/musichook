@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { searchTracks } from "../../spotify";
+import { searchTracks } from "../../lib/spotify";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.query.q) {

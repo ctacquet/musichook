@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { DotsHorizontalIcon } from "@heroicons/react/outline";
 import { doc, deleteDoc } from "@firebase/firestore";
-import { db } from "../firebase";
-import { auth } from "../firebase";
+import { db } from "../lib/firebase";
+import { auth } from "../lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 export function DropdownButton({ postId, uid }) {

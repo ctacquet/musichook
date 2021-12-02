@@ -1,13 +1,6 @@
 import { useCallback, useRef, useState } from "react";
-import Link from "next/link";
-import {
-  LinkIcon,
-  MusicNoteIcon,
-  SearchIcon,
-  TemplateIcon,
-  UsersIcon,
-} from "@heroicons/react/outline";
-
+import { SearchIcon } from "@heroicons/react/outline";
+import Image from "next/image";
 
 function Search(props) {
   const searchRef = useRef(null);
@@ -16,9 +9,9 @@ function Search(props) {
   const [results, setResults] = useState([]);
 
   const getTrackInfos = (e, track) => {
-      e.preventDefault();
-      props.setTrack(track);
-  }
+    e.preventDefault();
+    props.setTrack(track);
+  };
 
   const searchEndpoint = (query) => `/api/search?q=${query}`;
 
@@ -63,20 +56,45 @@ function Search(props) {
           value={query}
         />
       </div>
-      <div className="h-60 overflow-y-scroll scrollbar-thumb-black scrollbar-thin border border-gray-200 align rounded-lg">
+      <div className="h-60 lg:h-96 overflow-y-scroll scrollbar-thumb-black scrollbar-thin align rounded-lg">
         <div className="ml-2 mt-1">
           {active &&
             results &&
             results.length > 0 &&
-            results.map(({ id, title, artist }) => (
+            results.map(({ id, title, artist, coverLink }) => (
               <div
                 key={id}
-                className="flex items-center space-x-2 mb-2 last:mb-1"
+                className="flex items-center space-x-2 mb-2 last:mb-1 overflow-hidden mr-3"
               >
-                <button onClick={e => getTrackInfos(e, results[id])} className="w-full p-2 bg-white border hover:bg-purple-500 focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 rounded-lg mr-3">
-                    <div className="select-none">
-                        {title} - {artist}
+                <button
+                  onClick={(e) => getTrackInfos(e, results[id])}
+                  className="w-full p-2 bg-white border hover:bg-purple-500 focus:ring-2 focus:ring-purple-600 focus:ring-opacity-75 focus:bg-purple-100 rounded-lg "
+                >
+                  <div className="select-none text-left">
+                    <div className="flex flex-row">
+                      <div className="flex items-center">
+                        <div className="w-12 h-12 border mr-2">
+                          {coverLink && (
+                            <Image
+                              src={coverLink}
+                              className="object-cover z-0"
+                              alt=""
+                              quality={100}
+                              priority="false"
+                              width="100%"
+                              height="100%"
+                              layout="responsive"
+                              objectFit="contain"
+                            />
+                          )}
+                        </div>
+                        <div className="flex flex-col w-60 lg:w-96">
+                          <p className="font-bold truncate">{artist}</p>
+                          <p className="font-normal truncate">{title}</p>
+                        </div>
+                      </div>
                     </div>
+                  </div>
                 </button>
               </div>
             ))}

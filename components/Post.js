@@ -24,7 +24,7 @@ import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import { faSpotify }  from '@fortawesome/free-brands-svg-icons';
 
 import { useState, useEffect, useRef } from "react";
-import { auth, db } from "../firebase";
+import { auth, db } from "../lib/firebase";
 import Moment from "react-moment";
 import Link from "next/link";
 import { DropdownButton } from "./Dropdown";
@@ -175,7 +175,7 @@ function Post({
           </div>
         </div>
         {/* Cover, Artist and Title */}
-        <div className="flex flex-none align-middle">
+        <div className="flex flex-none">
           <div className="relative w-24 h-24 border mr-2">
             {coverLink && (<Image
               src={coverLink}
