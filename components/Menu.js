@@ -210,13 +210,6 @@ function Menu() {
             <HeartIcon className="icon" />
             <p>Favorites</p>
           </a>
-          <a
-            disabled={true}
-            className="navDiv text-gray-500 cursor-not-allowed"
-          >
-            <CalendarIcon className="icon" />
-            <p>Events</p>
-          </a>
           <div className="flex justify-center">
             <button
               disabled={true}
