@@ -5,8 +5,8 @@ export default function LeftNavbar() {
   return (
     <section className="col-span-1 pl-4">
       <div className="sticky top-20 hidden lg:flex lg:flex-col">
-        <Menu/>
-        <MiniProfile className="bottom-0"/>
+        <Menu />
+        <MiniProfile />
       </div>
     </section>
   );

@@ -140,6 +140,7 @@ function Menu() {
             </p>
           </a>
           </Link>
+          {/*
           <Link href="/events">
           <a
             className={
@@ -162,6 +163,7 @@ function Menu() {
             </p>
           </a>
           </Link>
+          */}
           <div className="flex justify-center">
             <button
               onClick={() => setOpen(true)}

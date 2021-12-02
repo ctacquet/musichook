@@ -1,7 +1,13 @@
 import Head from "next/head";
+import TopBar from "./layouts/TopBar";
+import LeftNavbar from "./layouts/LeftNavbar";
+import RightBar from "./layouts/RightBar";
+import Footer from "./layouts/Footer";
+import Modal from "./Modal";
 
-export default function Header() {
+export default function Layout({ children, pageTitle }) {
   return (
+    <>
       <Head>
         <title>MusicHook</title>
         <meta charSet="utf-8" />
@@ -21,5 +27,20 @@ export default function Header() {
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/favicon.ico" />
       </Head>
+      <main className="bg-gray-50 h-screen overflow-y-scroll scrollbar-hide">
+        <header>
+          <TopBar pageTitle={pageTitle} />
+        </header>
+        <div className="mainStyle">
+          <LeftNavbar />
+          {children}
+          <RightBar />
+          <Modal />
+        </div>
+        <footer>
+          <Footer />
+        </footer>
+      </main>
+    </>
   );
-};
+}
