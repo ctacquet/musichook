@@ -27,7 +27,7 @@ export default function Home() {
       <Feed />
     
       <Modal /> 
-    
+      
       <Footer/>
     </div>
   )

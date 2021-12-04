@@ -1,7 +1,9 @@
 import Head from "next/head";
+import EditProfileModal from "../components/EditProfileModal";
 import Header from "../components/Header";
 import Menu from "../components/Menu";
 import MiniProfile from "../components/MiniProfile";
+import ProfileCard from "../components/ProfileCard";
 
 export default function Discover() {
   return (
@@ -31,7 +33,9 @@ export default function Discover() {
 
         {/* Middle section */}
         <section className="col-span-2">
-          <h1 className="text-center mt-4 font-bold">This is profile page</h1>
+         
+          <ProfileCard/>
+          
         </section>
 
         {/* Right section */}
@@ -39,7 +43,9 @@ export default function Discover() {
           {/* Events */}
           {/* Favorites */}
         </section>
+        <EditProfileModal/>
       </main>
+      
     </div>
   );
 }

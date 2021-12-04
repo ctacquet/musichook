@@ -1,6 +1,6 @@
 module.exports = {
     images: {
-        domains: ["lh3.googleusercontent.com", "avatars.githubusercontent.com", "albums.content.hardstyle.com", "m.media-amazon.com", "i.scdn.co", "source.unsplash.com"],
+        domains: ["lh3.googleusercontent.com", "avatars.githubusercontent.com", "albums.content.hardstyle.com", "m.media-amazon.com", "i.scdn.co", "source.unsplash.com","firebasestorage.googleapis.com", "cdn.futura-sciences.com"],
     }
 }
 
