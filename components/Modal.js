@@ -2,13 +2,12 @@ import { useRecoilState } from "recoil";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { addDoc, collection, serverTimestamp } from "@firebase/firestore";
-import { auth } from "../lib/firebase";
+import { auth, db } from "../lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import ReactLoading from "react-loading";
-
 import { modalState } from "../atoms/modalAtom";
-import { db } from "../lib/firebase";
+import ReactLoading from "react-loading";
 import Search from "./Search";
+import toast from "react-hot-toast";
 
 function Modal() {
   const [user] = useAuthState(auth);
@@ -33,6 +32,7 @@ function Modal() {
       search: track.search,
       artist: track.artist,
       title: track.title,
+      songDate: track.songDate,
       coverLink: track.coverLink,
       spotifyLink: track.spotifyLink,
       spotifyId: track.spotifyId,
@@ -41,6 +41,8 @@ function Modal() {
 
     setOpen(false);
     setLoading(false);
+    
+    toast.success("Successfully posted your song !")
   };
 
   return (

@@ -4,6 +4,7 @@ import LeftNavbar from "./layouts/LeftNavbar";
 import RightBar from "./layouts/RightBar";
 import Footer from "./layouts/Footer";
 import Modal from "./Modal";
+import { Toaster } from 'react-hot-toast';
 
 export default function Layout({ children, pageTitle }) {
   return (
@@ -40,6 +41,13 @@ export default function Layout({ children, pageTitle }) {
         <footer>
           <Footer />
         </footer>
+        <Toaster
+          toastOptions={{
+            custom: {
+              duration: 1000000,
+            },
+          }}
+        />
       </main>
     </>
   );

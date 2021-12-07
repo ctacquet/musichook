@@ -68,7 +68,7 @@ function Search(props) {
               >
                 <button
                   onClick={(e) => getTrackInfos(e, results[id])}
-                  className="w-full p-2 bg-white border hover:bg-purple-500 focus:ring-2 focus:ring-purple-600 focus:ring-opacity-75 focus:bg-purple-100 rounded-lg "
+                  className="w-full p-2 bg-white border hover:bg-purple-500 ring-inset focus:ring-2 focus:ring-purple-600 focus:ring-opacity-75 focus:bg-purple-300 rounded-lg "
                 >
                   <div className="select-none text-left">
                     <div className="flex flex-row">

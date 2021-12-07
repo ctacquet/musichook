@@ -3,7 +3,7 @@ import {
   HeartIcon,
   ShareIcon,
   ThumbUpIcon,
-  XIcon
+  XIcon,
 } from "@heroicons/react/outline";
 import {
   HeartIcon as HeartIconFilled,
@@ -11,8 +11,8 @@ import {
   AnnotationIcon as AnnotationIconFilled,
   ShareIcon as ShareIconFilled,
 } from "@heroicons/react/solid";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpotify }  from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpotify } from "@fortawesome/free-brands-svg-icons";
 
 import {
   onSnapshot,
@@ -43,6 +43,7 @@ function Post({
   spotifyLink,
   artist,
   title,
+  songDate,
   timestamp,
 }) {
   const [user] = useAuthState(auth);
@@ -56,11 +57,19 @@ function Post({
   const [hasShared, setHasShared] = useState(false);
   const [isCommentOpen, setCommentIsOpen] = useState(false);
 
-  const toggleComments = () => {
+  const unselectedStyle = "bg-white my-7 border rounded-sm";
+  const selectedStyle =
+    "bg-white my-7 border-4 border-red-500 border-opacity-100 rounded-sm";
+
+  const toggleComments = (e) => {
+    e.stopPropagation();
+
     setCommentIsOpen(!isCommentOpen);
   };
 
-  const likePost = async () => {
+  const likePost = async (e) => {
+    e.stopPropagation();
+
     if (hasLiked) {
       await deleteDoc(doc(db, "posts", id, "likes", user.uid));
     } else {
@@ -70,7 +79,9 @@ function Post({
     }
   };
 
-  const favPost = async () => {
+  const favPost = async (e) => {
+    e.stopPropagation();
+
     if (hasFaved) {
       await deleteDoc(doc(db, "posts", id, "favorites", user.uid));
     } else {
@@ -80,7 +91,9 @@ function Post({
     }
   };
 
-  const sharePost = async () => {
+  const sharePost = async (e) => {
+    e.stopPropagation();
+
     if (hasShared) {
       await deleteDoc(doc(db, "posts", id, "shares", user.uid));
     } else {
@@ -88,6 +101,10 @@ function Post({
         username: user.displayName,
       });
     }
+  };
+
+  const handleClick = (e) => {
+    e.stopPropagation();
   };
 
   useEffect(
@@ -145,15 +162,17 @@ function Post({
     [shares, user]
   );
 
-  useEffect(() => setHasPosted(uid == user?.uid), [user]);  
-
-  const unselectedStyle = "bg-white my-7 border rounded-sm";
-  const selectedStyle = "bg-white my-7 border-4 border-red-500 border-opacity-100 rounded-sm";
+  useEffect(() => setHasPosted(uid == user?.uid), [user]);
 
   const notify = () => {
     toast.custom(
       (t) => (
-        <div className={classNames(["toastWrapper", t.visible ? "visible " : "hidden"])}>
+        <div
+          className={classNames([
+            "toastWrapper",
+            t.visible ? "visible " : "hidden",
+          ])}
+        >
           <div
             className={classNames([
               "notificationWrapper",
@@ -184,15 +203,14 @@ function Post({
                   </a>
                 </Link>
               )}
-              
-                {spotifyLink && (
-                  <Link href={spotifyLink}>
-                    <a target="_blank">
-                      <p>{title}</p>
-                    </a>
-                  </Link>
-                )}
-              
+
+              {spotifyLink && (
+                <Link href={spotifyLink}>
+                  <a target="_blank">
+                    <p>{title}</p>
+                  </a>
+                </Link>
+              )}
             </div>
             <div className="closeIcon" onClick={() => toast.dismiss(t.id)}>
               <XIcon className="btn h-4" />
@@ -216,7 +234,8 @@ function Post({
                 )}
               </div>
               <div className="space-x-1 items-center">
-                {(user == null && comments.length > 0 && isCommentOpen) || (user && isCommentOpen) ? (
+                {(user == null && comments.length > 0 && isCommentOpen) ||
+                (user && isCommentOpen) ? (
                   <AnnotationIconFilled
                     className="btn inline-block text-purple-600"
                     onClick={toggleComments}
@@ -248,74 +267,103 @@ function Post({
                 )}
               </div>
             </div>
-
           </div>
         </div>
       ),
       { id: "unique-notification", position: "bottom-center" }
     );
-    
-  }
-
+  };
 
   return (
-    <div className={unselectedStyle} onClick={notify}  >
+    <div className={unselectedStyle} onClick={notify}>
       <div className="flex items-start justify-end p-1">
-        <DropdownButton postId={id} uid={uid} />
+        <div className="flex" onClick={handleClick}>
+          <DropdownButton postId={id} uid={uid} />
+        </div>
       </div>
       {/* Post */}
       <div className="flex items-center pb-5">
         {/* User and Date */}
-        <div className="flex-1 max-w-xs w-32 p-5">
+        <div className="w-64 p-5">
           <div className="flex flex-col border-r border-gray-300 justify-center text-center content-center">
             <div className="border p-1 w-12 mx-auto rounded-full content-center">
-              {userImg && (<Image
-                src={userImg}
-                className="rounded-full"
+              {userImg && (
+                <Image
+                  src={userImg}
+                  className="rounded-full"
+                  alt=""
+                  width="100%"
+                  height="100%"
+                  layout="responsive"
+                  objectFit="contain"
+                />
+              )}
+            </div>
+            <div>
+              <p className="font-bold overflow-ellipsis overflow-hidden">
+                {username}
+              </p>
+            </div>
+            <Moment fromNow>{timestamp?.toDate()}</Moment>
+          </div>
+        </div>
+        {/* Cover, Artist, Title and Album date */}
+        <div className="flex flex-1 h-24">
+          <div className="relative w-24 border mr-2">
+            {coverLink && (
+              <Image
+                src={coverLink}
+                className="object-cover z-0"
                 alt=""
+                quality={100}
+                priority="false"
                 width="100%"
                 height="100%"
                 layout="responsive"
                 objectFit="contain"
-              />)}
-            </div>
-            <div>
-              <p className="font-bold overflow-ellipsis overflow-hidden">{username}</p>
-            </div>
-            <Moment fromNow>
-              {timestamp?.toDate()}
-            </Moment>
+              />
+            )}
           </div>
-        </div>
-        {/* Cover, Artist and Title */}
-        <div className="flex flex-none">
-          <div className="relative w-24 h-24 border mr-2">
-            {coverLink && (<Image
-              src={coverLink}
-              className="object-cover z-0"
-              alt=""
-              quality={100}
-              priority="false"
-              width="100%"
-              height="100%"
-              layout="responsive"
-              objectFit="contain"
-            />)}
-          </div>
-          <div className="flex flex-col max-w-xs">
-            <p className="flex font-bold overflow-ellipsis overflow-hidden">{artist}</p>
-            <p className="flex font-normal overflow-ellipsis overflow-hidden">{title}</p>
+          <div className="flex flex-col">
+            <p className="h-10 w-32 sm:w-64 md:w-72 lg:w-80 xl:w-96 2xl:w-full font-bold truncate">
+              {artist}
+            </p>
+            <p className="h-10 w-32 sm:w-64 md:w-72 lg:w-80 xl:w-96 2xl:w-full font-normal truncate">
+              {title}
+            </p>
+            {songDate && (
+              <p className="flex h-full w-32 sm:w-64 md:w-72 lg:w-80 xl:w-96 2xl:w-full items-end font-extralight truncate">
+                <Moment format="YYYY/MM/DD">{new Date(songDate)}</Moment>
+              </p>
+            )}
           </div>
         </div>
 
-        <div className="flex flex-1">
-            {spotifyLink && (
+        <div className="flex justify-end">
+          {spotifyLink && (
+            <div className="flex pr-3">
               <Link href={spotifyLink}>
-                <a target="_blank" className="flex w-full justify-end pr-3">
-                  <FontAwesomeIcon icon={faSpotify} className="h-8 text-green-500 btn" />
+                <a target="_blank">
+                  <FontAwesomeIcon
+                    icon={faSpotify}
+                    className="h-8 text-green-500 btn"
+                  />
                 </a>
               </Link>
-            )}
+            </div>
+          )}
+          {/* 
+            //If we want to add link just do like that and replace spotify by the platform we want
+            spotifyLink && (
+              <div className="flex pr-3">
+                <Link href={spotifyLink}>
+                  <a target="_blank">
+                    <FontAwesomeIcon icon={faSpotify} className="h-8 text-green-500 btn" />
+                  </a>
+                </Link>
+              </div>
+            )
+            */}
         </div>
       </div>
 
@@ -349,7 +397,8 @@ function Post({
             )}
           </div>
           <div className="space-x-1 items-center">
-            {(user == null && comments.length > 0 && isCommentOpen) || (user && isCommentOpen) ? (
+            {(user == null && comments.length > 0 && isCommentOpen) ||
+            (user && isCommentOpen) ? (
               <AnnotationIconFilled
                 className="btn inline-block text-purple-600"
                 onClick={toggleComments}

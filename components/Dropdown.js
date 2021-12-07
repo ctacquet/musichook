@@ -4,6 +4,7 @@ import { doc, deleteDoc } from "@firebase/firestore";
 import { db } from "../lib/firebase";
 import { auth } from "../lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import toast from "react-hot-toast";
 
 export function DropdownButton({ postId, uid }) {
   const [user] = useAuthState(auth);
@@ -11,9 +12,10 @@ export function DropdownButton({ postId, uid }) {
 
   useEffect(() => setHasPosted(uid == user?.uid), [uid]);
 
-  const deletePost = async () => {
+  const deletePost = async () => {    
     if (hasPosted) {
       await deleteDoc(doc(db, "posts", postId));
+      toast.error("Your post has been deleted.")
     }
   };
 

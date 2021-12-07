@@ -48,6 +48,7 @@ function Posts() {
           spotifyLink={post.data().spotifyLink}
           artist={post.data().artist}
           title={post.data().title}
+          songDate={post.data().songDate}
           timestamp={post.data().timestamp}
         />
       ))
