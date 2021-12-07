@@ -106,7 +106,7 @@ function Menu() {
                 <div className="static">
                 {user && length > 0 && (
                 <span className="absolute pl-4 h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-purple-400 opacity-75"></span>
+                  <span className="animate-ping-slow absolute inline-flex h-3 w-3 rounded-full bg-purple-400 opacity-75"></span>
                   <span className="absolute inline-flex rounded-full h-3 w-3 bg-purple-500"></span>
                 </span>
                 )}
@@ -116,7 +116,7 @@ function Menu() {
                 <div className="static">
                 {user && length > 0 && (
                 <span className="absolute pl-4 h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-red-400 opacity-75"></span>
+                  <span className="animate-ping-slow absolute inline-flex h-3 w-3 rounded-full bg-red-400 opacity-75"></span>
                   <span className="absolute inline-flex rounded-full h-3 w-3 bg-red-500"></span>
                 </span>
                 )}
