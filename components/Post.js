@@ -194,8 +194,8 @@ function Post({
                 )}
               
             </div>
-            <div className={"closeIcon"} onClick={() => toast.dismiss(t.id)}>
-              <XIcon />
+            <div className="closeIcon" onClick={() => toast.dismiss(t.id)}>
+              <XIcon className="btn h-4" />
             </div>
 
             <div className="flex space-x-4">
