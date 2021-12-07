@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import Item from "./Item";
 import { Slide } from "react-slideshow-image";
-import 'react-slideshow-image/dist/styles.css'
-import { collection, onSnapshot, orderBy, query, where } from "@firebase/firestore";
-import { db } from "../firebase";
+import { collection, onSnapshot, query, where } from "@firebase/firestore";
+import { db, auth } from "../lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase";
+
+import 'react-slideshow-image/dist/styles.css';
 
 
 function Caroussel() {

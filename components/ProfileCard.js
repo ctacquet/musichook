@@ -1,22 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-import { auth, db } from "../firebase";
+import { auth, db } from "../lib/firebase";
 import {
     onSnapshot,
-    orderBy,
-    query,
-    serverTimestamp,
-    collection,
-    addDoc,
-    setDoc,
-    getDoc,
     doc,
-    deleteDoc,
-    where,
-    getDocs,
 } from "@firebase/firestore";
 import Image from "next/image";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { async } from "@firebase/util";
 import Link from "next/link";
 import {
     PencilAltIcon
@@ -25,14 +14,9 @@ import { modalStateEditProfile } from "../atoms/modalAtomEditProfile";
 import { useRecoilState } from "recoil";
 
 function ProfileCard() {
-
     const [user] = useAuthState(auth);
-
-
     const [currentUser, setCurrentUser] = useState(null);
     const [openEdit, setOpenEdit] = useRecoilState(modalStateEditProfile);
-
-
 
     useEffect(() => {
 
@@ -44,11 +28,6 @@ function ProfileCard() {
 
     }, [user]);
     //glisser le currentUser dans le modal
-
-
-
-
-
 
     return (
         <>

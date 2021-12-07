@@ -1,4 +1,5 @@
 import Layout from "../components/Layout";
+import ProfileCard from "../components/ProfileCard";
 
 export default function Profile() {
   return (

@@ -23,7 +23,6 @@ function MiniProfile() {
             <div className="flex-shrink-0 group block cursor-pointer space-x-2">
               <div className="inline-block pl-4">
                 <div className="h-10 w-10">
-<<<<<<< main
                   {user?.photoURL ? (
                     <Image
                       className="rounded-full"
@@ -37,17 +36,6 @@ function MiniProfile() {
                   ) : (
                     <UserCircleIcon className="w-12" />
                   )}
-=======
-                  {/* <Image
-                    className="rounded-full"
-                    src={user?.photoURL}
-                    alt=""
-                    width="100%"
-                    height="100%"
-                    layout="responsive"
-                    objectFit="contain"
-                  /> */}
->>>>>>> ajout d'un modal pour la sticky-popup bar
                 </div>
               </div>
               <div className="inline-block">
