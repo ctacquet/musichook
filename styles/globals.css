@@ -37,4 +37,27 @@
         @apply grid grid-cols-1 lg:grid-cols-4 lg:max-w-4xl lg:gap-4 xl:grid-cols-4 xl:gap-4 min-w-full;
     }
     
+
+    .card{
+        @apply /*bg-red-600*/  rounded-sm ;
+    }
+    .cardWrapper{
+        @apply /*bg-blue-600*/ w-full h-full rounded-sm border;
+    }
+
+    .indicator{
+        @apply cursor-pointer w-2 h-2 bg-gray-400 rounded-full mr-4;
+    }
+    .indicator.active{
+        @apply w-8 h-2 bg-gray-600 rounded-full mr-4;
+    }
+
+    .slide{
+        /*@apply inline-block select-none text-center bg-blue-500 px-20 py-0 text-lg h-96  align-middle;*/
+        @apply  /*bg-blue-500*/ flex-wrap content-center px-3.5  pr-10 ;
+    }
+
+    .container{
+        /*@apply flex-1 ;*/
+    }
 }

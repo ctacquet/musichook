@@ -32,6 +32,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import Comments from "./Comments";
 import Image from "next/image";
 
+
 function Post({
   id,
   uid,
@@ -143,10 +144,10 @@ function Post({
     [shares, user]
   );
 
-  useEffect(() => setHasPosted(uid == user?.uid), [user]);
+  useEffect(() => setHasPosted(uid == user?.uid), [user]);  
 
   return (
-    <div className="bg-white my-7 border rounded-sm">
+    <div className="bg-white my-7 border rounded-sm"  >
       <div className="flex items-start justify-end p-1">
         <DropdownButton postId={id} uid={uid} />
       </div>

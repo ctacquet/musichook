@@ -14,7 +14,6 @@ import {
   HeartIcon as HeartIconFilled,
   CalendarIcon as CalendarIconFilled,
 } from "@heroicons/react/solid";
-import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 import { modalState } from "../atoms/modalAtom";
 import { auth } from "../lib/firebase";
