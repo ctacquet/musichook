@@ -333,7 +333,7 @@ function Post({
             </p>
             {songDate && (
               <p className="flex h-full w-32 sm:w-64 md:w-72 lg:w-80 xl:w-96 2xl:w-full items-end font-extralight truncate">
-                <Moment format="YYYY/MM/DD">{new Date(songDate)}</Moment>
+                <Moment format="DD/MM/YYYY">{new Date(songDate)}</Moment>
               </p>
             )}
           </div>

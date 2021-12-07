@@ -23,11 +23,11 @@ export function DropdownButton({ postId, uid }) {
     <Dropdown>
       <Dropdown.Toggle>
         {hasPosted ? (
-          <span className="flex bg-gradient-to-l from-purple-500 to-red-500 text-white px-3 py-1 rounded-md shadow-md text-base font-medium">
+          <span className="flex bg-gradient-to-l from-purple-500 to-red-500 text-white px-3 py-1 rounded-md shadow-md text-base font-medium ring-2 ring-purple-500 ring-opacity-50">
             <DotsHorizontalIcon className="h-5" />
           </span>
         ) : (
-          <span className="flex bg-purple-600 text-white px-3 py-1 rounded-md shadow-md text-base font-medium">
+          <span className="flex bg-purple-600 text-white px-3 py-1 rounded-md shadow-md text-base font-medium ring-2 ring-purple-500 ring-opacity-50">
             <DotsHorizontalIcon className="h-5" />
           </span>
         )}
