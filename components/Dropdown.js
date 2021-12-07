@@ -4,6 +4,7 @@ import { doc, deleteDoc } from "@firebase/firestore";
 import { db } from "../lib/firebase";
 import { auth } from "../lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import toast from "react-hot-toast";
 
 export function DropdownButton({ postId, uid }) {
   const [user] = useAuthState(auth);
@@ -11,9 +12,10 @@ export function DropdownButton({ postId, uid }) {
 
   useEffect(() => setHasPosted(uid == user?.uid), [uid]);
 
-  const deletePost = async () => {
+  const deletePost = async () => {    
     if (hasPosted) {
       await deleteDoc(doc(db, "posts", postId));
+      toast.error("Your post has been deleted.")
     }
   };
 
@@ -21,11 +23,11 @@ export function DropdownButton({ postId, uid }) {
     <Dropdown>
       <Dropdown.Toggle>
         {hasPosted ? (
-          <span className="flex bg-gradient-to-l from-purple-500 to-red-500 text-white px-3 py-1 rounded-md shadow-md text-base font-medium">
+          <span className="flex bg-gradient-to-l from-purple-500 to-red-500 text-white px-3 py-1 rounded-md shadow-md text-base font-medium ring-2 ring-purple-500 ring-opacity-50">
             <DotsHorizontalIcon className="h-5" />
           </span>
         ) : (
-          <span className="flex bg-purple-600 text-white px-3 py-1 rounded-md shadow-md text-base font-medium">
+          <span className="flex bg-purple-600 text-white px-3 py-1 rounded-md shadow-md text-base font-medium ring-2 ring-purple-500 ring-opacity-50">
             <DotsHorizontalIcon className="h-5" />
           </span>
         )}

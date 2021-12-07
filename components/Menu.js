@@ -14,130 +14,171 @@ import {
   HeartIcon as HeartIconFilled,
   CalendarIcon as CalendarIconFilled,
 } from "@heroicons/react/solid";
+import {
+  onSnapshot,
+  query,
+  collection,
+} from "@firebase/firestore";
 import { useRecoilState } from "recoil";
 import { modalState } from "../atoms/modalAtom";
-import { auth } from "../lib/firebase";
+import { auth, db } from "../lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import Link from 'next/link';
+import Link from "next/link";
+import { useState, useEffect } from 'react';
 
 function Menu() {
   const [user] = useAuthState(auth);
   const [open, setOpen] = useRecoilState(modalState);
+  const [length, setLength] = useState(0);
+
+  useEffect(() => {
+    if (user) {
+      onSnapshot(
+        query(collection(db, "users", user.uid, "notifications")),
+        (snapshot) => {
+          setLength(snapshot.size);
+        }
+      ),
+        [db];
+    }
+  });
 
   return (
     <div>
       {user ? (
         <div className="bg-white my-7 border rounded-sm p-2 space-y-2">
           <Link href="/">
-          <a
-            className={
-              "navDiv " +
-              (window.location.pathname == "/" &&
-                "text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600")
-            }
-          >
-            {window.location.pathname == "/" ? (
-              <HomeIconFilled className="icon text-red-500" />
-            ) : (
-              <HomeIcon className="icon" />
-            )}
-
-            <p
+            <a
               className={
-                "menuText " + (window.location.pathname == "/" && "font-semibold")
+                "navDiv " +
+                (window.location.pathname == "/" &&
+                  "text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600")
               }
             >
-              Home
-            </p>
-          </a>
+              {window.location.pathname == "/" ? (
+                <HomeIconFilled className="icon text-red-500" />
+              ) : (
+                <HomeIcon className="icon" />
+              )}
+
+              <p
+                className={
+                  "menuText " +
+                  (window.location.pathname == "/" && "font-semibold")
+                }
+              >
+                Home
+              </p>
+            </a>
           </Link>
           <Link href="/discover">
-          <a
-            className={
-              "navDiv " +
-              (window.location.pathname == "/discover" &&
-                "text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600")
-            }
-          >
-            {window.location.pathname == "/discover" ? (
-              <UserGroupIconFilled className="icon text-red-500" />
-            ) : (
-              <UserGroupIcon className="icon" />
-            )}
-            <p
+            <a
               className={
-                "menuText " + (window.location.pathname == "/discover" && "font-semibold")
+                "navDiv " +
+                (window.location.pathname == "/discover" &&
+                  "text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600")
               }
             >
-              Discover
-            </p>
-          </a>
+              {window.location.pathname == "/discover" ? (
+                <UserGroupIconFilled className="icon text-red-500" />
+              ) : (
+                <UserGroupIcon className="icon" />
+              )}
+              <p
+                className={
+                  "menuText " +
+                  (window.location.pathname == "/discover" && "font-semibold")
+                }
+              >
+                Discover
+              </p>
+            </a>
           </Link>
           <Link href="/notifications">
-          <a
-            className={
-              "navDiv " +
-              (window.location.pathname == "/notifications" &&
-                "text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600")
-            }
-          >
-            {window.location.pathname == "/notifications" ? (
-              <BellIconFilled className="icon text-red-500" />
-            ) : (
-              <BellIcon className="icon" />
-            )}
-            <p
+            <a
               className={
-                "menuText " + (window.location.pathname == "/notifications" && "font-semibold")
+                "navDiv w-full " +
+                (window.location.pathname == "/notifications" &&
+                  "text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600")
               }
             >
-              Notifications
-            </p>
-          </a>
+              {window.location.pathname == "/notifications" ? (
+                <div className="static">
+                {user && length > 0 && (
+                <span className="absolute pl-4 h-3 w-3">
+                  <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-purple-400 opacity-75"></span>
+                  <span className="absolute inline-flex rounded-full h-3 w-3 bg-purple-500"></span>
+                </span>
+                )}
+                  <BellIconFilled className="icon text-red-500"/>
+                </div>
+              ) : (
+                <div className="static">
+                {user && length > 0 && (
+                <span className="absolute pl-4 h-3 w-3">
+                  <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-red-400 opacity-75"></span>
+                  <span className="absolute inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                </span>
+                )}
+                  <BellIcon className="icon"/>
+                </div>
+              )}
+              <p
+                className={
+                  "menuText " +
+                  (window.location.pathname == "/notifications" &&
+                    "font-semibold")
+                }
+              >
+                Notifications
+              </p>
+            </a>
           </Link>
           <Link href="/profile">
-          <a
-            className={
-              "navDiv " +
-              (window.location.pathname == "/profile" &&
-                "text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600")
-            }
-          >
-            {window.location.pathname == "/profile" ? (
-              <UserIconFilled className="icon text-red-500" />
-            ) : (
-              <UserIcon className="icon" />
-            )}
-            <p
+            <a
               className={
-                "menuText " + (window.location.pathname == "/profile" && "font-semibold")
+                "navDiv " +
+                (window.location.pathname == "/profile" &&
+                  "text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600")
               }
             >
-              Profile
-            </p>
-          </a>
+              {window.location.pathname == "/profile" ? (
+                <UserIconFilled className="icon text-red-500" />
+              ) : (
+                <UserIcon className="icon" />
+              )}
+              <p
+                className={
+                  "menuText " +
+                  (window.location.pathname == "/profile" && "font-semibold")
+                }
+              >
+                Profile
+              </p>
+            </a>
           </Link>
           <Link href="/favorites">
-          <a
-            className={
-              "navDiv " +
-              (window.location.pathname == "/favorites" &&
-                "text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600")
-            }
-          >
-            {window.location.pathname == "/favorites" ? (
-              <HeartIconFilled className="icon text-red-500" />
-            ) : (
-              <HeartIcon className="icon" />
-            )}
-            <p
+            <a
               className={
-                "menuText " + (window.location.pathname == "/favorites" && "font-semibold")
+                "navDiv " +
+                (window.location.pathname == "/favorites" &&
+                  "text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600")
               }
             >
-              Favorites
-            </p>
-          </a>
+              {window.location.pathname == "/favorites" ? (
+                <HeartIconFilled className="icon text-red-500" />
+              ) : (
+                <HeartIcon className="icon" />
+              )}
+              <p
+                className={
+                  "menuText " +
+                  (window.location.pathname == "/favorites" && "font-semibold")
+                }
+              >
+                Favorites
+              </p>
+            </a>
           </Link>
           {/*
           <Link href="/events">

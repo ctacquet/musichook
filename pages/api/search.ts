@@ -10,6 +10,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         id: index,
         title: track.name,
         search: q,
+        songDate: track.album.release_date,
         artist: track.artists.map((_artist) => _artist.name).join(", "),
         spotifyLink: track.external_urls.spotify,
         coverLink: track.album.images[1].url,
