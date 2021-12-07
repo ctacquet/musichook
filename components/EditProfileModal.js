@@ -5,14 +5,12 @@ import { Fragment, useRef, useState, useEffect } from "react";
 import {
     CameraIcon
 } from "@heroicons/react/outline";
-import { db, storage } from "../firebase";
+import { db, storage, auth } from "../lib/firebase";
 import { updateDoc, doc, onSnapshot } from "@firebase/firestore";
-import { auth } from "../firebase";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Image from "next/image";
 import NewLinkEdit from "./NewLinkEdit"
-import { ref, uploadBytesResumable, getDownloadURL, deleteObject, listAll } from "firebase/storage"
-import { async } from "@firebase/util";
+import { ref, uploadBytesResumable, getDownloadURL, deleteObject, listAll } from "firebase/storage";
 
 function EditModal() {
     const [user] = useAuthState(auth);
