@@ -9,6 +9,7 @@ function Posts() {
   const [loading, setLoading] = useState(true);
 
 
+
   useEffect(
     () =>
       onSnapshot(
