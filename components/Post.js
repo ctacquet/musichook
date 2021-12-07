@@ -1,17 +1,9 @@
 import {
-  onSnapshot,
-  orderBy,
-  query,
-  collection,
-  setDoc,
-  doc,
-  deleteDoc,
-} from "@firebase/firestore";
-import {
   AnnotationIcon,
   HeartIcon,
   ShareIcon,
   ThumbUpIcon,
+  XIcon
 } from "@heroicons/react/outline";
 import {
   HeartIcon as HeartIconFilled,
@@ -20,10 +12,18 @@ import {
   ShareIcon as ShareIconFilled,
 } from "@heroicons/react/solid";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import { faSpotify }  from '@fortawesome/free-brands-svg-icons';
 
-import { useState, useEffect, useRef } from "react";
+import {
+  onSnapshot,
+  orderBy,
+  query,
+  collection,
+  setDoc,
+  doc,
+  deleteDoc,
+} from "@firebase/firestore";
+import { useState, useEffect } from "react";
 import { auth, db } from "../lib/firebase";
 import Moment from "react-moment";
 import Link from "next/link";
@@ -31,7 +31,8 @@ import { DropdownButton } from "./Dropdown";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Comments from "./Comments";
 import Image from "next/image";
-
+import classNames from "classnames";
+import toast from "react-hot-toast";
 
 function Post({
   id,
@@ -146,8 +147,119 @@ function Post({
 
   useEffect(() => setHasPosted(uid == user?.uid), [user]);  
 
+  const unselectedStyle = "bg-white my-7 border rounded-sm";
+  const selectedStyle = "bg-white my-7 border-4 border-red-500 border-opacity-100 rounded-sm";
+
+  const notify = () => {
+    toast.custom(
+      (t) => (
+        <div className={classNames(["toastWrapper", t.visible ? "visible " : "hidden"])}>
+          <div
+            className={classNames([
+              "notificationWrapper",
+              t.visible ? "top-0" : "top-96",
+            ])}
+          >
+            <div className={"iconWrapper"}>
+              {/* <HiUser /> */}
+              <div className="w-16 border mr-2">
+                <Image
+                  src={coverLink}
+                  className="object-cover z-0"
+                  alt=""
+                  quality={100}
+                  priority="false"
+                  width="100%"
+                  height="100%"
+                  layout="responsive"
+                  objectFit="contain"
+                />
+              </div>
+            </div>
+            <div className={"contentWrapper"}>
+              {spotifyLink && (
+                <Link href={spotifyLink}>
+                  <a target="_blank">
+                    <h1>{artist}</h1>
+                  </a>
+                </Link>
+              )}
+              
+                {spotifyLink && (
+                  <Link href={spotifyLink}>
+                    <a target="_blank">
+                      <p>{title}</p>
+                    </a>
+                  </Link>
+                )}
+              
+            </div>
+            <div className={"closeIcon"} onClick={() => toast.dismiss(t.id)}>
+              <XIcon />
+            </div>
+
+            <div className="flex space-x-4">
+              <div className="space-x-1 items-center">
+                {user && hasLiked ? (
+                  <ThumbUpIconFilled
+                    onClick={likePost}
+                    className="btn text-purple-600 inline-block"
+                  />
+                ) : (
+                  <ThumbUpIcon
+                    onClick={user && likePost}
+                    className="btn inline-block"
+                  />
+                )}
+                {likes.length > 0 && (
+                  <p className="font-bold inline-block">{likes.length}</p>
+                )}
+              </div>
+              <div className="space-x-1 items-center">
+                {(user == null && comments.length > 0 && isCommentOpen) || (user && isCommentOpen) ? (
+                  <AnnotationIconFilled
+                    className="btn inline-block text-purple-600"
+                    onClick={toggleComments}
+                  />
+                ) : (
+                  <AnnotationIcon
+                    className={"btn inline-block"}
+                    onClick={toggleComments}
+                  />
+                )}
+                {comments.length > 0 && (
+                  <p className="font-bold inline-block">{comments.length}</p>
+                )}
+              </div>
+              <div className="space-x-1 items-center">
+                {user && hasShared ? (
+                  <ShareIconFilled
+                    className="btn inline-block text-purple-600"
+                    onClick={sharePost}
+                  />
+                ) : (
+                  <ShareIcon
+                    className="btn inline-block"
+                    onClick={user && sharePost}
+                  />
+                )}
+                {shares.length > 0 && (
+                  <p className="font-bold inline-block">{shares.length}</p>
+                )}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      ),
+      { id: "unique-notification", position: "bottom-center" }
+    );
+    
+  }
+
+
   return (
-    <div className="bg-white my-7 border rounded-sm"  >
+    <div className={unselectedStyle} onClick={notify}  >
       <div className="flex items-start justify-end p-1">
         <DropdownButton postId={id} uid={uid} />
       </div>

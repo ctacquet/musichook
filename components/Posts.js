@@ -4,6 +4,7 @@ import { db } from "../lib/firebase";
 import { useEffect, useState } from "react";
 import ReactLoading from "react-loading";
 
+
 function Posts() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
