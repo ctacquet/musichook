@@ -3,14 +3,16 @@ import { modalStateEditProfile } from "../atoms/modalAtomEditProfile";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useRef, useState, useEffect } from "react";
 import {
-    CameraIcon
+    CameraIcon,
+    TrashIcon
 } from "@heroicons/react/outline";
-import { db, storage, auth } from "../lib/firebase";
-import { updateDoc, doc, onSnapshot } from "@firebase/firestore";
+
+import { db, storage , auth} from "../firebase";
+import { updateDoc, doc, onSnapshot, arrayUnion, collection, deleteDoc, addDoc } from "@firebase/firestore";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Image from "next/image";
-import NewLinkEdit from "./NewLinkEdit"
-import { ref, uploadBytesResumable, getDownloadURL, deleteObject, listAll } from "firebase/storage";
+import { ref, uploadBytesResumable, getDownloadURL, deleteObject, listAll } from "firebase/storage"
+import classNames from "classnames";
 
 function EditModal() {
     const [user] = useAuthState(auth);
@@ -43,18 +45,43 @@ function EditModal() {
     const [imageAsFile, setImageAsFile] = useState('')
     const [imageAsUrl, setImageAsUrl] = useState(allInputs)
 
-    //console.log(imageAsFile)
+
+
+
+    const [currentLinksData, setCurrentLinksData] = useState(null);
+    const [links, setLinks] = useState([]);
+    const linkRef = useRef(null);
+
+    const domainRef = useRef(null);
+    const [newDomain, setDomain] = useState(currentLinksData?.domain);
+    const urlRef = useRef(null);
+    const [newUrl, setUrl] = useState(currentLinksData?.url);
+    const deleteLinkRef = useRef(null);
+    const [isDeleted, setDeleted] = useState(false);
+
+
+    useEffect(
+        () => {
+            if (user) {
+                onSnapshot(
+                    collection(db, "users", user?.uid, "links"),
+                    (snapshot) => {
+                        setLinks(snapshot.docs);
+                    }
+                )
+            }
+        },
+        [db, user]
+    );
+
+
     const handleImageAsFile = (e) => {
         const image = e.target.files[0]
         setImageAsFile(imageFile => (image))
     }
 
 
-    const handleFirebaseUpload = async (e) => {
-        // console.log('start of upload')
 
-
-    }
 
     const uploadData = async (e) => {
         if (loading) return;
@@ -62,6 +89,8 @@ function EditModal() {
         setLoading(true);
 
         const docRef = doc(db, "users", user?.uid);
+        // const docLinksRef = doc(db, "users", user?.uid,"links");
+
 
         if (imageAsFile === '') {
             console.error(`not an image, the image file is a ${typeof (imageAsFile)}`)
@@ -99,8 +128,8 @@ function EditModal() {
                 listAll(listRef)
                     .then((res) => {
                         res.items.forEach((itemRef) => {
-                            // All the items under listRef.
-                            console.log("🚀 ~ file: EditPRofileModal.js ~ line 111 ~ res.items.forEach ~ itemRef.name", itemRef.name)
+                            // All the items under listRef.                     
+                            //console.log("🚀 ~ file: EditPRofileModal.js ~ line 111 ~ res.items.forEach ~ itemRef.name", itemRef.name)
                         });
                         if (res.items.length == 2) {
                             const exImageRef = ref(storage, "/images-user-" + user?.uid + "/" + res.items[1].name);
@@ -113,11 +142,19 @@ function EditModal() {
                         // Uh-oh, an error occurred!
                     });
                 getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+                    // console.log("🚀 ~ file: EditPRofileModal.js ~ line 147 ~ getDownloadURL ~ downloadURL", downloadURL)
+                    // console.log("🚀 ~ file: EditPRofileModal.js ~ line 151 ~ getDownloadURL ~ imageAsUrl.imgUrl", imageAsUrl.imgUrl)
                     //console.log('File available at', downloadURL);
-                    await updateDoc(docRef, {
-                        userImg: downloadURL
-                    });
-                    setImageAsUrl(prevObject => ({ ...prevObject, imgUrl: downloadURL }))
+
+                    if (imageAsUrl.imgUrl != undefined) {
+                        console.log("entré");
+
+                        await updateDoc(docRef, {
+                            userImg: downloadURL
+                        });
+                        setImageAsUrl(prevObject => ({ ...prevObject, imgUrl: downloadURL }))
+                    }
+
                 }).then(() => {
                     setImageAsUrl('');
                 })
@@ -134,9 +171,28 @@ function EditModal() {
 
         });
 
+        if (domainRef.current.value != "" && domainRef.current.value != "") {
+            const docLinksRef = await addDoc(collection(db, "users", user?.uid, "links"), {
+                domain: domainRef.current.value,
+                url: urlRef.current.value
+            })
+        }
+        //si domain null ou vide => pas de upload
+
+
+
         setOpenEdit(false);
         setLoading(false);
+        setDisplayed(false);
     };
+
+
+    const deleteFromLinks = async (e) => {
+        if (isDeleted) {
+            await deleteDoc(doc(db, "users", user?.uid, "links", e.currentTarget.id));
+        }
+    }
+
 
     useEffect(() => {
 
@@ -148,10 +204,24 @@ function EditModal() {
                 setGenre1(doc.data().genres[0]);
                 setGenre2(doc.data().genres[1]);
                 setGenre3(doc.data().genres[2]);
+
+            });
+            onSnapshot(collection(db, "users", user?.uid, "links"), (snapShot) => {
+                setCurrentLinksData(snapShot.docs);
+                setDomain("");
+                setUrl("");
             });
         }
 
     }, [user]);
+
+    const [displayed, setDisplayed] = useState(false);
+
+    const toggleLinks = () => {
+        setDisplayed(!displayed);
+    }
+
+
 
     return (
         <Transition.Root show={openEdit} as={Fragment}>
@@ -197,16 +267,17 @@ function EditModal() {
                                 <div className="bg-white p-8 my-7 border rounded-sm">
                                     <div className="grid grid-cols-3 gap-3 min-w-full items-center  place-items-center  ">
                                         <div className="col-span-1  rounded-full  ">
-                                            <Image
-                                                src={currentUserData?.userImg}
-                                                className="rounded-full "
-                                                alt=""
-                                                width="100%"
-                                                height="100%"
-                                                layout="responsive"
-                                                objectFit="cover"
-                                            />
-                                            {/* <CameraIcon/> */}
+                                            <div className="h-16 w-16">
+                                                <Image
+                                                    src={currentUserData?.userImg}
+                                                    className="rounded-full "
+                                                    alt=""
+                                                    width="100%"
+                                                    height="100%"
+                                                    layout="responsive"
+                                                    objectFit="cover"
+                                                />
+                                            </div>
 
                                             <div className=" w-full items-center justify-center py-5 ">
                                                 <label className=" flex flex-col items-center px-4 py-2 w-full bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-purple-600 hover:text-white ">
@@ -266,10 +337,76 @@ function EditModal() {
                                     </div>
                                 </div>
                                 <p className="">Links :<br />add links to the sites you want to share with your visitors</p>
-                                <button type="button" className="w-64 h-9 text-blue-500 text-left" onClick={() => console.log("ok")}> + ADD LINK </button>
-                                <div className=" ">
-                                    <NewLinkEdit />
+                                <button type="button" className="w-64 h-9 text-blue-500 text-left" onClick={toggleLinks}> + ADD LINK </button>
+
+                                <div className={classNames([displayed ? "grid grid-cols-7 gap-4 bg-white border rounded-lg border-gray-300 p-4 visible " : "hidden"])}>
+                                    <div className="col-span-1 text-center ">
+                                        <p className="text-lg inline-block">Title</p>
+                                    </div>
+                                    <div className="col-span-2 ">
+                                        <select className=" overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1" ref={domainRef} value={newDomain} onChange={(e) => setDomain(e.target.value)} >
+                                            <option value="">--Choose an domain--</option>
+                                            <option value="facebook">Facebook</option>
+                                            <option value="twitter">Twitter</option>
+                                            <option value="instagram">Instagram</option>
+                                            <option value="github">GitHub</option>
+                                        </select>
+
+
+                                    </div>
+                                    <div className="col-span-1  text-center ">
+                                        <p className="text-lg inline-block">URL</p>
+                                    </div>
+                                    <div className="col-span-2 space-x-2">
+                                        <input
+                                            className=" overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1"
+                                            type="text"
+                                            required={displayed}
+                                            placeholder="Type URL here"
+                                            ref={urlRef}
+                                            value={newUrl}
+                                            onChange={(e) => setUrl(e.target.value)}
+                                        />
+                                    </div>
+
                                 </div>
+
+                                <div className="h-40 overflow-y-scroll scrollbar-thumb-black scrollbar-thin my-4">
+                                    {links && links.map((link) => (
+                                        <div className="grid grid-cols-7 gap-4 bg-white border rounded-lg border-gray-300 mb-4 p-4" key={link.id} id={link.id}>
+                                            <div className="col-span-1 text-center ">
+                                                <p className="text-lg inline-block">Title</p>
+                                            </div>
+                                            <div className="col-span-2 ">
+                                                <p
+                                                    className=" overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1">
+                                                    {link.data().domain}
+                                                </p>
+                                            </div>
+                                            <div className="col-span-1  text-center ">
+                                                <p className="text-lg inline-block">URL</p>
+                                            </div>
+                                            <div className="col-span-2 space-x-2">
+                                                <p
+                                                    className=" overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1" >
+                                                    {link.data().url}
+
+                                                </p>
+                                            </div>
+                                            <div className="col-span-1 px-8" id={link.id} ref={deleteLinkRef} onClick={(e) => { deleteFromLinks(e); setDeleted(true); }}  >
+                                                <TrashIcon className="h-8 cursor-pointer" />
+                                            </div>
+                                        </div>
+
+
+                                    )
+                                    )}
+
+                                </div>
+
+
+
+
                                 <div className="w-48 h-16 ml-auto right-0 mt-10" >
                                     <button type="submit" className="flex items-center justify-end flex-1 h-full py-3 pl-14 pr-12 bg-blue-600 border rounded-full ">
                                         <p className="text-xl text-white">Validate</p>
