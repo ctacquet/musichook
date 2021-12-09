@@ -39,7 +39,7 @@ function Caroussel() {
     );
 
     return (
-        <div>
+        <div className="bg-gray-50 rounded-2xl pb-2">
             {
                 users.length > 2 ? (
                     <Slide className="container" {...properties}>

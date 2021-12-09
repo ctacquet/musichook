@@ -4,6 +4,7 @@ import { db, auth } from "../lib/firebase";
 import { useEffect, useState } from "react";
 import ReactLoading from "react-loading";
 import { useAuthState } from "react-firebase-hooks/auth";
+import MainSectionHeader from "./MainSectionHeader";
 
 function Notifications() {
   const [notifications, setNotifications] = useState([]);
@@ -70,9 +71,11 @@ function Notifications() {
           />
         ))
       ) : (
-        <h1 className="text-center mt-4 font-medium text-red-500">
+        <MainSectionHeader>
+          <p className="inline text-gray-500">
           You don't have any notification.
-        </h1>
+          </p>
+        </MainSectionHeader>
       )}
     </>
   );

@@ -5,6 +5,17 @@ import { auth, db } from "../lib/firebase";
 import { useEffect, useState } from "react";
 import ReactLoading from "react-loading";
 import { useAuthState } from "react-firebase-hooks/auth";
+import MainSectionHeader from './MainSectionHeader';
+
+function MainSectionHeaderImpl(){
+  return (
+    <MainSectionHeader>
+      <p className="inline font-normal">Your </p>
+      <p className="inline text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600">favorites </p>
+      <p className="inline font-normal">ordered by addition</p>
+    </MainSectionHeader>
+  );
+}
 
 export default function Favorites() {
   const [favorites, setFavorites] = useState([]);
@@ -30,6 +41,7 @@ export default function Favorites() {
     return (
       <Layout pageTitle="Favorites">
         <section className="col-span-2">
+          <MainSectionHeaderImpl/>
           <div className="h-64">
             <ReactLoading
               type="spin"
@@ -47,34 +59,42 @@ export default function Favorites() {
   return (
     <>
       {loading ? (
-        <div className="h-64">
-          <ReactLoading
-            type="spin"
-            color="black"
-            className="mx-auto flex content-center"
-            width={64}
-            height={"100%"}
-          />
-        </div>
+        <>
+          <MainSectionHeaderImpl/>
+          <div className="h-64">
+            <ReactLoading
+              type="spin"
+              color="black"
+              className="mx-auto flex content-center"
+              width={64}
+              height={"100%"}
+            />
+          </div>
+        </>
       ) : favorites.length != 0 ? (
-        favorites.map((post) => (
-          <Post
-            key={post.id}
-            id={post.id}
-            uid={post.data().uid}
-            username={post.data().username}
-            userImg={post.data().userImg}
-            coverLink={post.data().coverLink}
-            spotifyLink={post.data().spotifyLink}
-            artist={post.data().artist}
-            title={post.data().title}
-            timestamp={post.data().timestamp}
-          />
-        ))
+        <>
+          <MainSectionHeaderImpl/>
+          {favorites.map((post) => (
+            <Post
+              key={post.id}
+              id={post.id}
+              uid={post.data().uid}
+              username={post.data().username}
+              userImg={post.data().userImg}
+              coverLink={post.data().coverLink}
+              spotifyLink={post.data().spotifyLink}
+              artist={post.data().artist}
+              title={post.data().title}
+              timestamp={post.data().timestamp}
+            />
+          ))}
+        </>
       ) : (
-        <h1 className="text-center mt-4 font-medium text-red-500">
-          You have no musics in favorites
-        </h1>
+        <MainSectionHeader>
+          <p className="inline text-gray-500">
+          You have no favorite music at the moment...
+          </p>
+        </MainSectionHeader>
       )}
     </>
   );

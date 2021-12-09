@@ -4,7 +4,6 @@ import {
   UserIcon,
   BellIcon,
   HeartIcon,
-  CalendarIcon,
 } from "@heroicons/react/outline";
 import {
   HomeIcon as HomeIconFilled,
@@ -12,7 +11,6 @@ import {
   UserIcon as UserIconFilled,
   BellIcon as BellIconFilled,
   HeartIcon as HeartIconFilled,
-  CalendarIcon as CalendarIconFilled,
 } from "@heroicons/react/solid";
 import {
   onSnapshot,
@@ -180,30 +178,6 @@ function Menu() {
               </p>
             </a>
           </Link>
-          {/*
-          <Link href="/events">
-          <a
-            className={
-              "navDiv " +
-              (window.location.pathname == "/events" &&
-                "text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600")
-            }
-          >
-            {window.location.pathname == "/events" ? (
-              <CalendarIconFilled className="icon text-red-500" />
-            ) : (
-              <CalendarIcon className="icon" />
-            )}
-            <p
-              className={
-                "menuText " + (window.location.pathname == "/events" && "font-semibold")
-              }
-            >
-              Events
-            </p>
-          </a>
-          </Link>
-          */}
           <div className="flex justify-center">
             <button
               onClick={() => setOpen(true)}

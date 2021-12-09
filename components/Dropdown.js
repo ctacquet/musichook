@@ -42,13 +42,13 @@ function Dropdown({ postId, uid }) {
       <Menu as="div" className="relative inline-block text-left">
         <Menu.Button>
           {hasPosted ? (
-            <button className="flex bg-gradient-to-l from-purple-500 to-red-500 hover:to-purple-800 text-white px-3 py-1 rounded-md shadow-md text-base font-medium ring-2 ring-purple-500 ring-opacity-50 focus:ring-opacity-80">
+            <a className="flex bg-gradient-to-l from-purple-500 to-red-500 hover:from-purple-800 hover:to-purple-800 text-white px-3 py-1 rounded-md shadow-md text-base font-medium ring-2 ring-purple-500 ring-opacity-50 focus:ring-opacity-80 cursor-pointer">
               <DotsHorizontalIcon className="h-5" />
-            </button>
+            </a>
           ) : (
-            <button className="flex bg-purple-600 text-white px-3 py-1 rounded-md shadow-md text-base font-medium ring-2 ring-purple-500 ring-opacity-50">
+            <a className="flex bg-purple-600 hover:bg-purple-800 text-white px-3 py-1 rounded-md shadow-md text-base font-medium ring-2 ring-purple-500 ring-opacity-50 cursor-pointer">
               <DotsHorizontalIcon className="h-5" />
-            </button>
+            </a>
           )}
         </Menu.Button>
         <Transition
@@ -62,9 +62,9 @@ function Dropdown({ postId, uid }) {
         >
           <Menu.Items className="absolute right-0 w-auto mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="px-1 py-1">
-              <Menu.Item disabled>
+              <Menu.Item>
                 {({ active }) => (
-                  <MyLink active={active} disabled href="/details">
+                  <MyLink active={active} href={`/posts/${postId}`}>
                     <InformationCircleIcon className="w-5 h-5 mr-2"/>
                     Details
                   </MyLink>
@@ -77,7 +77,7 @@ function Dropdown({ postId, uid }) {
                   <a
                     className={`${
                       active && "bg-gray-100 shadow-md font-bold"
-                    } text-red-500 group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                    } text-red-500 group flex rounded-md items-center w-full px-2 py-2 text-sm cursor-pointer`}
                     onClick={deletePost}
                   >
                     <TrashIcon className="w-5 h-5 mr-2"/>
