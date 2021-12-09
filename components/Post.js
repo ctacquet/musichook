@@ -169,9 +169,8 @@ function Post({
               />)}
             </div>
             <div>
-              <p className="font-bold overflow-ellipsis overflow-hidden">{username}</p>
               <Link href={`/profiles/${uid}`}>
-                <a>First comment</a>
+                <p className="font-bold overflow-ellipsis overflow-hidden">{username}</p>
               </Link>
             </div>
             <Moment fromNow>

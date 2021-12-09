@@ -195,7 +195,6 @@ function ProfileCard() {
                         {currentUser && (
                             <div className="col-span-1 w-24 rounded-full   ">
                                 <Image
-                                    //src={user.photoURL}
                                     src={currentUser?.userImg}
                                     className="rounded-full "
                                     alt=""
