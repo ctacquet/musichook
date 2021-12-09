@@ -39,21 +39,6 @@ function Comments({ id, comments, setComments, isCommentOpen }) {
         onClick={handleClick}
         className="transition-height ease mt-2 text-gray-600 overflow-hidden duration-300 border-t"
       >
-        {comments.length > 0 && (
-          <div>
-            <div className="ml-2 mt-1">
-              {comments.map((comment) => (
-                <Comment 
-                key={comment.id}
-                id={comment.id}
-                uid={comment.data().uid} 
-                comment={comment.data().comment}
-                date={comment.data().timestamp?.toDate()}
-                />
-              ))}
-            </div>
-          </div>
-        )}
         {user && (
           <form className="flex items-center p-4">
             <ChatIcon className="h-7 text-black" />
@@ -76,6 +61,21 @@ function Comments({ id, comments, setComments, isCommentOpen }) {
               </div>
             </button>
           </form>
+        )}
+        {comments.length > 0 && (
+          <div className="border-t">
+            <div className="ml-2 mt-1">
+              {comments.map((comment) => (
+                <Comment 
+                key={comment.id}
+                id={comment.id}
+                uid={comment.data().uid} 
+                comment={comment.data().comment}
+                date={comment.data().timestamp?.toDate()}
+                />
+              ))}
+            </div>
+          </div>
         )}
       </div>
     </>

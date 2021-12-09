@@ -13,8 +13,8 @@ import {
   ShareIcon as ShareIconFilled,
 } from "@heroicons/react/solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpotify } from "@fortawesome/free-brands-svg-icons";
-
+import { faSpotify, faDeezer } from "@fortawesome/free-brands-svg-icons";
+import { faRetweet } from "@fortawesome/free-solid-svg-icons";
 import {
   onSnapshot,
   orderBy,
@@ -41,6 +41,7 @@ function Post({
   uid,
   coverLink,
   spotifyLink,
+  deezerLink,
   artist,
   title,
   songDate,
@@ -184,48 +185,44 @@ function Post({
               t.visible ? "top-0" : "top-96",
             ])}
           >
-            <div className={"iconWrapper"}>
-              <div className="w-16 border mr-2">
-                <Image
-                  src={coverLink}
-                  className="object-cover z-0"
-                  alt=""
-                  quality={100}
-                  priority="false"
-                  width="100%"
-                  height="100%"
-                  layout="responsive"
-                  objectFit="contain"
-                />
+            <Link href={spotifyLink}>
+              <div className="flex border rounded-lg shadow-xl p-2 cursor-pointer">
+                {coverLink && (
+                <div className="iconWrapper">
+                  <div className="w-16 border">
+                    <Image
+                      src={coverLink}
+                      className="object-cover z-0"
+                      alt=""
+                      quality={100}
+                      priority="false"
+                      width="100%"
+                      height="100%"
+                      layout="responsive"
+                      objectFit="contain"
+                    />
+                  </div>
+                </div>)}
+                <div className="contentWrapper">
+                      <a>
+                        <h1>{artist}</h1>
+                      </a>
+                      <a>
+                        <p>{title}</p>
+                      </a>
+                </div>
               </div>
-            </div>
-            <div className={"contentWrapper"}>
-              {spotifyLink && (
-                <Link href={spotifyLink}>
-                  <a target="_blank">
-                    <h1>{artist}</h1>
-                  </a>
-                </Link>
-              )}
-
-              {spotifyLink && (
-                <Link href={spotifyLink}>
-                  <a target="_blank">
-                    <p>{title}</p>
-                  </a>
-                </Link>
-              )}
-            </div>
+            </Link>
             <div className="closeIcon" onClick={() => toast.dismiss(t.id)}>
               <XIcon className="btn h-4" />
             </div>
 
-            <div className="flex space-x-4">
-              <div className="space-x-1 items-center">
+            <div className="flex flex-col lg:flex-row space-x-4">
+              <div className="space-x-1 ml-4">
                 {user && hasLiked ? (
                   <ThumbUpIconFilled
                     onClick={likePost}
-                    className="btn text-purple-600 inline-block"
+                    className="text-purple-600 btn inline-block"
                   />
                 ) : (
                   <ThumbUpIcon
@@ -237,15 +234,17 @@ function Post({
                   <p className="font-bold inline-block">{likes.length}</p>
                 )}
               </div>
-              <div className="space-x-1 items-center">
+              <div className="space-x-1 mx-auto">
                 {user && hasShared ? (
-                  <ShareIconFilled
-                    className="btn inline-block text-purple-600"
+                  <FontAwesomeIcon
+                    icon={faRetweet}
+                    className="text-purple-600 btn inline-block"
                     onClick={sharePost}
                   />
                 ) : (
-                  <ShareIcon
-                    className="btn inline-block"
+                  <FontAwesomeIcon
+                    icon={faRetweet}
+                    className="btn inline-block h-7 w-7"
                     onClick={user && sharePost}
                   />
                 )}
@@ -253,11 +252,11 @@ function Post({
                   <p className="font-bold inline-block">{shares.length}</p>
                 )}
               </div>
-              <div className="space-x-1 items-center">
+              <div className="space-x-1 mx-auto">
                   <Link href={`/posts/${id}`}>
-                    <InformationCircleIcon
-                      className={"btn inline-block text-purple-600"}
-                    />
+                    <a>
+                      <InformationCircleIcon className="btn inline-block hover:text-purple-600"/>
+                    </a>
                   </Link>
               </div>
             </div>
@@ -336,100 +335,102 @@ function Post({
         </div>
 
         {/* Streaming platforms buttons */}
-        <div className="mt-6 lg:mt-0 flex flex-grow justify-end pr-2">
-          {spotifyLink && (
-            <div className="flex">
-              <Link href={spotifyLink}>
-                <a target="_blank">
-                  <FontAwesomeIcon
-                    icon={faSpotify}
-                    className="h-8 text-green-500 btn"
-                  />
-                </a>
-              </Link>
+        <div className="mt-6 lg:mt-0 flex flex-grow justify-center lg:justify-end pr-2">
+          <div className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 p-0.5 rounded-lg">
+            <div className="rounded-md shadow-xl p-1 bg-white">
+              <p className="font-semibold p-2 pt-0">Listen on</p>
+              {spotifyLink && (
+                <div className="flex place-content-center">
+                  <Link href={spotifyLink}>
+                    <a target="_blank">
+                      <FontAwesomeIcon
+                        icon={faSpotify}
+                        className="h-8 text-green-500 btn"
+                      />
+                    </a>
+                  </Link>
+                </div>
+              )}
+              {deezerLink && (
+                <div className="flex place-content-center pt-2">
+                  <Link href={deezerLink}>
+                    <a target="_blank" className="bg-gradient-to-tr from-amber-900 via-fuchsia-600 to-blueGray-800 rounded-full h-8 w-8 btn">
+                      <FontAwesomeIcon icon={faDeezer} className="w-6 h-6 text-white mx-auto mt-1" />
+                    </a>
+                  </Link>
+                </div>
+              )}
             </div>
-          )}
-          {/* 
-            //If we want to add link just do like that and replace spotify by the platform we want
-            spotifyLink && (
-              <div className="flex pr-3">
-                <Link href={spotifyLink}>
-                  <a target="_blank">
-                    <FontAwesomeIcon icon={faSpotify} className="h-8 text-green-500 btn" />
-                  </a>
-                </Link>
-              </div>
-            )
-            */}
+          </div>
         </div>
       </div>
 
       {/* Buttons */}
-      {user && (
-        <div className="flex justify-between p-4">
-          <div className="flex space-x-4">
-            {user && hasFaved ? (
-              <HeartIconFilled
-                onClick={favPost}
-                className="btn text-red-600 inline-block"
+      <div className="flex justify-between p-4">
+        <div className="flex space-x-4">
+          {user && hasFaved ? (
+            <HeartIconFilled
+              onClick={favPost}
+              className="btn text-red-600 inline-block"
+            />
+          ) : (
+            <HeartIcon onClick={user && favPost} className="btn inline-block" />
+          )}
+        </div>
+        <div className="flex space-x-4">
+          <div className="space-x-1 items-center">
+            {user && hasLiked ? (
+              <ThumbUpIconFilled
+                onClick={likePost}
+                className="btn text-purple-600 inline-block"
               />
             ) : (
-              <HeartIcon onClick={user && favPost} className="btn inline-block" />
+              <ThumbUpIcon
+                onClick={user && likePost}
+                className="btn inline-block"
+              />
+            )}
+            {likes.length > 0 && (
+              <p className="font-bold inline-block">{likes.length}</p>
             )}
           </div>
-          <div className="flex space-x-4">
-            <div className="space-x-1 items-center">
-              {user && hasLiked ? (
-                <ThumbUpIconFilled
-                  onClick={likePost}
-                  className="btn text-purple-600 inline-block"
-                />
-              ) : (
-                <ThumbUpIcon
-                  onClick={user && likePost}
-                  className="btn inline-block"
-                />
-              )}
-              {likes.length > 0 && (
-                <p className="font-bold inline-block">{likes.length}</p>
-              )}
-            </div>
-            <div className="space-x-1 items-center">
-              {(user == null && comments.length > 0 && isCommentOpen) ||
-              (user && isCommentOpen) ? (
-                <AnnotationIconFilled
-                  className="btn inline-block text-purple-600"
-                  onClick={toggleComments}
-                />
-              ) : (
-                <AnnotationIcon
-                  className={"btn inline-block"}
-                  onClick={toggleComments}
-                />
-              )}
-              {comments.length > 0 && (
-                <p className="font-bold inline-block">{comments.length}</p>
-              )}
-            </div>
-            <div className="space-x-1 items-center">
-              {user && hasShared ? (
-                <ShareIconFilled
-                  className="btn inline-block text-purple-600"
-                  onClick={sharePost}
-                />
-              ) : (
-                <ShareIcon
-                  className="btn inline-block"
-                  onClick={user && sharePost}
-                />
-              )}
-              {shares.length > 0 && (
-                <p className="font-bold inline-block">{shares.length}</p>
-              )}
-            </div>
+          <div className="space-x-1 items-center">
+            {(user == null && comments.length > 0 && isCommentOpen) ||
+            (user && isCommentOpen) ? (
+              <AnnotationIconFilled
+                className="btn inline-block text-purple-600"
+                onClick={toggleComments}
+              />
+            ) : (
+              <AnnotationIcon
+                className={"btn inline-block"}
+                onClick={toggleComments}
+              />
+            )}
+            {comments.length > 0 && (
+              <p className="font-bold inline-block">{comments.length}</p>
+            )}
+          </div>
+          <div className="space-x-1 items-center">
+            {user && hasShared ? (
+              <FontAwesomeIcon
+                icon={faRetweet}
+                className="text-purple-600 btn inline-block"
+                onClick={sharePost}
+              />
+            ) : (
+              <FontAwesomeIcon
+                icon={faRetweet}
+                className="btn inline-block h-7 w-7"
+                onClick={user && sharePost}
+              />
+            )}
+            {shares.length > 0 && (
+              <p className="font-bold inline-block">{shares.length}</p>
+            )}
           </div>
         </div>
-      )}
+      </div>
 
       <Comments
         isCommentOpen={isCommentOpen}

@@ -24,8 +24,7 @@ function Modal() {
     e.preventDefault();
 
     setLoading(true);
-
-    const docRef = await addDoc(collection(db, "posts"), {
+    await addDoc(collection(db, "posts"), {
       uid: user.uid,
       search: track.search,
       artist: track.artist,

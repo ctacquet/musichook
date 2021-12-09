@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import ReactLoading from "react-loading";
 import { useAuthState } from "react-firebase-hooks/auth";
 import MainSectionHeader from './MainSectionHeader';
+import { useRouter } from 'next/router';
 
 function MainSectionHeaderImpl(){
   return (
@@ -21,8 +22,10 @@ export default function Favorites() {
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, loadingUser, error] = useAuthState(auth);
+  const router = useRouter();
 
   useEffect(() => {
+    if(!loadingUser && !user) router.push("/");
     if(user){
       onSnapshot(
         query(
@@ -35,7 +38,7 @@ export default function Favorites() {
         }
       )
     }
-  }, [db, user]);
+  }, [db, user, loadingUser]);
 
   if (loadingUser) {
     return (

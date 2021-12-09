@@ -1,12 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { searchTracks } from "../../lib/spotify";
+import { searchTracks as searchSpotifyTracks } from "../../lib/spotify";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.query.q) {
     const q = req.query.q;
-    const response = await searchTracks(q);
-    if (response) {
-      const tracks = response.tracks.items.map((track, index) => ({
+    const responseSpotify = await searchSpotifyTracks(q);
+    if (responseSpotify) {
+      const tracks = responseSpotify.tracks.items.map((track, index) => ({
         id: index,
         title: track.name,
         search: q,
@@ -23,7 +23,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     } else
       return res
         .status(500)
-        .send({ error: "Failed to fetch data, response: [" + response + "]" });
+        .send({ error: "Failed to fetch data, response: [" + responseSpotify + "]" });
   } else
     return res.status(500).send({ error: "No query q params (?q= null )" });
 };

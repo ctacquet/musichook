@@ -5,13 +5,16 @@ import { useEffect, useState } from "react";
 import ReactLoading from "react-loading";
 import { useAuthState } from "react-firebase-hooks/auth";
 import MainSectionHeader from "./MainSectionHeader";
+import { useRouter } from 'next/router';
 
 function Notifications() {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, loadingUser, error] = useAuthState(auth);
+  const router = useRouter();
 
   useEffect(() => {
+    if(!loadingUser && !user) router.push("/");
     if (loadingUser) {
       return (
         <div className="h-64">

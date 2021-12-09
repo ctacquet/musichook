@@ -180,7 +180,7 @@ function Menu() {
           <div className="flex justify-center">
             <button
               onClick={() => setOpen(true)}
-              className="mt-3 p-1 bg-gradient-to-l from-purple-500 to-red-500 rounded-lg shadow-xl text-white w-6/12 min-w-max"
+              className="mt-3 p-1 bg-gradient-to-l from-purple-500 to-red-500 rounded-lg shadow-xl hover:to-purple-700 text-white w-6/12 min-w-max"
             >
               Post
             </button>

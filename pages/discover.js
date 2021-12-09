@@ -1,8 +1,19 @@
 import Layout from "../components/Layout";
 import Caroussel from "../components/Caroussel";
 import MainSectionHeader from "../components/MainSectionHeader";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../lib/firebase";
+import { useEffect } from "react";
+import { useRouter } from 'next/router';
 
 export default function Discover() {
+  const [user, loadingUser, error] = useAuthState(auth);
+  const router = useRouter();
+
+  useEffect(() => {
+    if(!loadingUser && !user) router.push("/");
+  }, [user, loadingUser]);
+
   return (
     <Layout pageTitle="Discover">
       <section className="col-span-2">

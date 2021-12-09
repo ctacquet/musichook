@@ -44,6 +44,7 @@ function Posts() {
           uid={post.data().uid}
           coverLink={post.data().coverLink}
           spotifyLink={post.data().spotifyLink}
+          deezerLink={post.data()?.deezerLink}
           artist={post.data().artist}
           title={post.data().title}
           songDate={post.data().songDate}

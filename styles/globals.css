@@ -67,7 +67,7 @@
     }
 
     .notificationWrapper {
-        @apply flex flex-row items-center justify-between w-full h-auto bg-white px-4 py-6 shadow-2xl hover:shadow-none transform-gpu translate-y-0  rounded-lg relative transition-all duration-500 ease-in-out mr-10 ;
+        @apply flex flex-row items-center justify-between w-full h-auto bg-white px-4 py-6 shadow-2xl hover:shadow-none transform-gpu translate-y-0  rounded-lg relative transition-all duration-500 ease-in-out mr-4 ;
       }
       
       .iconWrapper {
@@ -75,7 +75,7 @@
       }
       
       .contentWrapper {
-        @apply flex flex-col items-start justify-center ml-4 cursor-default;
+        @apply flex flex-col items-start justify-center ml-4;
       }
       
       .contentWrapper h1 {
