@@ -21,7 +21,7 @@ import {
 } from "@heroicons/react/solid";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
-import { faSpotify }  from '@fortawesome/free-brands-svg-icons';
+import { faSpotify } from '@fortawesome/free-brands-svg-icons';
 
 import { useState, useEffect, useRef } from "react";
 import { auth, db } from "../lib/firebase";
@@ -31,6 +31,7 @@ import { DropdownButton } from "./Dropdown";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Comments from "./Comments";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 
 function Post({
@@ -144,7 +145,7 @@ function Post({
     [shares, user]
   );
 
-  useEffect(() => setHasPosted(uid == user?.uid), [user]);  
+  useEffect(() => setHasPosted(uid == user?.uid), [user]);
 
   return (
     <div className="bg-white my-7 border rounded-sm"  >
@@ -169,6 +170,9 @@ function Post({
             </div>
             <div>
               <p className="font-bold overflow-ellipsis overflow-hidden">{username}</p>
+              <Link href={`/profiles/${uid}`}>
+                <a>First comment</a>
+              </Link>
             </div>
             <Moment fromNow>
               {timestamp?.toDate()}
@@ -197,13 +201,13 @@ function Post({
         </div>
 
         <div className="flex flex-1">
-            {spotifyLink && (
-              <Link href={spotifyLink}>
-                <a target="_blank" className="flex w-full justify-end pr-3">
-                  <FontAwesomeIcon icon={faSpotify} className="h-8 text-green-500 btn" />
-                </a>
-              </Link>
-            )}
+          {spotifyLink && (
+            <Link href={spotifyLink}>
+              <a target="_blank" className="flex w-full justify-end pr-3">
+                <FontAwesomeIcon icon={faSpotify} className="h-8 text-green-500 btn" />
+              </a>
+            </Link>
+          )}
         </div>
       </div>
 
