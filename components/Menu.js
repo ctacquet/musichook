@@ -12,17 +12,13 @@ import {
   BellIcon as BellIconFilled,
   HeartIcon as HeartIconFilled,
 } from "@heroicons/react/solid";
-import {
-  onSnapshot,
-  query,
-  collection,
-} from "@firebase/firestore";
+import { onSnapshot, query, collection, where } from "@firebase/firestore";
 import { useRecoilState } from "recoil";
 import { modalState } from "../atoms/modalAtom";
 import { auth, db } from "../lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Link from "next/link";
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 function Menu() {
   const [user] = useAuthState(auth);
@@ -32,7 +28,10 @@ function Menu() {
   useEffect(() => {
     if (user) {
       onSnapshot(
-        query(collection(db, "users", user.uid, "notifications")),
+        query(
+          collection(db, "users", user.uid, "notifications"),
+          where("seen", "==", false)
+        ),
         (snapshot) => {
           setLength(snapshot.size);
         }
@@ -102,23 +101,23 @@ function Menu() {
             >
               {window.location.pathname == "/notifications" ? (
                 <div className="static">
-                {user && length > 0 && (
-                <span className="absolute pl-4 h-3 w-3">
-                  <span className="animate-ping-slow absolute inline-flex h-3 w-3 rounded-full bg-purple-400 opacity-75"></span>
-                  <span className="absolute inline-flex rounded-full h-3 w-3 bg-purple-500"></span>
-                </span>
-                )}
-                  <BellIconFilled className="icon text-red-500"/>
+                  {user && length > 0 && (
+                    <span className="absolute pl-4 h-3 w-3">
+                      <span className="animate-ping-slow absolute inline-flex h-3 w-3 rounded-full bg-purple-400 opacity-75"></span>
+                      <span className="absolute inline-flex rounded-full h-3 w-3 bg-purple-500"></span>
+                    </span>
+                  )}
+                  <BellIconFilled className="icon text-red-500" />
                 </div>
               ) : (
                 <div className="static">
-                {user && length > 0 && (
-                <span className="absolute pl-4 h-3 w-3">
-                  <span className="animate-ping-slow absolute inline-flex h-3 w-3 rounded-full bg-red-400 opacity-75"></span>
-                  <span className="absolute inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-                </span>
-                )}
-                  <BellIcon className="icon"/>
+                  {user && length > 0 && (
+                    <span className="absolute pl-4 h-3 w-3">
+                      <span className="animate-ping-slow absolute inline-flex h-3 w-3 rounded-full bg-red-400 opacity-75"></span>
+                      <span className="absolute inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                    </span>
+                  )}
+                  <BellIcon className="icon" />
                 </div>
               )}
               <p

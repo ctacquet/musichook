@@ -1,7 +1,7 @@
 import { getDoc, onSnapshot, doc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import Layout from "../../components/Layout";
-import Post from "../../components/Post";
+import PostDetailsComponent from "../../components/PostDetails";
 import { useState, useEffect } from "react";
 import { db } from "../../lib/firebase";
 import ReactLoading from "react-loading";
@@ -40,11 +40,9 @@ const PostDetails = () => {
                 <MainSectionHeader>
                     Details of post
                 </MainSectionHeader>
-                <Post
+                <PostDetailsComponent
                 id={id}
                 uid={post.uid}
-                username={post.username}
-                userImg={post.userImg}
                 coverLink={post.coverLink}
                 spotifyLink={post.spotifyLink}
                 artist={post.artist}

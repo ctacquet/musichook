@@ -29,7 +29,6 @@ function Caroussel() {
                     query(collection(db, "users"), where("uid", "!=", currentUser?.uid)),
                     (snapshot) => {
                         setUsers(snapshot.docs);
-                        console.log(snapshot.docs)
                     }
                 )
             }

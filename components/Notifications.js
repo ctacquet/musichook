@@ -24,8 +24,7 @@ function Notifications() {
           />
         </div>
       );
-    }
-    if (user) {
+    } else if (user) {
       onSnapshot(
         query(
           collection(db, "users", user.uid, "notifications"),
@@ -35,10 +34,9 @@ function Notifications() {
           setNotifications(snapshot.docs);
           setLoading(false);
         }
-      ),
-        [db];
+      );
     }
-  });
+  }, [db, loadingUser, user]);
 
   return (
     <>
@@ -58,8 +56,6 @@ function Notifications() {
             key={notification.id}
             id={notification.id}
             uid={notification.data().uid}
-            username={notification.data().username}
-            userImg={notification.data().userImg}
             coverLink={notification.data().coverLink}
             artist={notification.data().artist}
             title={notification.data().title}

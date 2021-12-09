@@ -5,10 +5,9 @@ import {
   collection,
   addDoc,
 } from "@firebase/firestore";
-import { ChatIcon, PaperAirplaneIcon, ReplyIcon } from "@heroicons/react/outline";
+import { ChatIcon, ReplyIcon } from "@heroicons/react/outline";
 import { useAuthState } from "react-firebase-hooks/auth";
-import Moment from "react-moment";
-import Image from "next/image";
+import Comment from "./Comment";
 
 function Comments({ id, comments, setComments, isCommentOpen }) {
   const [user] = useAuthState(auth);
@@ -27,10 +26,13 @@ function Comments({ id, comments, setComments, isCommentOpen }) {
 
     await addDoc(collection(db, "posts", id, "comments"), {
       comment: commentToSend,
-      username: user.displayName,
-      userImg: user.photoURL,
+      uid: user.uid,
       timestamp: serverTimestamp(),
     });
+  };
+
+  const handleClick = (e) => {
+    e.stopPropagation();
   };
 
   return (
@@ -39,36 +41,20 @@ function Comments({ id, comments, setComments, isCommentOpen }) {
         ref={ref}
         aria-hidden={!isCommentOpen}
         style={inlineStyle}
+        onClick={handleClick}
         className="transition-height ease mt-2 text-gray-600 overflow-hidden duration-300 border-t"
       >
         {comments.length > 0 && (
           <div className="h-20 overflow-y-scroll scrollbar-thumb-black scrollbar-thin border-b align">
             <div className="ml-2 mt-1">
               {comments.map((comment) => (
-                <div
-                  key={comment.id}
-                  className="flex items-center space-x-2 mb-3 last:mb-1"
-                >
-                  <div className="w-7">
-                    <Image
-                      className="rounded-full"
-                      src={comment.data().userImg}
-                      alt=""
-                      width="100%"
-                      height="100%"
-                      layout="responsive"
-                      objectFit="contain"
-                    />
-                  </div>
-                  <p className="text-sm flex-1">
-                    <span className="font-bold">{comment.data().username}</span>{" "}
-                    {comment.data().comment}
-                  </p>
-
-                  <Moment fromNow className="pr-5 text-xs">
-                    {comment.data().timestamp?.toDate()}
-                  </Moment>
-                </div>
+                <Comment 
+                key={comment.id}
+                id={comment.id}
+                uid={comment.data().uid} 
+                comment={comment.data().comment}
+                date={comment.data().timestamp?.toDate()}
+                />
               ))}
             </div>
           </div>

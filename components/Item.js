@@ -25,7 +25,7 @@ function Item({ data }) {
                 {
                     data.username ? (
                         <h1 className="text-lg text-center font-semibold">
-                            {/*Destructerz*/}{data.username}
+                            {data.username}
                         </h1>
                     ) : (
                         <h1 className="text-lg text-center font-semibold text-gray-600 text-opacity-25 ">

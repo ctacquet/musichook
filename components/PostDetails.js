@@ -55,7 +55,6 @@ function Post({
   const [hasLiked, setHasLiked] = useState(false);
   const [hasFaved, setHasFaved] = useState(false);
   const [hasShared, setHasShared] = useState(false);
-  const [isCommentOpen, setCommentIsOpen] = useState(false);
 
   useEffect(
     () =>
@@ -64,15 +63,6 @@ function Post({
       ),
     [uid]
   );
-
-  // const unselectedStyle = "bg-white my-7 border rounded-sm";
-  // const selectedStyle = "bg-white my-7 border-4 border-red-500 border-opacity-100 rounded-sm";
-
-  const toggleComments = (e) => {
-    e.stopPropagation();
-
-    setCommentIsOpen(!isCommentOpen);
-  };
 
   const likePost = async (e) => {
     e.stopPropagation();
@@ -393,18 +383,9 @@ function Post({
               )}
             </div>
             <div className="space-x-1 items-center">
-              {(user == null && comments.length > 0 && isCommentOpen) ||
-              (user && isCommentOpen) ? (
-                <AnnotationIconFilled
-                  className="btn inline-block text-purple-600"
-                  onClick={toggleComments}
-                />
-              ) : (
-                <AnnotationIcon
-                  className={"btn inline-block"}
-                  onClick={toggleComments}
-                />
-              )}
+              <AnnotationIconFilled
+                className="h-7 transition-all duration-150 ease-out select-none inline-block text-purple-600"
+              />
               {comments.length > 0 && (
                 <p className="font-bold inline-block">{comments.length}</p>
               )}
@@ -430,7 +411,7 @@ function Post({
       )}
 
       <Comments
-        isCommentOpen={isCommentOpen}
+        isCommentOpen={true}
         comments={comments}
         setComments={setComments}
         id={id}

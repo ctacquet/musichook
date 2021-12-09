@@ -19,17 +19,15 @@ import {
   QuestionMarkCircleIcon,
 } from "@heroicons/react/solid";
 import { auth, db } from "../../lib/firebase";
-import { onSnapshot, query, collection } from "@firebase/firestore";
+import { onSnapshot, query, collection, where } from "@firebase/firestore";
 import { useState, useEffect, Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import MiniProfile from "../MiniProfile";
 
 function TopBar({ pageTitle }) {
-  const router = useRouter();
   const [user] = useAuthState(auth);
   const [icon, setIcon] = useState("");
   const [length, setLength] = useState(0);
@@ -37,7 +35,8 @@ function TopBar({ pageTitle }) {
   useEffect(() => {
     if (user) {
       onSnapshot(
-        query(collection(db, "users", user.uid, "notifications")),
+        query(collection(db, "users", user.uid, "notifications"),
+        where("seen", "==", false)),
         (snapshot) => {
           setLength(snapshot.size);
         }
@@ -102,7 +101,7 @@ function TopBar({ pageTitle }) {
         {/* Logo and text for large device */}
         <Link href="/">
           <div className="hidden lg:inline-block cursor-pointer">
-            <div className="cursor-pointer flex">
+            <div className="flex">
               <div>
                 <Image
                   src="/icon.png"
@@ -119,7 +118,7 @@ function TopBar({ pageTitle }) {
         </Link>
         {/* Only logo for small device */}
         <Link href="/">
-          <div className="flex lg:hidden">
+          <div className="flex lg:hidden cursor-pointer">
             {" "}
             <Image src="/icon.png" width="40" height="40" objectFit="contain" />
           </div>

@@ -26,9 +26,7 @@ function Modal() {
     setLoading(true);
 
     const docRef = await addDoc(collection(db, "posts"), {
-      username: user.displayName,
       uid: user.uid,
-      userImg: user.photoURL,
       search: track.search,
       artist: track.artist,
       title: track.title,
