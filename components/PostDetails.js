@@ -31,7 +31,7 @@ import Moment from "react-moment";
 import Link from "next/link";
 import Dropdown from "./Dropdown";
 import { useAuthState } from "react-firebase-hooks/auth";
-import Comments from "./Comments";
+import AllComments from "./AllComments";
 import Image from "next/image";
 import classNames from "classnames";
 import toast from "react-hot-toast";
@@ -410,7 +410,7 @@ function Post({
         </div>
       )}
 
-      <Comments
+      <AllComments
         isCommentOpen={true}
         comments={comments}
         setComments={setComments}

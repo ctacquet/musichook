@@ -7,9 +7,10 @@ import Moment from "react-moment";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { onSnapshot, doc, updateDoc } from "@firebase/firestore";
-import { db } from "../lib/firebase";
+import { db, auth } from "../lib/firebase";
 import Link from "next/link";
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 class MyLink extends React.Component {
   render () {
@@ -41,6 +42,7 @@ function Notification({
   timestamp,
 }) {
   const [userWhoNotified, setUserWhoNotified] = useState(null);
+  const [user] = useAuthState(auth);
 
   useEffect(
     () =>
@@ -51,8 +53,8 @@ function Notification({
   );
 
   const updateSeen = async () => {
-    if (!seen) {
-      await updateDoc(doc(db, "users", uid, "notifications", id), {
+    if (!seen && user) {
+      await updateDoc(doc(db, "users", user.uid, "notifications", id), {
         seen: true,
       });
     }
