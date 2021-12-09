@@ -278,7 +278,8 @@ function Post({
       {/* Post */}
       <div className="flex flex-col items-left lg:items-center pb-5 lg:flex-row">
         {/* User and Date */}
-        <div className="lg:w-48 px-5">
+        <Link href={`/profiles/${uid}`}>
+        <div className="lg:w-48 px-5 cursor-pointer">
           <div className="flex space-x-4 lg:space-x-0 lg:flex-col pb-3 lg:pb-0 border-b lg:border-b-0 lg:border-r border-gray-300 justify-center text-left lg:text-center content-left lg:content-center">
             <div className="border p-1 w-16 mx-0 lg:mx-auto rounded-full content-center">
               {userWhoPosted && (
@@ -301,6 +302,7 @@ function Post({
             <Moment fromNow className="my-auto">{timestamp?.toDate()}</Moment>
           </div>
         </div>
+        </Link>
         {/* Cover, Artist, Title and Album date */}
         <div className="pt-3 lg:pt-0 pl-6 lg:pl-0 w-64 h-24">
           <div className="grid grid-cols-2">

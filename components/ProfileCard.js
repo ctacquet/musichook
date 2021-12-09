@@ -95,13 +95,8 @@ function ProfileCard() {
                 //setIsFollowing(!isfollowing);
             }
         }
-        //console.log("🚀 ~ file: ProfileCard.js ~ line 61 ~ handleFollow ~ isfollowing", followed)
-
-
         setLoading(false);
     }
-
-
 
     useEffect(
         () => {
@@ -201,7 +196,7 @@ function ProfileCard() {
                                     width="100%"
                                     height="100%"
                                     layout="responsive"
-                                    objectFit="fill"
+                                    objectFit="cover"
                                     priority="true"
                                 />
                                 {
