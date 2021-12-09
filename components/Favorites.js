@@ -12,24 +12,7 @@ export default function Favorites() {
   const [user, loadingUser, error] = useAuthState(auth);
 
   useEffect(() => {
-    if (loadingUser) {
-      return (
-        <Layout pageTitle="Favorites">
-          <section className="col-span-2">
-            <div className="h-64">
-              <ReactLoading
-                type="spin"
-                color="black"
-                className="mx-auto flex content-center"
-                width={64}
-                height={"100%"}
-              />
-            </div>
-          </section>
-        </Layout>
-      );
-    }
-    if (user) {
+    if(user){
       onSnapshot(
         query(
           collection(db, "users", user.uid, "favorites"),
@@ -39,11 +22,28 @@ export default function Favorites() {
           setFavorites(snapshot.docs);
           setLoading(false);
         }
-      ),
-        [db];
+      )
     }
-  });
+  }, [db, user]);
 
+  if (loadingUser) {
+    return (
+      <Layout pageTitle="Favorites">
+        <section className="col-span-2">
+          <div className="h-64">
+            <ReactLoading
+              type="spin"
+              color="black"
+              className="mx-auto flex content-center"
+              width={64}
+              height={"100%"}
+            />
+          </div>
+        </section>
+      </Layout>
+    );
+  }
+  
   return (
     <>
       {loading ? (

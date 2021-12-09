@@ -69,8 +69,7 @@ function TopBar({ pageTitle }) {
   }, [pageTitle]);
 
   return (
-    <div className="sticky top-0 z-10">
-      <header className="grid grid-cols-4 gap-4 justify-between items-center bg-white p-4 shadow-sm border">
+      <div className="grid grid-cols-4 gap-4 justify-between items-center bg-white p-4 shadow-sm border">
         {/* Left - Logo */}
         <div className="col-span-1 text-center">
           {/* Logo and text for large device */}
@@ -121,8 +120,7 @@ function TopBar({ pageTitle }) {
             />
           </div>
         </div>
-      </header>
-    </div>
+      </div>
   );
 }
 
