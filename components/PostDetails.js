@@ -284,7 +284,7 @@ function Post({
               )}
             </div>
             <div className="my-auto">
-              <p className="font-bold overflow-ellipsis overflow-hidden">
+              <p className="font-bold text-ellipsis overflow-hidden">
                 {userWhoPosted?.username}
               </p>
             </div>
@@ -324,7 +324,7 @@ function Post({
         </div>
 
         {/* Streaming platforms buttons */}
-        <div className="mt-6 lg:mt-0 flex flex-grow justify-end pr-2">
+        <div className="mt-6 lg:mt-0 flex grow justify-end pr-2">
           {spotifyLink && (
             <div className="flex">
               <Link href={spotifyLink}>

@@ -26,6 +26,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import Link from "next/link";
 import Image from "next/image";
 import MiniProfile from "../MiniProfile";
+import AlgoliaSearchComponent from "../AlgoliaSearchComponent";
 
 function TopBar({ pageTitle }) {
   const [user] = useAuthState(auth);
@@ -133,16 +134,7 @@ function TopBar({ pageTitle }) {
       </div>
       <div className="col-span-1">
         {/* Right - Search bar */}
-        <div className="hidden lg:block relative rounded-md">
-          <div className="absolute inset-y-0 pl-3 flex items-center pointer-events-none">
-            <SearchIcon className="h-5 w-5 text-gray-500" />
-          </div>
-          <input
-            className="bg-white block w-full pl-10 sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md"
-            type="text"
-            placeholder="Search"
-          />
-        </div>
+        <AlgoliaSearchComponent mobile={false}/>
         {/* Right - Mobile menu */}
         <div className="block lg:hidden relative rounded-md">
           <Popover className="relative w-max ml-auto">
@@ -169,16 +161,7 @@ function TopBar({ pageTitle }) {
                       <div className="relative grid gap-8 bg-white p-7 lg:grid-cols-2">
                         {user ? (
                           <>
-                            <div className="block relative rounded-md">
-                              <div className="absolute inset-y-0 pl-3 flex items-center pointer-events-none">
-                                <SearchIcon className="h-5 w-5 text-gray-500" />
-                              </div>
-                              <input
-                                className="bg-white block w-full pl-10 sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md"
-                                type="text"
-                                placeholder="Search"
-                              />
-                            </div>
+                            <AlgoliaSearchComponent mobile={true}/>
                             <Link href="/">
                               <a
                                 className={
@@ -324,6 +307,7 @@ function TopBar({ pageTitle }) {
                           </>
                         ) : (
                           <>
+                          <AlgoliaSearchComponent mobile={true}/>
                             <Link href="/">
                               <a className="navDiv text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600">
                                 <HomeIconFilled className="icon" color="red" />

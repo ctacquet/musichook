@@ -291,7 +291,7 @@ function EditModal() {
 
                                         <div className="col-span-2 "  >
                                             <input
-                                                className=" overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1 "
+                                                className="text-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1 "
                                                 type="text"
                                                 ref={usernameRef}
                                                 required
@@ -301,7 +301,7 @@ function EditModal() {
 
                                             />
                                             <textarea
-                                                className=" overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md w-full"
+                                                className="text-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md w-full"
                                                 type="text"
                                                 ref={descriptionRef}
                                                 required
@@ -353,7 +353,7 @@ function EditModal() {
                                         <p className="text-lg inline-block">Title</p>
                                     </div>
                                     <div className="col-span-2 ">
-                                        <select className=" overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1" ref={domainRef} value={newDomain} onChange={(e) => setDomain(e.target.value)} >
+                                        <select className="text-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1" ref={domainRef} value={newDomain} onChange={(e) => setDomain(e.target.value)} >
                                             <option value="">--Choose an domain--</option>
                                             <option value="facebook">Facebook</option>
                                             <option value="twitter">Twitter</option>
@@ -369,7 +369,7 @@ function EditModal() {
                                     </div>
                                     <div className="col-span-2 space-x-2">
                                         <input
-                                            className=" overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1"
+                                            className="text-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1"
                                             type="text"
                                             required={displayed}
                                             placeholder="Type URL here"
@@ -397,7 +397,7 @@ function EditModal() {
                                             </div>
                                             <div className="col-span-2 ">
                                                 <p
-                                                    className=" overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1">
+                                                    className="text-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1">
                                                     {link.data().domain}
                                                 </p>
                                             </div>
@@ -406,7 +406,7 @@ function EditModal() {
                                             </div>
                                             <div className="col-span-2 space-x-2">
                                                 <p
-                                                    className=" overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1" >
+                                                    className="text-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1" >
                                                     {link.data().url}
 
                                                 </p>
