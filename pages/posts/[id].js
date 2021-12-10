@@ -45,6 +45,7 @@ const PostDetails = () => {
                 uid={post.uid}
                 coverLink={post.coverLink}
                 spotifyLink={post.spotifyLink}
+                deezerLink={post.deezerLink}
                 artist={post.artist}
                 title={post.title}
                 songDate={post.songDate}

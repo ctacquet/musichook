@@ -41,6 +41,7 @@ function Post({
   uid,
   coverLink,
   spotifyLink,
+  deezerLink,
   artist,
   title,
   songDate,
@@ -268,8 +269,9 @@ function Post({
       {/* Post */}
       <div className="flex flex-col items-left lg:items-center pb-5 lg:flex-row">
         {/* User and Date */}
-        <div className="lg:w-48 px-5">
-          <div className="flex space-x-4 lg:space-x-0 lg:flex-col pb-3 lg:pb-0 border-b lg:border-b-0 lg:border-r border-gray-300 justify-center text-left lg:text-center content-left lg:content-center">
+        <Link href={`/profiles/${uid}`}>
+        <div className="lg:w-48 px-5 cursor-pointer" onClick={handleClick}>
+          <div className="flex space-x-4 lg:space-x-0 lg:flex-col pb-3 lg:pb-0 border-b lg:border-b-0 lg:border-r border-gray-300 dark:border-gray-500 dark:border-opacity-50 justify-center text-left lg:text-center content-left lg:content-center">
             <div className="border p-1 w-16 mx-0 lg:mx-auto rounded-full content-center">
               {userWhoPosted && (
                 <Image
@@ -291,6 +293,7 @@ function Post({
             <Moment fromNow className="my-auto">{timestamp?.toDate()}</Moment>
           </div>
         </div>
+        </Link>
         {/* Cover, Artist, Title and Album date */}
         <div className="pt-3 lg:pt-0 pl-6 lg:pl-0 w-64 h-24">
           <div className="grid grid-cols-2">
@@ -324,31 +327,33 @@ function Post({
         </div>
 
         {/* Streaming platforms buttons */}
-        <div className="mt-6 lg:mt-0 flex flex-grow justify-end pr-2">
-          {spotifyLink && (
-            <div className="flex">
-              <Link href={spotifyLink}>
-                <a target="_blank">
-                  <FontAwesomeIcon
-                    icon={faSpotify}
-                    className="h-8 text-green-500 btn"
-                  />
-                </a>
-              </Link>
+        <div className="mt-6 lg:mt-0 flex flex-grow justify-center lg:justify-end pr-2">
+          <div className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 p-0.5 rounded-lg">
+            <div className="rounded-md shadow-xl p-1 bg-white dark:bg-black dark:bg-opacity-100">
+              <p className="font-semibold p-2 pt-0">Listen on</p>
+              {spotifyLink && (
+                <div className="flex place-content-center">
+                  <Link href={spotifyLink}>
+                    <a target="_blank">
+                      <FontAwesomeIcon
+                        icon={faSpotify}
+                        className="h-8 text-green-500 btn"
+                      />
+                    </a>
+                  </Link>
+                </div>
+              )}
+              {deezerLink && (
+                <div className="flex place-content-center pt-2">
+                  <Link href={deezerLink}>
+                    <a target="_blank" className="bg-gradient-to-tr from-amber-900 via-fuchsia-600 to-blueGray-800 rounded-full h-8 w-8 btn">
+                      <FontAwesomeIcon icon={faDeezer} className="w-6 h-6 text-white mx-auto mt-1" />
+                    </a>
+                  </Link>
+                </div>
+              )}
             </div>
-          )}
-          {/* 
-            //If we want to add link just do like that and replace spotify by the platform we want
-            spotifyLink && (
-              <div className="flex pr-3">
-                <Link href={spotifyLink}>
-                  <a target="_blank">
-                    <FontAwesomeIcon icon={faSpotify} className="h-8 text-green-500 btn" />
-                  </a>
-                </Link>
-              </div>
-            )
-            */}
+          </div>
         </div>
       </div>
 
