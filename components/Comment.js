@@ -30,12 +30,12 @@ function Comment({ uid, comment, date }) {
           />
         )}
       </div>
-      <p className="text-sm flex-1">
+      <p className="text-sm flex-1 dark:text-white">
         <span className="font-bold">{userWhoCommented?.username}</span>{" "}
         {comment}
       </p>
 
-      <Moment fromNow className="pr-5 text-xs">
+      <Moment fromNow className="pr-5 text-xs dark:text-white">
         {date}
       </Moment>
     </div>

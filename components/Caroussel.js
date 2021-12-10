@@ -38,10 +38,10 @@ function Caroussel() {
     );
 
     return (
-        <div className="bg-gray-50 rounded-2xl pb-2">
+        <div className="dark:bg-black dark:bg-opacity-25 dark:border dark:border-gray-500 dark:border-opacity-50 rounded-2xl pb-2">
             {
                 users.length > 2 ? (
-                    <Slide className="container" {...properties}>
+                    <Slide className="" {...properties}>
                         {users.map((user) => {
                             return (
                                 //if c.word.contains les genres du current user

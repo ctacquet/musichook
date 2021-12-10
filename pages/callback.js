@@ -16,7 +16,7 @@ export default function Callback() {
   const { query } = useRouter();
   return (
     <div className="w-full">
-      <div className="bg-white w-5/6 mx-auto mt-20">
+      <div className="bg-white dark:bg-black dark:bg-opacity-25 w-5/6 mx-auto mt-20">
         <div className="justify-center items-center shadow p-6 flex flex-col">
           <h4 className="mt-8 border-b-2 font-bold">Spotify code</h4>
           <div className="mb-10 text-center capitalize">

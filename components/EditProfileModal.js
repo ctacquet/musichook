@@ -247,12 +247,12 @@ function EditModal() {
                         leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                         leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                     >
-                        <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full sm:p-6">
+                        <div className="inline-block align-bottom bg-white dark:bg-gray-500 rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full sm:p-6">
                             <div className="flex justify-center">
                                 <p>Profile Editing</p>
                             </div>
                             <form className="flex flex-col" onSubmit={uploadData}>
-                                <div className="bg-white p-8 my-7 border rounded-sm">
+                                <div className="bg-white dark:bg-gray-500 p-8 my-7 border dark:border-white dark:border-opacity-50 rounded-sm">
                                     <div className="grid grid-cols-3 gap-3 min-w-full items-center  place-items-center  ">
 
 
@@ -276,7 +276,7 @@ function EditModal() {
                                         ) : (
                                             <div onClick={() => filePickerRef.current.click()}>
                                                 <div className=" w-full items-center justify-center py-5 " >
-                                                    <label className=" flex flex-col items-center px-4 py-2 w-full bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-purple-600 hover:text-white ">
+                                                    <label className=" flex flex-col items-center px-4 py-2 w-full bg-white dark:border dark:border-white dark:bg-gray-500 text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue dark:border-gray-500 dark:border-opacity-50 cursor-pointer dark:hover:bg-purple-600 hover:bg-purple-600 hover:text-white ">
                                                         <CameraIcon className="w-8 h-8" />
                                                         <span className="mt-2 text-base leading-normal">Select a file</span>
                                                         {/* <input type="file" onChange={handleImageAsFile} className="hidden" ref={filePickerRef} /> */}
@@ -291,7 +291,7 @@ function EditModal() {
 
                                         <div className="col-span-2 "  >
                                             <input
-                                                className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1 "
+                                                className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1 dark:text-black"
                                                 type="text"
                                                 ref={usernameRef}
                                                 required
@@ -301,7 +301,7 @@ function EditModal() {
 
                                             />
                                             <textarea
-                                                className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md w-full"
+                                                className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md w-full dark:text-black"
                                                 type="text"
                                                 ref={descriptionRef}
                                                 required
@@ -348,12 +348,12 @@ function EditModal() {
                                 }
 
 
-                                <div className={classNames([displayed ? "grid grid-cols-7 gap-4 bg-white border rounded-lg border-gray-300 p-4 visible " : "hidden"])}>
+                                <div className={classNames([displayed ? "grid grid-cols-7 gap-4 bg-white dark:bg-gray-500 border rounded-lg border-gray-300 p-4 visible " : "hidden"])}>
                                     <div className="col-span-1 text-center ">
                                         <p className="text-lg inline-block">Title</p>
                                     </div>
                                     <div className="col-span-2 ">
-                                        <select className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1" ref={domainRef} value={newDomain} onChange={(e) => setDomain(e.target.value)} >
+                                        <select className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1 dark:text-black" ref={domainRef} value={newDomain} onChange={(e) => setDomain(e.target.value)} >
                                             <option value="">--Choose an domain--</option>
                                             <option value="facebook">Facebook</option>
                                             <option value="twitter">Twitter</option>
@@ -369,7 +369,7 @@ function EditModal() {
                                     </div>
                                     <div className="col-span-2 space-x-2">
                                         <input
-                                            className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1"
+                                            className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 dark:border-white focus:ring-black focus:border-black rounded-md mb-1 dark:text-black"
                                             type="text"
                                             required={displayed}
                                             placeholder="Type URL here"
@@ -381,7 +381,7 @@ function EditModal() {
                                         />
                                     </div>
                                     <div className="col-span-1 px-5 w-full" onClick={() => setDisplayed(!displayed)} >
-                                        <p className="text-center text-red-500 cursor-pointer w-full">
+                                        <p className="text-center text-red-500 dark:text-red dark:font-bold cursor-pointer w-full translate-y-2">
                                             Cancel
                                         </p>
 
@@ -391,13 +391,13 @@ function EditModal() {
 
                                 <div className="h-40 overflow-y-scroll scrollbar-thumb-black scrollbar-thin my-4">
                                     {links && links.map((link) => (
-                                        <div className="grid grid-cols-7 gap-4 bg-white border rounded-lg border-gray-300 mb-4 p-4" key={link.id} id={link.id}>
+                                        <div className="grid grid-cols-7 gap-4 bg-white dark:bg-gray-500 border dark:border-white rounded-lg border-gray-300 mb-4 p-4" key={link.id} id={link.id}>
                                             <div className="col-span-1 text-center ">
                                                 <p className="text-lg inline-block">Title</p>
                                             </div>
                                             <div className="col-span-2 ">
                                                 <p
-                                                    className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1">
+                                                    className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 dark:border-white focus:ring-black focus:border-black rounded-md mb-1">
                                                     {link.data().domain}
                                                 </p>
                                             </div>
@@ -406,7 +406,7 @@ function EditModal() {
                                             </div>
                                             <div className="col-span-2 space-x-2">
                                                 <p
-                                                    className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1" >
+                                                    className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 dark:border-white focus:ring-black focus:border-black rounded-md mb-1" >
                                                     {link.data().url}
 
                                                 </p>

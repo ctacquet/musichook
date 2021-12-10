@@ -60,15 +60,15 @@ function Notification({
     }
   };
 
-  const oldNotificationStyle = "bg-white my-7 border rounded-sm";
+  const oldNotificationStyle = "bg-white dark:bg-black dark:bg-opacity-25 my-7 border dark:border-gray-500 dark:border-opacity-50 rounded-sm";
   const newNotificationStyle =
-    "bg-white my-7 border bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 px-1 py-1 rounded-lg shadow-md text-base font-medium";
+    "bg-white dark:bg-black dark:bg-opacity-25 my-7 border dark:border-gray-500 dark:border-opacity-50 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 px-1 py-1 rounded-lg shadow-md text-base font-medium";
 
   return (
     <Link action={updateSeen} href={`/posts/${postId}`}>
       <MyLink onCustomClick={updateSeen}>
         <div className={seen ? oldNotificationStyle : newNotificationStyle}>
-          <div className="bg-white rounded-sm pr-4 cursor-pointer">
+          <div className="bg-white dark:bg-black dark:bg-opacity-25 rounded-sm pr-4 cursor-pointer">
             {/* Notification */}
             <div className="flex items-center pb-3">
               {/* Type of notification */}
@@ -83,7 +83,7 @@ function Notification({
               <div className="flex w-full p-5">
                 <div className="flex flex-col">
                   <div className="inline">
-                    <div className="border p-1 w-16 mx-auto rounded-full mb-2">
+                    <div className="border dark:border-gray-500 dark:border-opacity-50 p-1 w-16 mx-auto rounded-full mb-2">
                       {userWhoNotified && (
                         <Image
                           src={userWhoNotified?.userImg}

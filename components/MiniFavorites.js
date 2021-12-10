@@ -39,7 +39,7 @@ function MiniFavorites() {
     return (
       <>
         {favorites.length != 0 && (
-          <div className="bg-white my-7 border rounded-sm p-2 space-y-2">
+          <div className="bg-white dark:bg-black dark:bg-opacity-25 mt-2 mb-7 border dark:border-gray-500 dark:border-opacity-50 rounded-sm p-2 space-y-2">
             <Link href="/favorites">
               <a className="cursor-pointer text-xl">
                 <div className="flex items-center space-x-2">

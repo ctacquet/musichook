@@ -161,7 +161,7 @@ function ProfileCard() {
         <>
 
             <div>
-                <div className="bg-white p-8 my-7 border rounded-sm">
+                <div className="bg-white dark:bg-black dark:bg-opacity-25 p-8 my-7 border rounded-sm">
                     <div className="grid grid-cols-3 gap-3 min-w-full items-center">
 
                         {currentUser && (
@@ -177,7 +177,7 @@ function ProfileCard() {
                                     priority="true"
                                 />
                                 {
-                                    id && user && (
+                                    id && user && user.uid != id &&  (
                                         (
                                             followed ? (
                                                 <div className="flex space-x-4 items-center py-3 px-2" >
@@ -225,10 +225,10 @@ function ProfileCard() {
                                 {currentUser?.description}
                             </p>
                         </div>
-                        {!id && (
+                        {((id && user.uid == id) || (!id && user)) && (
                             <div className="col-span-1 flex justify-center ">
                                 <button onClick={() => setOpenEdit(true)}>
-                                    <PencilAltIcon className="h-7 text-black " />
+                                    <PencilAltIcon className="h-7 text-black dark:text-white" />
                                 </button>
                             </div>)
                         }

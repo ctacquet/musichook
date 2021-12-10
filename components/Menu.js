@@ -19,16 +19,11 @@ import { auth, db } from "../lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Switch } from "@headlessui/react";
-import useDarkMode from "./useDarkMode";
 
 function Menu() {
   const [user] = useAuthState(auth);
   const [open, setOpen] = useRecoilState(modalState);
   const [length, setLength] = useState(0);
-
-  const [enabled, setEnabled] = useState(false);
-  const [colorTheme, setTheme] = useDarkMode();
 
   useEffect(() => {
     if (user) {
@@ -46,17 +41,17 @@ function Menu() {
   });
 
   return (
-    <div className="dark:bg-gray-700 ">
+    <div>
 
       {user ? (
-        <div className="bg-white dark:bg-gray-700 my-7 border rounded-sm p-2 space-y-2">
+        <div className="bg-white bg-opacity-100 dark:bg-black dark:bg-opacity-25 my-7 border dark:border-gray-500 dark:border-opacity-50 rounded-sm p-2 space-y-2">
 
           <Link href="/">
             <a
               className={
                 "navDiv " +
                 (window.location.pathname == "/" &&
-                  "text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600")
+                  "text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600 ")
               }
             >
               {window.location.pathname == "/" ? (
@@ -67,7 +62,7 @@ function Menu() {
 
               <p
                 className={
-                  "menuText " +
+                  " " +
                   (window.location.pathname == "/" && "font-semibold")
                 }
               >
@@ -240,47 +235,6 @@ function Menu() {
           </div>
         </div>
       )}
-
-      {colorTheme === "light" ? (
-        <div className="py-4 ">
-          <span className="text-sm text-gray-800">Light</span>
-          <Switch
-            checked={enabled}
-            onChange={() => {setEnabled(false); setTheme("light")}}
-           
-            className={`${enabled ? "bg-gray-500" : 'bg-gray-400'} test
-            relative inline-flex flex-shrink-0 h-[28px] w-[64px] border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
-          >
-            <span className="sr-only">Use setting</span>
-            <span
-              aria-hidden="true"
-              className={`${enabled ? 'translate-x-9' : 'translate-x-0'}
-                          pointer-events-none inline-block h-[24px] w-[24px] rounded-full bg-white shadow-lg transform ring-0 transition ease-in-out duration-200`}
-            />
-          </Switch>
-          <span className="text-sm text-gray-800">Dark</span>
-        </div>
-      ) : (
-        <div className="py-4">
-          <span className="text-sm text-gray-800">Light</span>
-          <Switch
-            id="test"
-            checked={enabled}
-            onChange={() => {setEnabled(true); setTheme("dark")}}
-            className={`${enabled ? "bg-gray-500" : 'bg-gray-400'} test
-          relative inline-flex flex-shrink-0 h-[28px] w-[64px] border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
-          >
-            <span className="sr-only">Use setting</span>
-            <span
-              aria-hidden="true"
-              className={`${enabled ? 'translate-x-9' : 'translate-x-0'}
-                        pointer-events-none inline-block h-[24px] w-[24px] rounded-full bg-white shadow-lg transform ring-0 transition ease-in-out duration-200`}
-            />
-          </Switch>
-          <span className="text-sm text-gray-800">Dark</span>
-        </div>
-      )}
-
     </div>
   );
 }

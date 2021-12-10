@@ -42,10 +42,10 @@ function Comments({ id, comments, setComments, isCommentOpen }) {
         aria-hidden={!isCommentOpen}
         style={inlineStyle}
         onClick={handleClick}
-        className="transition-height ease mt-2 text-gray-600 overflow-hidden duration-300 border-t"
+        className="transition-height ease mt-2 text-gray-600 overflow-hidden duration-300 border-t dark:border-gray-500 dark:border-opacity-50"
       >
         {comments.length > 0 && (
-          <div className="h-20 overflow-y-scroll scrollbar-thumb-black scrollbar-thin border-b align">
+          <div className="h-20 overflow-y-scroll scrollbar-thumb-black scrollbar-thin border-b dark:border-gray-500 dark:border-opacity-50 align">
             <div className="ml-2 mt-1">
               {comments.map((comment) => (
                 <Comment 
@@ -61,13 +61,13 @@ function Comments({ id, comments, setComments, isCommentOpen }) {
         )}
         {user && (
           <form className="flex items-center p-4">
-            <ChatIcon className="h-7 text-black" />
+            <ChatIcon className="h-7 text-black dark:text-white" />
             <input
               type="text"
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               placeholder="Add a comment..."
-              className="border-none flex-1 focus:ring-0 outline-none"
+              className="border-none flex-1 focus:ring-0 outline-none rounded-lg dark:bg-black dark:bg-opacity-75 mx-2"
             />
             <button
               type="submit"

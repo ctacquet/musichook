@@ -7,13 +7,13 @@ function MiniFavorite({
   artist,
   title,
 }) {
-  const oldNotificationStyle = "bg-white my-7 border rounded-sm";
+  const oldNotificationStyle = "bg-white dark:bg-black dark:bg-opacity-25 my-7 border rounded-sm";
   const newNotificationStyle =
-    "bg-white my-7 border bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 px-1 py-1 rounded-lg shadow-md text-base font-medium";
+    "bg-white dark:bg-black dark:bg-opacity-25 my-7 border bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 px-1 py-1 rounded-lg shadow-md text-base font-medium";
 
   return (
     <Link href={`/posts/${id}`}>
-      <button className="bg-white rounded-sm border cursor-pointer shadow-md w-full text-left" id={id}>
+      <button className="bg-white dark:bg-black dark:bg-opacity-25 rounded-sm border dark:border-gray-500 dark:border-opacity-50 cursor-pointer shadow-md w-full text-left" id={id}>
         {/* MiniFavorite */}
         <div className="flex items-center p-2">
           {/* Cover, Artist, Title and Album date */}

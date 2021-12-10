@@ -6,7 +6,7 @@ export function Hit({ hit, closeModal }) {
 
   return (
     <Link href={`/profiles/${hit.uid}`}>
-      <div onClick={closeModal} className="w-full p-2 my-1 bg-white border hover:bg-purple-500 ring-inset focus:ring-2 focus:ring-purple-600 focus:ring-opacity-75 focus:bg-purple-300 rounded-lg">
+      <div onClick={closeModal} className="w-full p-2 my-1 bg-white dark:bg-gray-500 dark:text-black border hover:bg-purple-500 ring-inset focus:ring-2 focus:ring-purple-600 focus:ring-opacity-75 focus:bg-purple-300 rounded-lg">
         
         <div className="inline-block pl-1">
             <div className="translate-y-1 w-6">

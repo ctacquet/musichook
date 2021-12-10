@@ -34,7 +34,7 @@ function MiniProfile() {
   return (
     <>
       {user && currentUser ? (
-        <div className="bg-white border rounded-sm">
+        <div className="bg-white dark:bg-black dark:bg-opacity-25 border dark:border-gray-500 dark:border-opacity-50 rounded-sm">
           <div className="flex justify-between items-center h-16">
             <Link href="/profile">
               <div className="flex-shrink-0 group block cursor-pointer space-x-2">
@@ -56,7 +56,7 @@ function MiniProfile() {
                   </div>
                 </div>
                 <div className="inline-block">
-                  <p className="text-base leading-6 font-medium text-black group-hover:text-gray-300 transition ease-in-out duration-150">
+                  <p className="text-base leading-6 font-medium text-black dark:text-white group-hover:text-gray-300 transition ease-in-out duration-150">
                     {currentUser?.username}
                   </p>
                   <p className="text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">
@@ -67,7 +67,7 @@ function MiniProfile() {
             </Link>
             <div className="inline-block">
               <a onClick={logout} className="loginBtn space-x-2 rounded-lg">
-                <LogoutIcon className="h-8 w-8 inline-block" />
+                <LogoutIcon className="h-8 w-8 inline-block dark:text-white" />
               </a>
             </div>
           </div>
@@ -76,12 +76,12 @@ function MiniProfile() {
         <div className="bg-white border rounded-sm content-center p-2">
           <div className="flex justify-between">
             <div>
-              <UserCircleIcon className="inline-block w-10" />
+              <UserCircleIcon className="inline-block w-10 dark:text-white" />
             </div>
             <Link href="/auth/signin">
               <a className="loginBtn space-x-2 rounded-lg">
                 <p className="inline-block">Sign in</p>
-                <LoginIcon className="h-8 w-8 inline-block" />
+                <LoginIcon className="h-8 w-8 inline-block dark:text-white" />
               </a>
             </Link>
           </div>

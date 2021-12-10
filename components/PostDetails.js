@@ -259,7 +259,7 @@ function Post({
   };
 
   return (
-    <div className="bg-white my-7 border rounded-sm mx-7 lg:mx-0" onClick={notify}>
+    <div className="bg-white dark:bg-black dark:bg-opacity-25 my-7 border rounded-sm mx-7 lg:mx-0" onClick={notify}>
       <div className="flex items-start justify-end p-1">
         <div className="flex" onClick={handleClick}>
           <Dropdown postId={id} uid={uid} />

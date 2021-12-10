@@ -55,7 +55,7 @@ function signIn() {
             </Link>
           </div>
 
-          <div className="flex flex-col justify-center px-8 pt-8 my-auto mx-auto md:justify-start md:pt-0 md:px-24 lg:px-32 bg-white rounded-lg shadow-2xl">
+          <div className="flex flex-col justify-center px-8 pt-8 my-auto mx-auto md:justify-start md:pt-0 md:px-24 lg:px-32 bg-white dark:bg-black dark:bg-opacity-25 rounded-lg shadow-2xl">
             <StyledFirebaseAuth uiConfig={authConfig} firebaseAuth={auth} />
             {error && <Error msg={error} />}
           </div>

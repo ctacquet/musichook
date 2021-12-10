@@ -6,7 +6,7 @@
 
 @layer components {
     body {
-        @apply font-Poppins;
+        @apply font-Poppins text-black dark:text-white bg-white dark:bg-black dark:bg-opacity-25;
     }
 
     .icon {
@@ -36,7 +36,10 @@
     .mainStyle {
         @apply grid grid-cols-1 lg:grid-cols-4 lg:max-w-4xl lg:gap-4 xl:grid-cols-4 xl:gap-4 min-w-full;
     }
-    
+
+    .container {
+        @apply dark:bg-black dark:bg-opacity-80;
+    }
 
     .card{
         @apply rounded-sm ;
@@ -61,7 +64,7 @@
     }
 
     .notificationWrapper {
-        @apply flex flex-row items-center justify-between w-full h-auto bg-white px-4 py-6 shadow-2xl hover:shadow-none transform-gpu translate-y-0  rounded-lg relative transition-all duration-500 ease-in-out mr-4 ;
+        @apply flex flex-row items-center justify-between w-full h-auto bg-white dark:bg-transparent px-4 py-6 shadow-2xl hover:shadow-none transform-gpu translate-y-0  rounded-lg relative transition-all duration-500 ease-in-out mr-4 ;
       }
       
       .iconWrapper {
@@ -73,11 +76,11 @@
       }
       
       .contentWrapper h1 {
-        @apply text-base text-gray-900 font-semibold leading-none tracking-wider;
+        @apply text-base text-gray-900 dark:text-white font-semibold leading-none tracking-wider;
       }
       
       .contentWrapper p {
-        @apply text-sm text-gray-600 mt-2 leading-relaxed tracking-wider;
+        @apply text-sm text-gray-600 dark:text-white mt-2 leading-relaxed tracking-wider;
       }
       
       .closeIcon {

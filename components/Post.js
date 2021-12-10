@@ -186,7 +186,7 @@ function Post({
             ])}
           >
             <Link href={spotifyLink}>
-              <div className="flex border rounded-lg shadow-xl p-2 cursor-pointer">
+              <div className="flex border rounded-lg shadow-xl p-2 cursor-pointer hover:scale-110 transition-all duration-150 ease-out select-none">
                 {coverLink && (
                 <div className="iconWrapper">
                   <div className="w-16 border">
@@ -205,10 +205,10 @@ function Post({
                 </div>)}
                 <div className="contentWrapper">
                       <a>
-                        <h1>{artist}</h1>
+                        <h1 className="dark:text-white">{artist}</h1>
                       </a>
                       <a>
-                        <p>{title}</p>
+                        <p className="dark:text-white">{title}</p>
                       </a>
                 </div>
               </div>
@@ -268,7 +268,7 @@ function Post({
   };
 
   return (
-    <div className="bg-white my-7 border rounded-sm mx-7 lg:mx-0" onClick={notify}>
+    <div className="bg-white dark:bg-black dark:bg-opacity-25 my-7 border dark:border-gray-500 dark:border-opacity-50 rounded-sm mx-7 lg:mx-0" onClick={notify}>
       <div className="flex items-start justify-end p-1">
         <div className="flex" onClick={handleClick}>
           <Dropdown postId={id} uid={uid} />
@@ -279,7 +279,7 @@ function Post({
         {/* User and Date */}
         <Link href={`/profiles/${uid}`}>
         <div className="lg:w-48 px-5 cursor-pointer">
-          <div className="flex space-x-4 lg:space-x-0 lg:flex-col pb-3 lg:pb-0 border-b lg:border-b-0 lg:border-r border-gray-300 justify-center text-left lg:text-center content-left lg:content-center">
+          <div className="flex space-x-4 lg:space-x-0 lg:flex-col pb-3 lg:pb-0 border-b lg:border-b-0 lg:border-r border-gray-300 dark:border-gray-500 dark:border-opacity-50 justify-center text-left lg:text-center content-left lg:content-center">
             <div className="border p-1 w-16 mx-0 lg:mx-auto rounded-full content-center">
               {userWhoPosted && (
                 <Image
@@ -305,7 +305,7 @@ function Post({
         {/* Cover, Artist, Title and Album date */}
         <div className="pt-3 lg:pt-0 pl-6 lg:pl-0 w-64 h-24">
           <div className="grid grid-cols-2">
-            <div className="relative w-24 h-24 border mr-2">
+            <div className="relative w-24 h-24 border dark:border-gray-500 dark:border-opacity-50  mr-2">
               {coverLink && (
                 <Image
                   src={coverLink}
@@ -337,7 +337,7 @@ function Post({
         {/* Streaming platforms buttons */}
         <div className="mt-6 lg:mt-0 flex flex-grow justify-center lg:justify-end pr-2">
           <div className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 p-0.5 rounded-lg">
-            <div className="rounded-md shadow-xl p-1 bg-white">
+            <div className="rounded-md shadow-xl p-1 bg-white dark:bg-black dark:bg-opacity-100">
               <p className="font-semibold p-2 pt-0">Listen on</p>
               {spotifyLink && (
                 <div className="flex place-content-center">

@@ -3,7 +3,7 @@ import Link from "next/Link";
 
 function Item({ data }) {
     return (
-        <div className="bg-white my-12 pb-6 w-full justify-center items-center overflow-hidden md:max-w-sm rounded-lg shadow-sm mx-auto">
+        <div className="bg-white border dark:border-gray-500 dark:border-opacity-50 dark:bg-black dark:bg-opacity-75 my-12 pb-6 w-full justify-center items-center overflow-hidden md:max-w-sm rounded-lg shadow-sm mx-auto">
             <div className="relative h-40">
                 {data.background && <Image className=" "
                     src={data.background}

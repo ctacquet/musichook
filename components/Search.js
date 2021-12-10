@@ -48,7 +48,7 @@ function Search(props) {
           <SearchIcon className="h-5 w-5 text-gray-500" />
         </div>
         <input
-          className="bg-white block w-full pl-10 sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md"
+          className="bg-white dark:bg-black dark:bg-opacity-30 block w-full pl-10 sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md"
           onChange={onChange}
           onFocus={onFocus}
           placeholder="Search..."
@@ -68,7 +68,7 @@ function Search(props) {
               >
                 <button
                   onClick={(e) => getTrackInfos(e, results[id])}
-                  className="w-full p-2 bg-white border hover:bg-purple-500 ring-inset focus:ring-2 focus:ring-purple-600 focus:ring-opacity-75 focus:bg-purple-300 rounded-lg "
+                  className="w-full p-2 bg-white dark:bg-black dark:bg-opacity-25 border hover:bg-purple-500 ring-inset focus:ring-2 focus:ring-purple-600 focus:ring-opacity-75 focus:bg-purple-300 rounded-lg "
                 >
                   <div className="select-none text-left">
                     <div className="flex flex-row">
