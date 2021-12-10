@@ -225,7 +225,7 @@ function ProfileCard() {
                                 {currentUser?.description}
                             </p>
                         </div>
-                        {((id && user.uid == id) || (!id && user)) && (
+                        {((id && user && user.uid == id) || (!id && user)) && (
                             <div className="col-span-1 flex justify-center ">
                                 <button onClick={() => setOpenEdit(true)}>
                                     <PencilAltIcon className="h-7 text-black dark:text-white" />
