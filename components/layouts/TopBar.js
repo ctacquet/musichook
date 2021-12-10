@@ -26,7 +26,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import Link from "next/link";
 import Image from "next/image";
 import MiniProfile from "../MiniProfile";
-import AlgoliaSearchComponent from "../AlgoliaSearchComponent";
+import AlgoliaSearch from "../AlgoliaSearch";
 
 function TopBar({ pageTitle }) {
   const [user] = useAuthState(auth);
@@ -134,7 +134,7 @@ function TopBar({ pageTitle }) {
       </div>
       <div className="col-span-1 flex space-x-4">
         {/* Right - Search bar */}
-        <AlgoliaSearchComponent/>
+        <AlgoliaSearch/>
         {/* Right - Mobile menu */}
         <div className="flex flex-none lg:hidden rounded-md">
           <Popover className="relative w-max ml-auto">

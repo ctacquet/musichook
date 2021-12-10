@@ -1,5 +1,5 @@
 import algoliasearch from "algoliasearch/lite";
-import { SearchBox, Hits, InstantSearch } from "react-instantsearch-dom";
+import { Hits, InstantSearch, connectSearchBox } from "react-instantsearch-dom";
 import { Hit } from "./Hit";
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
@@ -11,10 +11,28 @@ const searchClient = algoliasearch(
 );
 
 function AlgoliaSearch() {
-  const TheHit = ({ hit, onClick }) => {
-    return (<Hit hit={hit} />);
-  };
   let [isOpen, setIsOpen] = useState(false);
+  const TheHit = ({ hit }) => {
+    return (
+      <div>
+        <Hit hit={hit} closeModal={closeModal}/>
+      </div>
+    );
+  };
+
+  const SearchBox = ({ currentRefinement, refine }) => (
+    <form noValidate role="search">
+      <input
+        type="search"
+        placeholder="Search for users..."
+        value={currentRefinement}
+        onChange={event => refine(event.currentTarget.value)}
+        className="w-full"
+      />
+    </form>
+  );
+  
+  const CustomSearchBox = connectSearchBox(SearchBox);
 
   function closeModal() {
     setIsOpen(false)
@@ -74,12 +92,16 @@ function AlgoliaSearch() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-2xl rounded-2xl">
                   <InstantSearch indexName="users" searchClient={searchClient} className="block relative rounded-md">
-                      <SearchBox
-                        className="bg-white block w-full pl-10 sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md"
+                      <div className="w-full pb-2 border-b">
+                      <CustomSearchBox
+                        className="bg-white sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md"
                       />
-                      <Hits hitComponent={TheHit} />
+                      </div>
+                      <div className="pt-2">
+                        <Hits hitComponent={TheHit} className="h-60 overflow-y-scroll scrollbar-thumb-black scrollbar-thin"/>
+                      </div>
                   </InstantSearch>
                 </div>
               </Transition.Child>

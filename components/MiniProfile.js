@@ -40,15 +40,15 @@ function MiniProfile() {
               <div className="flex-shrink-0 group block cursor-pointer space-x-2">
                 <div className="inline-block pl-4">
                   <div className="h-10 w-10">
-                    {user?.photoURL ? (
+                    {currentUser.userImg ? (
                       <Image
                         className="rounded-full"
-                        src={user?.photoURL}
+                        src={currentUser?.userImg}
                         alt=""
                         width="100%"
                         height="100%"
                         layout="responsive"
-                        objectFit="contain"
+                        objectFit="cover"
                       />
                     ) : (
                       <UserCircleIcon className="w-12" />

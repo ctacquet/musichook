@@ -71,6 +71,7 @@ function Dropdown({ postId, uid }) {
                 )}
               </Menu.Item>
             </div>
+            {hasPosted && (
             <div className="px-1 py-1">
               <Menu.Item disabled={!hasPosted}>
                 {({ active }) => (
@@ -86,6 +87,7 @@ function Dropdown({ postId, uid }) {
                 )}
               </Menu.Item>
             </div>
+            )}
           </Menu.Items>
         </Transition>
       </Menu>
