@@ -158,7 +158,7 @@ function TopBar({ pageTitle }) {
                 >
                   <Popover.Panel className="absolute z-10 w-screen max-w-sm mt-3 transform ml-3 -translate-x-full left-full sm:px-0 lg:max-w-3xl">
                     <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-10">
-                      <div className="relative grid gap-8 bg-white p-7 lg:grid-cols-2">
+                      <div className="relative grid gap-8 bg-white dark:bg-black p-7 lg:grid-cols-2">
                         {user ? (
                           <>
                             <Link href="/">
@@ -298,7 +298,7 @@ function TopBar({ pageTitle }) {
                             <div className="flex justify-center">
                               <button
                                 onClick={() => setOpen(true)}
-                                className="mt-3 p-1 bg-gradient-to-l from-purple-500 to-red-500 rounded-lg shadow-xl text-white w-6/12 min-w-max"
+                                className="mt-3 p-1 bg-gradient-to-l from-purple-500 to-red-500 hover:to-purple-700 rounded-lg shadow-xl text-white w-6/12 min-w-max"
                               >
                                 Post
                               </button>
@@ -350,7 +350,7 @@ function TopBar({ pageTitle }) {
                             </div>
                           </>
                         )}
-                        <div className="p-4 bg-gray-50">
+                        <div className="p-4 bg-gray-50 dark:bg-transparent">
                           <MiniProfile />
                         </div>
                       </div>

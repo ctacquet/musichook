@@ -73,14 +73,14 @@ function MiniProfile() {
           </div>
         </div>
       ) : (
-        <div className="bg-white border rounded-sm content-center p-2">
+        <div className="bg-white dark:bg-black dark:bg-opacity-25 border rounded-sm content-center p-2">
           <div className="flex justify-between">
             <div>
               <UserCircleIcon className="inline-block w-10 dark:text-white" />
             </div>
             <Link href="/auth/signin">
               <a className="loginBtn space-x-2 rounded-lg">
-                <p className="inline-block">Sign in</p>
+                <p className="inline-block dark:text-white">Sign in</p>
                 <LoginIcon className="h-8 w-8 inline-block dark:text-white" />
               </a>
             </Link>
