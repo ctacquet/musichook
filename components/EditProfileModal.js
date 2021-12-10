@@ -191,13 +191,13 @@ function EditModal() {
     const getPattern = (dom) =>{
         switch (dom) {
             case 'facebook':
-                return "https?://(www\.)?facebook\.com/(profile\.php\?id=)?";
+                return "https?://(www\.)?facebook\.com/.*";
             case 'twitter':
-                return "https?://twitter\.com/";
+                return "https?://twitter\.com/.*";
             case 'instagram':
-                return "https?://(www\.)?instagram\.com/";
+                return "https?://(www\.)?instagram\.com/.*";
             case 'github':
-                return "https?://(www\.)?github\.com/";
+                return "https?://(www\.)?github\.com/.*";
             default:
                 break;
         }
