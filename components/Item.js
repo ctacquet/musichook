@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/Link";
 
 function Item({ data }) {
     return (
@@ -24,13 +25,22 @@ function Item({ data }) {
             <div className="mt-16 ">
                 {
                     data.username ? (
-                        <h1 className="text-lg text-center font-semibold">
-                            {data.username}
-                        </h1>
+
+
+                        <Link href={`/profiles/${data.uid}`}>
+                            <h1 className="text-lg text-center font-semibold cursor-pointer">
+                                {data.username}
+                            </h1>
+                        </Link>
+                        
                     ) : (
-                        <h1 className="text-lg text-center font-semibold text-gray-600 text-opacity-25 ">
-                            No username
-                        </h1>
+
+                        <Link href={`/profiles/${data.uid}`}>
+                            <h1 className="text-lg text-center font-semibold text-gray-600 text-opacity-25 cursor-pointer">
+                                No username
+                            </h1>
+                        </Link>
+
                     )
 
                 }
