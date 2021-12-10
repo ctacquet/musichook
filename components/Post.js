@@ -278,7 +278,7 @@ function Post({
       <div className="flex flex-col items-left lg:items-center pb-5 lg:flex-row">
         {/* User and Date */}
         <Link href={`/profiles/${uid}`}>
-        <div className="lg:w-48 px-5 cursor-pointer">
+        <div className="lg:w-48 px-5 cursor-pointer" onClick={handleClick}>
           <div className="flex space-x-4 lg:space-x-0 lg:flex-col pb-3 lg:pb-0 border-b lg:border-b-0 lg:border-r border-gray-300 dark:border-gray-500 dark:border-opacity-50 justify-center text-left lg:text-center content-left lg:content-center">
             <div className="border p-1 w-16 mx-0 lg:mx-auto rounded-full content-center">
               {userWhoPosted && (
