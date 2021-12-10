@@ -10,7 +10,7 @@ const searchClient = algoliasearch(
   "3534601df5769241e2f380c6a929f25c"
 );
 
-function AlgoliaSearch({ mobile }) {
+function AlgoliaSearch() {
   const TheHit = ({ hit, onClick }) => {
     return (<Hit hit={hit} />);
   };
@@ -26,16 +26,16 @@ function AlgoliaSearch({ mobile }) {
 
   return (
     <>
-      <div className="inset-0 flex items-center justify-center">
+      <div className="flex flex-grow items-center justify-center">
           <button
             type="button"
             onClick={openModal}
-            className="px-4 py-2 text-sm font-medium text-white bg-black rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+            className="flex w-full px-4 py-2 text-sm font-medium text-white bg-black rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
           >
-            <div className="absolute inset-y-0 pl-3 flex items-center pointer-events-none">
+            <div className="flex flex-row items-center pointer-events-none">
               <SearchIcon className="h-5 w-5 text-gray-500" />
             </div>
-            <p className="block w-full pl-10 sm:text-sm rounded-md">Search</p>
+            <p className="flex flex-row pl-4 sm:text-sm rounded-md">Search</p>
           </button>
         </div>
 
@@ -75,11 +75,7 @@ function AlgoliaSearch({ mobile }) {
                 leaveTo="opacity-0 scale-95"
               >
                 <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                  <InstantSearch indexName="users" searchClient={searchClient} className={
-                    mobile
-                      ? "block relative rounded-md"
-                      : "hidden lg:block relative rounded-md"
-                  }>
+                  <InstantSearch indexName="users" searchClient={searchClient} className="block relative rounded-md">
                       <SearchBox
                         className="bg-white block w-full pl-10 sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md"
                       />

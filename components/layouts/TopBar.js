@@ -132,11 +132,11 @@ function TopBar({ pageTitle }) {
           <p>{pageTitle}</p>
         </div>
       </div>
-      <div className="col-span-1">
+      <div className="col-span-1 flex space-x-4">
         {/* Right - Search bar */}
-        <AlgoliaSearchComponent mobile={false}/>
+        <AlgoliaSearchComponent/>
         {/* Right - Mobile menu */}
-        <div className="block lg:hidden relative rounded-md">
+        <div className="flex flex-none lg:hidden rounded-md">
           <Popover className="relative w-max ml-auto">
             {({ open }) => (
               <>
@@ -161,7 +161,6 @@ function TopBar({ pageTitle }) {
                       <div className="relative grid gap-8 bg-white p-7 lg:grid-cols-2">
                         {user ? (
                           <>
-                            <AlgoliaSearchComponent mobile={true}/>
                             <Link href="/">
                               <a
                                 className={
@@ -307,7 +306,6 @@ function TopBar({ pageTitle }) {
                           </>
                         ) : (
                           <>
-                          <AlgoliaSearchComponent mobile={true}/>
                             <Link href="/">
                               <a className="navDiv text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600">
                                 <HomeIconFilled className="icon" color="red" />
