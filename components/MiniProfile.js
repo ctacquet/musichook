@@ -37,7 +37,7 @@ function MiniProfile() {
         <div className="bg-white border rounded-sm">
           <div className="flex justify-between items-center h-16">
             <Link href="/profile">
-              <div className="shrink-0 group block cursor-pointer space-x-2">
+              <div className="flex-shrink-0 group block cursor-pointer space-x-2">
                 <div className="inline-block pl-4">
                   <div className="h-10 w-10">
                     {user?.photoURL ? (

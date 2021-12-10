@@ -294,7 +294,7 @@ function Post({
               )}
             </div>
             <div className="my-auto">
-              <p className="font-bold text-ellipsis overflow-hidden">
+              <p className="font-bold overflow-ellipsis overflow-hidden">
                 {userWhoPosted?.username}
               </p>
             </div>
@@ -335,7 +335,7 @@ function Post({
         </div>
 
         {/* Streaming platforms buttons */}
-        <div className="mt-6 lg:mt-0 flex grow justify-center lg:justify-end pr-2">
+        <div className="mt-6 lg:mt-0 flex flex-grow justify-center lg:justify-end pr-2">
           <div className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 p-0.5 rounded-lg">
             <div className="rounded-md shadow-xl p-1 bg-white">
               <p className="font-semibold p-2 pt-0">Listen on</p>

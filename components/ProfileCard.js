@@ -241,10 +241,10 @@ function ProfileCard() {
                         )}
 
                         <div className="col-span-1  "  >
-                            <p className=" font-bold text-ellipsis overflow-hidden ">
+                            <p className=" font-bold overflow-ellipsis overflow-hidden ">
                                 {currentUser?.username}
                             </p>
-                            <p className=" font-normal text-ellipsis overflow-hidden">
+                            <p className=" font-normal overflow-ellipsis overflow-hidden">
                                 {currentUser?.description}
                             </p>
                         </div>
