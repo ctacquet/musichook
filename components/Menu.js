@@ -190,13 +190,13 @@ function Menu() {
         </div>
       ) : (
         <div className="bg-white dark:bg-black dark:bg-opacity-25 my-7 border dark:border-gray-500 dark:border-opacity-50 rounded-sm p-2 space-y-2">
-          <a
-            onClick={() => router.push("/")}
-            className="navDiv text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600"
-          >
+          
+          <Link href="/">
+          <a className="navDiv text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600">
             <HomeIconFilled className="icon" color="red" />
             <p>Home</p>
           </a>
+          </Link>
           <a
             disabled={true}
             className="navDiv text-gray-500 cursor-not-allowed"
