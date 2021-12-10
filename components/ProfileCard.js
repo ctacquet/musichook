@@ -6,7 +6,8 @@ import {
     collection,
     addDoc,
     setDoc,
-    deleteDoc
+    deleteDoc,
+    where, query
 } from "@firebase/firestore";
 import Image from "next/image";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -41,43 +42,19 @@ function ProfileCard() {
 
     useEffect(
         () => {
-            if (id) {
+            if (id && user) {
                 onSnapshot(
-                    collection(db, "users", id, "followers"),
+                    doc(db, "users", id, "followers", user?.uid),
                     (snapshot) => {
-                        if (!snapshot.empty) {
+                        if (snapshot.exists()) {
                             setFollowed(true);
                         }
                     }
-                ),
-                    onSnapshot(
-                        collection(db, "users", id, "following"),
-                        (snapshot) => {
-                            if (!snapshot.empty) {
-                                setFollowed(true);
-                            }
-                        }
-                    )
-            } else if (user) {
-                onSnapshot(
-                    collection(db, "users", user?.uid, "followers"),
-                    (snapshot) => {
-                        if (!snapshot.empty) {
-                            setFollowed(true);
-                        }
-                    }
-                ),
-                    onSnapshot(
-                        collection(db, "users", user?.uid, "following"),
-                        (snapshot) => {
-                            if (!snapshot.empty) {
-                                setFollowed(true);
-                            }
-                        }
-                    )
+                )
             }
+
         },
-        [db, user,id]
+        [db, user, id]
     );
 
     const handleFollow = async () => {
