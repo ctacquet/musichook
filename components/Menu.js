@@ -228,7 +228,7 @@ function Menu() {
           <div className="flex justify-center">
             <button
               disabled={true}
-              className="mt-3 p-1 bg-gray-300 rounded-lg w-6/12 min-w-max cursor-not-allowed"
+              className="mt-3 p-1 bg-gray-300 dark:bg-black dark:bg-opacity-30 rounded-lg w-6/12 min-w-max cursor-not-allowed"
             >
               Post
             </button>

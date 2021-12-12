@@ -1,10 +1,12 @@
 import { useRecoilState } from "recoil";
 import { modalStateEditProfile } from "../atoms/modalAtomEditProfile";
-import { Dialog, Transition } from "@headlessui/react";
+import { Dialog, Transition, Listbox } from "@headlessui/react";
 import { Fragment, useRef, useState, useEffect } from "react";
 import {
     CameraIcon,
-    TrashIcon
+    TrashIcon,
+    CheckIcon, 
+    SelectorIcon,
 } from "@heroicons/react/outline";
 
 import { db, storage, auth } from "../lib/firebase";
@@ -14,6 +16,181 @@ import Image from "next/image";
 import { ref, getDownloadURL, uploadString } from "firebase/storage"
 import classNames from "classnames";
 
+const genres = [
+    "Acoustic",
+    "Afrobeat",
+    "Alt-rock",
+    "Alternative",
+    "Ambient",
+    "Anime",
+    "Black-metal",
+    "Bluegrass",
+    "Blues",
+    "Bossanova",
+    "Brazil",
+    "Breakbeat",
+    "British",
+    "Cantopop",
+    "Chicago-house",
+    "Children",
+    "Chill",
+    "Classical",
+    "Club",
+    "Comedy",
+    "Country",
+    "Dance",
+    "Dancehall",
+    "Death-metal",
+    "Deep-house",
+    "Detroit-techno",
+    "Disco",
+    "Disney",
+    "Drum-and-bass",
+    "Dub",
+    "Dubstep",
+    "Edm",
+    "Electro",
+    "Electronic",
+    "Emo",
+    "Folk",
+    "Forro",
+    "French",
+    "Funk",
+    "Garage",
+    "German",
+    "Gospel",
+    "Goth",
+    "Grindcore",
+    "Groove",
+    "Grunge",
+    "Guitar",
+    "Happy",
+    "Hard-rock",
+    "Hardcore",
+    "Hardstyle",
+    "Heavy-metal",
+    "Hip-hop",
+    "Holidays",
+    "Honky-tonk",
+    "House",
+    "Idm",
+    "Indian",
+    "Indie",
+    "Indie-pop",
+    "Industrial",
+    "Iranian",
+    "J-dance",
+    "J-idol",
+    "J-pop",
+    "J-rock",
+    "Jazz",
+    "K-pop",
+    "Kids",
+    "Latin",
+    "Latino",
+    "Malay",
+    "Mandopop",
+    "Metal",
+    "Metal-misc",
+    "Metalcore",
+    "Minimal-techno",
+    "Movies",
+    "Mpb",
+    "New-age",
+    "New-release",
+    "Opera",
+    "Pagode",
+    "Party",
+    "Philippines-opm",
+    "Piano",
+    "Pop",
+    "Pop-film",
+    "Post-dubstep",
+    "Power-pop",
+    "Progressive-house",
+    "Psych-rock",
+    "Punk",
+    "Punk-rock",
+    "R-n-b",
+    "Rainy-day",
+    "Reggae",
+    "Reggaeton",
+    "Road-trip",
+    "Rock",
+    "Rock-n-roll",
+    "Rockabilly",
+    "Romance",
+    "Sad",
+    "Salsa",
+    "Samba",
+    "Sertanejo",
+    "Show-tunes",
+    "Singer-songwriter",
+    "Ska",
+    "Sleep",
+    "Songwriter",
+    "Soul",
+    "Soundtracks",
+    "Spanish",
+    "Study",
+    "Summer",
+    "Swedish",
+    "Synth-pop",
+    "Tango",
+    "Techno",
+    "Trance",
+    "Trip-hop",
+    "Turkish",
+    "Work-out",
+    "World-music"
+];
+
+function renderGenreListBox(genreNumber, setGenreNumber) {
+    return (
+    <Listbox value={genreNumber} onChange={setGenreNumber}>
+        <div className="relative mt-1">
+        <Listbox.Button className="relative w-44 py-2 pl-3 text-left bg-white hover:bg-purple-300 hover:ring-2 hover:ring-black rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-indigo-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
+            <span className="block truncate dark:text-black">{genreNumber}</span>
+            <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+            <SelectorIcon
+                className="w-5 h-5 text-gray-400"
+                aria-hidden="true"
+            />
+            </span>
+        </Listbox.Button>
+        <Transition
+            as={Fragment}
+            leave="transition ease-in duration-100"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+        >
+            <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            {genres.map((genre, genreIdx) => (
+                <Listbox.Option
+                key={genreIdx}
+                className={({ active }) =>
+                    `${active ? 'text-purple-900 bg-purple-400 hover:text-white' : 'text-gray-900 dark:text-black'}
+                        cursor-default select-none relative py-2 pl-3fff pr-4`
+                }
+                value={genre}
+                >
+                {({ genreNumber, active }) => (
+                    <span
+                        className={`${
+                        genreNumber ? 'font-medium' : 'font-normal'
+                        } block truncate`}
+                    >
+                        {genre}
+                    </span>
+                )}
+                </Listbox.Option>
+            ))}
+            </Listbox.Options>
+        </Transition>
+        </div>
+    </Listbox>);
+}
+
 function EditModal() {
     const [user] = useAuthState(auth);
     const [openEdit, setOpenEdit] = useRecoilState(modalStateEditProfile);
@@ -21,30 +198,14 @@ function EditModal() {
     const [currentUserData, setCurrentUserData] = useState(null);
 
     const usernameRef = useRef(null);
-    //console.log(currentUserData?.username)
     const [username, setUsername] = useState(currentUserData?.username);
-
-    //console.log("username :")
-    //console.log(username)
-
 
     const descriptionRef = useRef(null);
     const [description, setDescription] = useState(currentUserData?.description);
 
-    const genresRef1 = useRef(null);
     const [genre1, setGenre1] = useState(currentUserData?.genres[0]);
-
-    const genresRef2 = useRef(null);
     const [genre2, setGenre2] = useState(currentUserData?.genres[1]);
-
-    const genresRef3 = useRef(null);
     const [genre3, setGenre3] = useState(currentUserData?.genres[2]);
-
-    const dispayNameRef = useRef(null);
-    const [userdisplayName, setUserDisplayName] = useState("");
-
-
-
 
     const filePickerRef = useRef(null);
     const [selectedFile, setSelectedFile] = useState(null);
@@ -59,11 +220,8 @@ function EditModal() {
         };
     };
 
-
-
     const [currentLinksData, setCurrentLinksData] = useState(null);
     const [links, setLinks] = useState([]);
-
 
     const domainRef = useRef(null);
     const [newDomain, setDomain] = useState(currentLinksData?.domain);
@@ -73,7 +231,6 @@ function EditModal() {
     const [isDeleted, setDeleted] = useState(false);
 
     const [isAccepted, setIsAccepted] = useState(false);
-
 
     useEffect(
         () => {
@@ -88,11 +245,6 @@ function EditModal() {
         },
         [db, user]
     );
-
-
-
-
-
 
     const uploadData = async (e) => {
         if (loading) return;
@@ -112,9 +264,9 @@ function EditModal() {
                     description: descriptionRef.current.value,
                     username: usernameRef.current.value,
                     genres: {
-                        0: genresRef1.current.value.toLowerCase(),
-                        1: genresRef2.current.value.toLowerCase(),
-                        2: genresRef3.current.value.toLowerCase()
+                        0: genre1,
+                        1: genre2,
+                        2: genre3
                     },
                 })
             });
@@ -123,17 +275,13 @@ function EditModal() {
                 description: descriptionRef.current.value,
                 username: usernameRef.current.value,
                 genres: {
-                    0: genresRef1.current.value.toLowerCase(),
-                    1: genresRef2.current.value.toLowerCase(),
-                    2: genresRef3.current.value.toLowerCase()
+                    0: genre1,
+                    1: genre2,
+                    2: genre3
                 },
 
             });
         }
-
-
-
-
 
         if (domainRef.current.value != "" && domainRef.current.value != "") {
             const docLinksRef = await addDoc(collection(db, "users", user?.uid, "links"), {
@@ -143,13 +291,10 @@ function EditModal() {
         }
         //si domain null ou vide => pas de upload
 
-
-
         setOpenEdit(false);
         setLoading(false);
         setSelectedFile(null);
         setDisplayed(false);
-
     };
 
 
@@ -190,13 +335,13 @@ function EditModal() {
 
     const getPattern = (dom) =>{
         switch (dom) {
-            case 'facebook':
+            case 'Facebook':
                 return "https?://(www\.)?facebook\.com/.*";
-            case 'twitter':
+            case 'Twitter':
                 return "https?://twitter\.com/.*";
-            case 'instagram':
+            case 'Instagram':
                 return "https?://(www\.)?instagram\.com/.*";
-            case 'github':
+            case 'Github':
                 return "https?://(www\.)?github\.com/.*";
             default:
                 break;
@@ -238,6 +383,7 @@ function EditModal() {
                     >
                         &#8203;
                     </span>
+
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -266,25 +412,21 @@ function EditModal() {
                                                         width="100%"
                                                         height="100%"
                                                         layout="responsive"
-                                                        objectFit="fill"
+                                                        objectFit="cover"
                                                         onClick={() => setSelectedFile(null)}
                                                     />
                                                 </div>
                                             </div>
-
-
                                         ) : (
                                             <div onClick={() => filePickerRef.current.click()}>
                                                 <div className=" w-full items-center justify-center py-5 " >
-                                                    <label className=" flex flex-col items-center px-4 py-2 w-full bg-white dark:border dark:border-white dark:bg-gray-500 text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue dark:border-gray-500 dark:border-opacity-50 cursor-pointer dark:hover:bg-purple-600 hover:bg-purple-600 hover:text-white ">
+                                                    <label className=" flex flex-col items-center px-4 py-2 w-full bg-white dark:border dark:border-white dark:bg-gray-500 text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer dark:hover:bg-purple-600 hover:bg-purple-600 hover:text-white ">
                                                         <CameraIcon className="w-8 h-8" />
                                                         <span className="mt-2 text-base leading-normal">Select a file</span>
-                                                        {/* <input type="file" onChange={handleImageAsFile} className="hidden" ref={filePickerRef} /> */}
 
                                                     </label>
                                                 </div>
                                             </div>
-
                                         )}
                                         <input type="file" onChange={addImageToPost} className="hidden" ref={filePickerRef} />
 
@@ -294,8 +436,7 @@ function EditModal() {
                                                 className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1 dark:text-black"
                                                 type="text"
                                                 ref={usernameRef}
-                                                required
-                                                //currentUserData?.username                                                
+                                                required                                           
                                                 value={username}
                                                 onChange={(e) => setUsername(e.target.value)}
 
@@ -312,130 +453,97 @@ function EditModal() {
                                         </div>
                                     </div>
 
-                                    <div className="mt-6 pt-3 flex flex-wrap mx-6 border-t justify-around">
-
-                                        <input
-                                            className="text-xl mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600   "
-                                            ref={genresRef1}
-                                            value={genre1}
-                                            onChange={(e) => setGenre1(e.target.value)}
-
-                                        />
-                                        <input
-                                            className="text-xl mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 "
-
-                                            ref={genresRef2}
-                                            value={genre2}
-                                            onChange={(e) => setGenre2(e.target.value)}
-                                        />
-                                        <input
-                                            className="text-xl mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 "
-
-                                            ref={genresRef3}
-                                            value={genre3}
-                                            onChange={(e) => setGenre3(e.target.value)}
-                                        />
-                                    </div>
-                                </div>
-                                <p className="">Links :<br />add links to the sites you want to share with your visitors</p>
-
-                                {displayed ? (
-                                    <></>
-                                ) : (
-                                    <button type="button" className="w-64 h-9 text-blue-500 text-left" onClick={toggleLinks}> + ADD LINK </button>
-                                )
-
-                                }
-
-
-                                <div className={classNames([displayed ? "grid grid-cols-7 gap-4 bg-white dark:bg-gray-500 border rounded-lg border-gray-300 p-4 visible " : "hidden"])}>
-                                    <div className="col-span-1 text-center ">
-                                        <p className="text-lg inline-block">Title</p>
-                                    </div>
-                                    <div className="col-span-2 ">
-                                        <select className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1 dark:text-black" ref={domainRef} value={newDomain} onChange={(e) => setDomain(e.target.value)} >
-                                            <option value="">--Choose an domain--</option>
-                                            <option value="facebook">Facebook</option>
-                                            <option value="twitter">Twitter</option>
-                                            <option value="instagram">Instagram</option>
-                                            <option value="github">GitHub</option>
-                                            <option value="other">Other</option>
-                                        </select>
-
-
-                                    </div>
-                                    <div className="col-span-1  text-center ">
-                                        <p className="text-lg inline-block">URL</p>
-                                    </div>
-                                    <div className="col-span-2 space-x-2">
-                                        <input
-                                            className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 dark:border-white focus:ring-black focus:border-black rounded-md mb-1 dark:text-black"
-                                            type="text"
-                                            required={displayed}
-                                            placeholder="Type URL here"
-                                            ref={urlRef}
-                                            value={newUrl}
-                                            pattern={ getPattern(newDomain) }
-                                            onInput={(e) => handleChange(e)}
-                                            onChange={(e) => setUrl(e.target.value)}
-                                        />
-                                    </div>
-                                    <div className="col-span-1 px-5 w-full" onClick={() => setDisplayed(!displayed)} >
-                                        <p className="text-center text-red-500 dark:text-red dark:font-bold cursor-pointer w-full translate-y-2">
-                                            Cancel
-                                        </p>
-
-                                    </div>
-
-                                </div>
-
-                                <div className="h-40 overflow-y-scroll scrollbar-thumb-black scrollbar-thin my-4">
-                                    {links && links.map((link) => (
-                                        <div className="grid grid-cols-7 gap-4 bg-white dark:bg-gray-500 border dark:border-white rounded-lg border-gray-300 mb-4 p-4" key={link.id} id={link.id}>
-                                            <div className="col-span-1 text-center ">
-                                                <p className="text-lg inline-block">Title</p>
-                                            </div>
-                                            <div className="col-span-2 ">
-                                                <p
-                                                    className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 dark:border-white focus:ring-black focus:border-black rounded-md mb-1">
-                                                    {link.data().domain}
-                                                </p>
-                                            </div>
-                                            <div className="col-span-1  text-center ">
-                                                <p className="text-lg inline-block">URL</p>
-                                            </div>
-                                            <div className="col-span-2 space-x-2">
-                                                <p
-                                                    className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 dark:border-white focus:ring-black focus:border-black rounded-md mb-1" >
-                                                    {link.data().url}
-
-                                                </p>
-                                            </div>
-                                            <div className="col-span-1 px-8 w-full" id={link.id} ref={deleteLinkRef} onClick={(e) => { deleteFromLinks(e); setDeleted(true); }}  >
-                                                <TrashIcon className="h-8 cursor-pointer" />
-                                            </div>
+                                    <div className="mt-6 py-3 border-t border-b">
+                                        <p className="font-bold">Genres :</p>
+                                        <div className="mt-3 flex flex-wrap mx-10 justify-around">
+                                            {renderGenreListBox(genre1, setGenre1)}
+                                            {renderGenreListBox(genre2, setGenre2)}
+                                            {renderGenreListBox(genre3, setGenre3)}
                                         </div>
+                                    </div>
+                                    <p className="mt-3 font-bold">Links :</p>
+                                    <p>Add links to the sites you want to share with your visitors</p>
+
+                                    {!displayed && (<button type="button" className="w-64 h-9 text-blue-500 dark:font-bold text-left" onClick={toggleLinks}> + ADD LINK </button>)}
+
+                                    <div className={classNames([displayed ? "grid grid-cols-7 bg-white dark:bg-gray-500 border rounded-lg border-gray-300 p-4 visible " : "hidden"])}>
+                                        <div className="col-span-1 text-center">
+                                            <p className="text-lg translate-y-2">Title</p>
+                                        </div>
+                                        <div className="col-span-2">
+                                            <select className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1 dark:text-black" ref={domainRef} value={newDomain} onChange={(e) => setDomain(e.target.value)} >
+                                                <option value="">--Choose one--</option>
+                                                <option value="Facebook">Facebook</option>
+                                                <option value="Twitter">Twitter</option>
+                                                <option value="Instagram">Instagram</option>
+                                                <option value="Github">GitHub</option>
+                                                <option value="Other">Other</option>
+                                            </select>
+                                        </div>
+                                        <div className="col-span-1 text-center">
+                                            <p className="text-lg translate-y-2">URL</p>
+                                        </div>
+                                        <div className="col-span-2">
+                                            <input
+                                                className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 dark:border-white focus:ring-black focus:border-black rounded-md mb-1 dark:text-black"
+                                                type="text"
+                                                required={displayed}
+                                                placeholder="Type URL here"
+                                                ref={urlRef}
+                                                value={newUrl}
+                                                pattern={ getPattern(newDomain) }
+                                                onInput={(e) => handleChange(e)}
+                                                onChange={(e) => setUrl(e.target.value)}
+                                            />
+                                        </div>
+                                        <div className="col-span-1 px-5 w-full" onClick={() => setDisplayed(!displayed)} >
+                                            <p className="text-center text-red-500 dark:text-red dark:font-bold cursor-pointer w-full translate-y-2 translate-x-4">
+                                                Cancel
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="h-40 overflow-y-scroll scrollbar-thumb-black scrollbar-thin my-4">
+                                        {links && links.map((link) => (
+                                            <div className="grid grid-cols-7 gap-4 bg-white dark:bg-gray-500 border dark:border-white rounded-lg border-gray-300 mb-4 p-4" key={link.id} id={link.id}>
+                                                <div className="col-span-1 text-center ">
+                                                    <p className="text-lg inline-block">Title</p>
+                                                </div>
+                                                <div className="col-span-2 ">
+                                                    <p
+                                                        className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 dark:border-white focus:ring-black focus:border-black rounded-md mb-1">
+                                                        {link.data().domain}
+                                                    </p>
+                                                </div>
+                                                <div className="col-span-1  text-center ">
+                                                    <p className="text-lg inline-block">URL</p>
+                                                </div>
+                                                <div className="col-span-2 space-x-2">
+                                                    <p
+                                                        className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 dark:border-white focus:ring-black focus:border-black rounded-md mb-1" >
+                                                        {link.data().url}
+
+                                                    </p>
+                                                </div>
+                                                <div className="col-span-1 px-8 w-full" id={link.id} ref={deleteLinkRef} onClick={(e) => { deleteFromLinks(e); setDeleted(true); }}  >
+                                                    <TrashIcon className="h-8 cursor-pointer" />
+                                                </div>
+                                            </div>
 
 
-                                    )
-                                    )}
+                                        )
+                                        )}
+                                    </div>
 
+                                    <div className="w-48 h-16 ml-auto right-0 mt-10" >
+                                        <button type="submit" className="flex items-center justify-end flex-1 h-full py-3 pl-14 pr-12 bg-blue-600 border rounded-full "  >
+                                            <p className="text-xl text-white">
+                                                Validate
+                                            </p>
+                                        </button>
+                                    </div>
+                                    <p className="text-xl font-bold text-center"> {loading ? "Uploading..." : ""} </p>
                                 </div>
-
-
-
-                                <div className="w-48 h-16 ml-auto right-0 mt-10" >
-                                    <button type="submit" className="flex items-center justify-end flex-1 h-full py-3 pl-14 pr-12 bg-blue-600 border rounded-full "  >
-                                        <p className="text-xl text-white">
-                                            Validate
-                                        </p>
-                                    </button>
-                                </div>
-                                <p className="text-xl font-bold text-center"> {loading ? "Uploading..." : ""} </p>
-
-
-
-
                             </form>
                         </div>
                     </Transition.Child>

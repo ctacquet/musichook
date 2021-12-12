@@ -14,7 +14,7 @@ function MyLink(props) {
     <Link href={href}>
       <a
         {...rest}
-        className={`${active && "bg-gray-100 shadow-md font-bold"} ${
+        className={`${active && "bg-gray-100 shadow-md font-bold dark:hover:bg-purple-500"} ${
           disabled && "text-gray-300"
         } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
       >
@@ -60,11 +60,11 @@ function Dropdown({ postId, uid }) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 w-auto mt-2 origin-top-right bg-white dark:bg-black dark:bg-opacity-25 divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items className="absolute right-0 w-auto mt-2 origin-top-right bg-white dark:bg-black dark:bg-opacity-95 dark:border dark:border-opacity-70 divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="px-1 py-1">
               <Menu.Item>
                 {({ active }) => (
-                  <MyLink active={active} href={`/posts/${postId}`}>
+                  <MyLink active={active} href={`/posts/${postId}`} className="">
                     <InformationCircleIcon className="w-5 h-5 mr-2"/>
                     Details
                   </MyLink>
@@ -77,7 +77,7 @@ function Dropdown({ postId, uid }) {
                 {({ active }) => (
                   <a
                     className={`${
-                      active && "bg-gray-100 shadow-md font-bold"
+                      active && "bg-gray-100 dark:bg-purple-500 shadow-md font-bold"
                     } text-red-500 group flex rounded-md items-center w-full px-2 py-2 text-sm cursor-pointer`}
                     onClick={deletePost}
                   >

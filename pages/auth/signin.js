@@ -44,7 +44,7 @@ function signIn() {
       </Head>
 
       <div className="flex flex-wrap w-full">
-        <div className="flex flex-col w-full md:w-1/2 bg-gray-100 z-10">
+        <div className="flex flex-col w-full md:w-1/2 bg-gray-100 dark:bg-black dark:bg-opacity-70 z-10">
           <div className="flex justify-center pt-12 md:justify-start md:pl-12 md:-mb-24 p-10">
             <Link href="/">
               <a

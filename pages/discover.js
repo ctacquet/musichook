@@ -20,14 +20,12 @@ export default function Discover() {
         <MainSectionHeader>
           <div className="text-xl normal-case">
             <p className="font-light inline">Welcome to </p>
-            <p className="font-bold inline text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600">Discover </p>
+            <p className="font-bold inline text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600">discover </p>
             <p className="font-light inline">page,</p>
             <br/>
             <p className="font-light text-base inline">
-              Here you can see a list of users who have similar musical
-              interests to yours. These users are sorted in order of affinity to
-              you displayed as a percentage. Here you will find the three
-              musical genres that define you.
+              Here you can see a list of all users that like the same genres as yours. <br/>
+              You can sort by gender by clicking on genres on the top of the list.
             </p>
           </div>
         </MainSectionHeader>

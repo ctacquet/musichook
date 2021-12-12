@@ -37,7 +37,7 @@ function Comments({ id, comments, setComments, isCommentOpen }) {
         ref={ref}
         aria-hidden={!isCommentOpen}
         onClick={handleClick}
-        className="transition-height ease mt-2 text-gray-600 overflow-hidden duration-300 border-t"
+        className="transition-height ease mt-2 text-gray-600 overflow-hidden duration-300 border-t dark:border-gray-500 dark:border-opacity-50"
       >
         {user && (
           <form className="flex items-center p-4">
@@ -47,7 +47,7 @@ function Comments({ id, comments, setComments, isCommentOpen }) {
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               placeholder="Add a comment..."
-              className="border-none flex-1 focus:ring-0 outline-none"
+              className="border-none flex-1 focus:ring-0 outline-none rounded-lg dark:bg-black dark:bg-opacity-75 mx-2"
             />
             <button
               type="submit"
@@ -63,7 +63,7 @@ function Comments({ id, comments, setComments, isCommentOpen }) {
           </form>
         )}
         {comments.length > 0 && (
-          <div className="border-t">
+          <div className="border-t dark:border-gray-500 dark:border-opacity-50">
             <div className="ml-2 mt-1">
               {comments.map((comment) => (
                 <Comment 
