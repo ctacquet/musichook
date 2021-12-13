@@ -25,7 +25,7 @@ export default function Discover() {
             <br/>
             <p className="font-light text-base inline">
               Here you can see a list of all users that like the same genres as yours. <br/>
-              You can sort by gender by clicking on genres on the top of the list.
+              You can sort by genre by clicking on genres on the top of the list.
             </p>
           </div>
         </MainSectionHeader>

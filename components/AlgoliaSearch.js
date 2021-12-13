@@ -46,19 +46,21 @@ function AlgoliaSearch() {
 
   return (
     <>
-      <div className="w-full hidden lg:flex">
+      {/* For md+ device*/}
+      <div className="w-full hidden md:flex">
         <button
           type="button"
           onClick={openModal}
-          className="flex w-full px-4 py-2 text-sm font-medium text-white bg-black rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+          className="flex flex-row w-full px-4 py-2 md:mr-6 lg:mr-0 my-auto text-sm font-medium text-white bg-black rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
         >
-          <div className="flex flex-row items-center pointer-events-none">
+          <div className="flex items-center pointer-events-none">
             <SearchIcon className="h-5 w-5 text-gray-500" />
           </div>
-          <p className="flex flex-row pl-4 sm:text-sm rounded-md">Search</p>
+          <p className="flex pl-4 sm:text-sm rounded-md">Search</p>
         </button>
       </div>
-      <div className="flex flex-1 lg:hidden">
+      {/* Mobile version */}
+      <div className="flex flex-1 justify-end md:hidden">
         <button
           type="button"
           onClick={openModal}

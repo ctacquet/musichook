@@ -222,40 +222,35 @@ function ProfileCard() {
                         </div>)
                     }
                 </div>
-                <div className=" mt-6 pt-3 flex mx-6 justify-center space-x-20 ">
-                    <div className="flex-none text-xl justify-start ">
-
-                        <div className=" text-xl text-transparent bg-clip-text bg-gradient-to-br from-purple-600 to-red-600 inline-block pr-3">
+                <div className="mt-6 pt-3 flex flex-col lg:flex-row mx-6 justify-center lg:space-x-20">
+                    <div className="flex-none text-xl text-center">
+                        <div className="text-transparent bg-clip-text bg-gradient-to-br from-purple-600 to-red-600 inline-block pr-3">
                             {currentUser?.posts}
                         </div>
-                        <div className=" text-xl inline-block">
+                        <div className="inline-block">
                             Posts
                         </div>
                     </div>
 
-                    <div className="flex-none text-xl justify-start ">
-
-                        <div className=" text-xl text-transparent bg-clip-text bg-gradient-to-br from-purple-600 to-red-600 inline-block pr-3">
+                    <div className="flex-none text-xl text-center">
+                        <div className="text-transparent bg-clip-text bg-gradient-to-br from-purple-600 to-red-600 inline-block pr-3">
                             {currentUser?.followers}
                         </div>
-                        <div className=" text-xl inline-block">
+                        <div className="inline-block">
                             Followers
                         </div>
                     </div>
 
-                    <div className="flex-none text-xl justify-start ">
-
-                        <div className=" text-xl text-transparent bg-clip-text bg-gradient-to-br from-purple-600 to-red-600 inline-block pr-3">
+                    <div className="flex-none text-xl text-center">
+                        <div className="text-transparent bg-clip-text bg-gradient-to-br from-purple-600 to-red-600 inline-block pr-3">
                             {currentUser?.follows}
                         </div>
-                        <div className=" text-xl inline-block">
+                        <div className="inline-block">
                             Follow
                         </div>
                     </div>
-
                 </div>
                 <div className="mt-6 pt-3 flex flex-wrap mx-6 border-t justify-center">
-
                     {currentUser?.genres && (
                         <>
                             <div

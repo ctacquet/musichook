@@ -143,7 +143,7 @@ function TopBar({ pageTitle }) {
               <p>{pageTitle}</p>
             </div>
           </div>
-          <div className="col-span-1 flex space-x-4">
+          <div className="col-span-1 flex">
             {/* Right - Mobile menu */}
             <AlgoliaSearch />
             <div className="flex flex-1 lg:hidden rounded-md">
