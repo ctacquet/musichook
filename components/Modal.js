@@ -24,18 +24,32 @@ function Modal() {
     e.preventDefault();
 
     setLoading(true);
-    await addDoc(collection(db, "posts"), {
-      uid: user.uid,
-      search: track.search,
-      artist: track.artist,
-      title: track.title,
-      songDate: track.songDate,
-      coverLink: track.coverLink,
-      spotifyLink: track.spotifyLink,
-      spotifyId: track.spotifyId,
-      deezerLink: track.deezerLink,
-      timestamp: serverTimestamp(),
-    });
+    if(track.deezerLink){
+      await addDoc(collection(db, "posts"), {
+        uid: user.uid,
+        search: track.search,
+        artist: track.artist,
+        title: track.title,
+        songDate: track.songDate,
+        coverLink: track.coverLink,
+        spotifyLink: track.spotifyLink,
+        spotifyId: track.spotifyId,
+        deezerLink: track.deezerLink,
+        timestamp: serverTimestamp(),
+      });
+    } else {
+      await addDoc(collection(db, "posts"), {
+        uid: user.uid,
+        search: track.search,
+        artist: track.artist,
+        title: track.title,
+        songDate: track.songDate,
+        coverLink: track.coverLink,
+        spotifyLink: track.spotifyLink,
+        spotifyId: track.spotifyId,
+        timestamp: serverTimestamp(),
+      });
+    }
 
     setOpen(false);
     setLoading(false);
