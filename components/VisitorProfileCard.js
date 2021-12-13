@@ -85,7 +85,7 @@ function StatsPopover({ type, user }) {
                   <div className="inline-block text-black dark:text-white">
                     {title}
                   </div>
-                  <div className="inline">
+                  <div className="inline text-black dark:text-white">
                     {open ? (<ChevronUpIcon className="h-6 w-6 inline" />) : (<ChevronDownIcon className="h-6 w-6 inline" />)}
                   </div>
                 </div>
