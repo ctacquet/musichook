@@ -299,10 +299,8 @@ function VisitorProfileCard({ id }) {
                     priority="true"
                   />
                 )}
-                {id &&
-                  user &&
-                  user.uid != id &&
-                  (followed ? (
+                {id && user && user.uid != id && (
+                  followed ? (
                     <div className="flex flex-col items-center py-3 px-2">
                       <button
                         type="button"
