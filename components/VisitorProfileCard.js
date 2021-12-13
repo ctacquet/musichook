@@ -4,12 +4,14 @@ import {
   onSnapshot,
   doc,
   collection,
+  setDoc,
+  deleteDoc,
 } from "@firebase/firestore";
 import Image from "next/image";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Link from "next/link";
 import {
-  PencilAltIcon,
+  CheckIcon,
   CalendarIcon,
   UserCircleIcon,
   ChevronDownIcon,
@@ -74,7 +76,7 @@ function StatsPopover({ type, user }) {
               <Popover.Button
                 className={`
                   ${open ? "" : "text-opacity-90"}
-                  text-white group cursor-pointer rounded-md inline-flex items-center text-base font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
+                  text-white btn group cursor-pointer rounded-md inline-flex items-center text-base font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
               >
                 <div className="flex-none text-xl text-center">
                   <div className="text-transparent bg-clip-text bg-gradient-to-br from-purple-600 to-red-600 inline-block pr-3">
@@ -163,9 +165,10 @@ function StatsPopover({ type, user }) {
     );
 }
 
-function ProfileCard() {
+function VisitorProfileCard({ id }) {
   const [user] = useAuthState(auth);
   const [userData, setUserData] = useState(null);
+  const [otherUser, setOtherUser] = useState(null);
   const [openEdit, setOpenEdit] = useRecoilState(modalStateEditProfile);
   const [links, setLinks] = useState([]);
 
@@ -175,20 +178,65 @@ function ProfileCard() {
   const [loading, setLoading] = useState(null);
 
   useEffect(() => {
-    if (user) {
-      onSnapshot(doc(db, "users", user.uid), (doc) => {
-        setUserData(doc.data());
+    if (id) {
+      onSnapshot(doc(db, "users", id), (doc) => {
+        setOtherUser(doc.data());
       });
+      if (user) {
+        onSnapshot(doc(db, "users", id, "followers", user?.uid), (snapshot) => {
+          if (snapshot.exists()) {
+            setFollowed(true);
+          }
+        });
+        onSnapshot(doc(db, "users", user.uid), (doc) => {
+          setUserData(doc.data());
+        });
+      }
     }
-  }, [db, user]);
+  }, [db, id, user]);
+
+  const handleFollow = async () => {
+    setLoading(true);
+
+    if (id && userData) {
+      if (!followed) {
+        {
+          /* Add a following */
+        }
+        await setDoc(doc(db, "users", user?.uid, "following", id), {
+          username: otherUser?.username,
+          userImg: otherUser?.userImg,
+        });
+
+        {
+          /* Add a follower */
+        }
+        setDoc(doc(db, "users", id, "followers", user?.uid), {
+          username: userData?.username,
+          userImg: userData?.userImg,
+        });
+      } else {
+        {
+          /* Add a following */
+        }
+        await deleteDoc(doc(db, "users", user?.uid, "following", id));
+
+        {
+          /* Add a follower */
+        }
+        await deleteDoc(doc(db, "users", id, "followers", user?.uid), {});
+      }
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
-    if (user) {
-      onSnapshot(collection(db, "users", user?.uid, "links"), (snapshot) => {
+    if (id) {
+      onSnapshot(collection(db, "users", id, "links"), (snapshot) => {
         setLinks(snapshot.docs);
       });
     }
-  }, [db, user]);
+  }, [db, user, id]);
 
   const pathMatcher = (data) => {
     let expression = "";
@@ -232,77 +280,137 @@ function ProfileCard() {
     }
   };
 
-  if (userData) {
+  if (id && otherUser) {
     return (
       <div>
         <div className="bg-white dark:bg-black dark:bg-opacity-25 p-8 my-7 border rounded-sm">
-          <div className="grid grid-cols-3 gap-3 min-w-full items-center">
-            <div className="col-span-1 w-24 rounded-full   ">
-              {userData.userImg && (
-                <Image
-                  src={userData?.userImg}
-                  className="rounded-full "
-                  alt=""
-                  width="100%"
-                  height="100%"
-                  layout="responsive"
-                  objectFit="cover"
-                  priority="true"
-                />
-              )}
-            </div>
+          <div className="grid grid-cols-3 gap-10 lg:gap-4 min-w-full items-center">
+            {otherUser && (
+              <div className="col-span-1 w-24 rounded-full">
+                {otherUser.userImg && (
+                  <Image
+                    src={otherUser?.userImg}
+                    className="rounded-full "
+                    alt=""
+                    width="100%"
+                    height="100%"
+                    layout="responsive"
+                    objectFit="cover"
+                    priority="true"
+                  />
+                )}
+                {id &&
+                  user &&
+                  user.uid != id &&
+                  (followed ? (
+                    <div className="flex flex-col items-center py-3 px-2">
+                      <button
+                        type="button"
+                        className="btn inline-block text-xl mr-2 my-1 tracking-wider rounded-sm  px-2 cursor-pointer bg-gradient-to-l from-blue-400  to-green-400  text-white hover:from-purple-500 hover:to-red-500"
+                        ref={followButtonRef}
+                        onClick={() => {
+                          handleFollow();
+                          setFollowed(false);
+                        }}
+                      >
+                        {followed ? "UnFollow" : "Follow"}
+                      </button>
 
-            <div className="col-span-1  ">
-              <p className=" font-bold overflow-ellipsis overflow-hidden ">
-                {userData?.username}
+                      {loading && (
+                        <div className="w-8">
+                          <ReactLoading
+                            type="spin"
+                            color="black"
+                            className="mx-auto flex content-center"
+                            width={24}
+                            height={"100%"}
+                          />
+                        </div>
+                      )}
+                      <div hidden={!followed}>
+                        <CheckIcon className="text-green-500 h-8" />
+                      </div>
+                    </div>
+                  ) : (
+                    id && (
+                      <div className="flex space-x-4 items-center py-3 px-2">
+                        <button
+                          type="button"
+                          className="btn inline-block text-xl mr-2 my-1 tracking-wider rounded-sm  px-2 cursor-pointer bg-gradient-to-bl from-purple-600 to-red-600 text-white "
+                          ref={followButtonRef}
+                          onClick={() => {
+                            handleFollow();
+                            setFollowed(true);
+                          }}
+                        >
+                          {followed ? "UnFollow" : "Follow"}
+                        </button>
+                        {loading && (
+                          <div className="w-8">
+                            <ReactLoading
+                              type="spin"
+                              color="black"
+                              className="mx-auto flex content-center"
+                              width={24}
+                              height={"100%"}
+                            />
+                          </div>
+                        )}
+                        <div hidden={!followed}>
+                          <CheckIcon className="text-green-500 h-8" />
+                        </div>
+                      </div>
+                    )
+                  ))}
+              </div>
+            )}
+
+            <div className="col-span-2">
+              <p className="font-bold overflow-ellipsis overflow-hidden ">
+                {otherUser?.username}
               </p>
-              <p className=" font-normal overflow-ellipsis overflow-hidden">
-                {userData?.description}
+              <p className="font-normal overflow-ellipsis overflow-hidden">
+                {otherUser?.description}
               </p>
-            </div>
-            <div className="col-span-1 flex justify-center ">
-              <button onClick={() => setOpenEdit(true)}>
-                <PencilAltIcon className="h-7 text-black dark:text-white" />
-              </button>
             </div>
           </div>
           <div className="mt-6 pt-3 flex flex-col lg:flex-row mx-6 justify-center lg:space-x-20">
             <div className="flex-none text-xl text-center">
               <div className="text-transparent bg-clip-text bg-gradient-to-br from-purple-600 to-red-600 inline-block pr-3">
-                {userData?.posts}
+                {otherUser?.posts}
               </div>
               <div className="inline-block">Posts</div>
             </div>
 
             <div className="flex-none text-xl text-center">
-              {<StatsPopover type={1} user={userData} />}
+              {<StatsPopover type={1} user={otherUser} />}
             </div>
             <div className="flex-none text-xl text-center">
-              {<StatsPopover type={2} user={userData} />}
+              {<StatsPopover type={2} user={otherUser} />}
             </div>
           </div>
           <div className="mt-6 pt-3 flex flex-wrap mx-6 border-t justify-center">
-            {userData?.genres && (
+            {otherUser?.genres && (
               <>
-                {userData.genres[0] &&
-                  userData.genres[0] !== "no genres" &&
-                  userData.genres[0] !== "No genre" && (
+                {otherUser.genres[0] &&
+                  otherUser.genres[0] !== "no genres" &&
+                  otherUser.genres[0] !== "No genre" && (
                     <div className="text-xl mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:bg-indigo-600 hover:text-indigo-100 cursor-default select-none">
-                      {userData?.genres[0]}
+                      {otherUser?.genres[0]}
                     </div>
                   )}
-                {userData.genres[1] &&
-                  userData.genres[1] !== "no genres" &&
-                  userData.genres[1] !== "No genre" && (
+                {otherUser.genres[1] &&
+                  otherUser.genres[1] !== "no genres" &&
+                  otherUser.genres[1] !== "No genre" && (
                     <div className="text-xl mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:bg-indigo-600 hover:text-indigo-100 cursor-default select-none">
-                      {userData?.genres[1]}
+                      {otherUser?.genres[1]}
                     </div>
                   )}
-                {userData.genres[2] &&
-                  userData.genres[2] !== "no genres" &&
-                  userData.genres[2] !== "No genre" && (
+                {otherUser.genres[2] &&
+                  otherUser.genres[2] !== "no genres" &&
+                  otherUser.genres[2] !== "No genre" && (
                     <div className="text-xl mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:bg-indigo-600 hover:text-indigo-100 cursor-default select-none">
-                      {userData?.genres[2]}
+                      {otherUser?.genres[2]}
                     </div>
                   )}
               </>
@@ -431,7 +539,7 @@ function ProfileCard() {
             <div className="flex-1 justify-start align-middle">
               <CalendarIcon className="h-4 w-4 -translate-y-0.5 inline" />
               <p className="pl-2 inline text-md">Joined </p>
-              <Moment format="DD/MM/YYYY">{userData?.timestamp}</Moment>
+              <Moment format="DD/MM/YYYY">{otherUser?.timestamp}</Moment>
             </div>
           </div>
         </div>
@@ -451,4 +559,4 @@ function ProfileCard() {
     );
 }
 
-export default ProfileCard;
+export default VisitorProfileCard;
