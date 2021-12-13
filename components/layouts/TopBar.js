@@ -28,6 +28,7 @@ import MiniProfile from "../MiniProfile";
 import AlgoliaSearch from "../AlgoliaSearch";
 import { useRecoilState } from "recoil";
 import { modalState } from "../../atoms/modalAtom";
+import DarkModeSwitch from './../DarkModeSwitch';
 
 function TopBar({ pageTitle }) {
   const [user] = useAuthState(auth);
@@ -152,7 +153,7 @@ function TopBar({ pageTitle }) {
                   <>
                     <Popover.Button
                       className={`
-                  ${open ? "text-red-500 dark:text-red-500" : ""}
+                  ${open ? "text-red-500 dark:text-purple-500" : ""}
                   text-black dark:text-white hover:text-gray-700 dark:hover:text-gray-400 group py-2 rounded-md inline-flex items-end text-base font-medium`}
                     >
                       <MenuAlt3Icon className="w-8 h-8" />
@@ -167,206 +168,211 @@ function TopBar({ pageTitle }) {
                       leaveTo="opacity-0 translate-y-1"
                     >
                       <Popover.Panel className="absolute z-10 w-screen max-w-sm mt-3 transform ml-3 -translate-x-full left-full sm:px-0 lg:max-w-3xl">
-                        <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-10">
-                          <div className="relative grid gap-8 bg-white dark:bg-black p-7 lg:grid-cols-2">
-                            {user ? (
-                              <>
-                                <Link href="/">
-                                  <a
-                                    className={
-                                      "navDiv " +
-                                      (pageTitle == "Home" &&
-                                        "text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600")
-                                    }
-                                  >
-                                    {pageTitle == "Home" ? (
-                                      <HomeIconFilled className="icon text-red-500" />
-                                    ) : (
-                                      <HomeIcon className="icon" />
-                                    )}
+                        <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black dark:ring-white ring-opacity-20 dark:ring-opacity-20">
+                          <div className="relative bg-white">
+                            <div className="relative grid gap-8 bg-white dark:bg-black dark:bg-opacity-80 p-7 lg:grid-cols-2">
+                              {user ? (
+                                <>
+                                  <Link href="/">
+                                    <a
+                                      className={
+                                        "navDiv " +
+                                        (pageTitle == "Home" &&
+                                          "text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600")
+                                      }
+                                    >
+                                      {pageTitle == "Home" ? (
+                                        <HomeIconFilled className="icon text-red-500" />
+                                      ) : (
+                                        <HomeIcon className="icon" />
+                                      )}
 
-                                    <p
+                                      <p
+                                        className={
+                                          "menuText " +
+                                          (pageTitle == "Home" && "font-semibold")
+                                        }
+                                      >
+                                        Home
+                                      </p>
+                                    </a>
+                                  </Link>
+                                  <Link href="/discover">
+                                    <a
                                       className={
-                                        "menuText " +
-                                        (pageTitle == "Home" && "font-semibold")
-                                      }
-                                    >
-                                      Home
-                                    </p>
-                                  </a>
-                                </Link>
-                                <Link href="/discover">
-                                  <a
-                                    className={
-                                      "navDiv " +
-                                      (pageTitle == "Discover" &&
-                                        "text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600")
-                                    }
-                                  >
-                                    {pageTitle == "Discover" ? (
-                                      <UserGroupIconFilled className="icon text-red-500" />
-                                    ) : (
-                                      <UserGroupIcon className="icon" />
-                                    )}
-                                    <p
-                                      className={
-                                        "menuText " +
+                                        "navDiv " +
                                         (pageTitle == "Discover" &&
-                                          "font-semibold")
+                                          "text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600")
                                       }
                                     >
-                                      Discover
-                                    </p>
-                                  </a>
-                                </Link>
-                                <Link href="/notifications">
-                                  <a
-                                    className={
-                                      "navDiv w-full " +
-                                      (pageTitle == "Notifications" &&
-                                        "text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600")
-                                    }
-                                  >
-                                    {pageTitle == "Notifications" ? (
-                                      <div className="static">
-                                        {user && length > 0 && (
-                                          <span className="absolute pl-4 h-3 w-3">
-                                            <span className="animate-ping-slow absolute inline-flex h-3 w-3 rounded-full bg-purple-400 opacity-75"></span>
-                                            <span className="absolute inline-flex rounded-full h-3 w-3 bg-purple-500"></span>
-                                          </span>
-                                        )}
-                                        <BellIconFilled className="icon text-red-500" />
-                                      </div>
-                                    ) : (
-                                      <div className="static">
-                                        {user && length > 0 && (
-                                          <span className="absolute pl-4 h-3 w-3">
-                                            <span className="animate-ping-slow absolute inline-flex h-3 w-3 rounded-full bg-red-400 opacity-75"></span>
-                                            <span className="absolute inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-                                          </span>
-                                        )}
-                                        <BellIcon className="icon" />
-                                      </div>
-                                    )}
-                                    <p
+                                      {pageTitle == "Discover" ? (
+                                        <UserGroupIconFilled className="icon text-red-500" />
+                                      ) : (
+                                        <UserGroupIcon className="icon" />
+                                      )}
+                                      <p
+                                        className={
+                                          "menuText " +
+                                          (pageTitle == "Discover" &&
+                                            "font-semibold")
+                                        }
+                                      >
+                                        Discover
+                                      </p>
+                                    </a>
+                                  </Link>
+                                  <Link href="/notifications">
+                                    <a
                                       className={
-                                        "menuText " +
+                                        "navDiv w-full " +
                                         (pageTitle == "Notifications" &&
-                                          "font-semibold")
+                                          "text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600")
                                       }
                                     >
-                                      Notifications
-                                    </p>
-                                  </a>
-                                </Link>
-                                <Link href="/profile">
-                                  <a
-                                    className={
-                                      "navDiv " +
-                                      (pageTitle == "Profile" &&
-                                        "text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600")
-                                    }
-                                  >
-                                    {pageTitle == "Profile" ? (
-                                      <UserIconFilled className="icon text-red-500" />
-                                    ) : (
-                                      <UserIcon className="icon" />
-                                    )}
-                                    <p
+                                      {pageTitle == "Notifications" ? (
+                                        <div className="static">
+                                          {user && length > 0 && (
+                                            <span className="absolute pl-4 h-3 w-3">
+                                              <span className="animate-ping-slow absolute inline-flex h-3 w-3 rounded-full bg-purple-400 opacity-75"></span>
+                                              <span className="absolute inline-flex rounded-full h-3 w-3 bg-purple-500"></span>
+                                            </span>
+                                          )}
+                                          <BellIconFilled className="icon text-red-500" />
+                                        </div>
+                                      ) : (
+                                        <div className="static">
+                                          {user && length > 0 && (
+                                            <span className="absolute pl-4 h-3 w-3">
+                                              <span className="animate-ping-slow absolute inline-flex h-3 w-3 rounded-full bg-red-400 opacity-75"></span>
+                                              <span className="absolute inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                                            </span>
+                                          )}
+                                          <BellIcon className="icon" />
+                                        </div>
+                                      )}
+                                      <p
+                                        className={
+                                          "menuText " +
+                                          (pageTitle == "Notifications" &&
+                                            "font-semibold")
+                                        }
+                                      >
+                                        Notifications
+                                      </p>
+                                    </a>
+                                  </Link>
+                                  <Link href="/profile">
+                                    <a
                                       className={
-                                        "menuText " +
+                                        "navDiv " +
                                         (pageTitle == "Profile" &&
-                                          "font-semibold")
+                                          "text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600")
                                       }
                                     >
-                                      Profile
-                                    </p>
-                                  </a>
-                                </Link>
-                                <Link href="/favorites">
-                                  <a
-                                    className={
-                                      "navDiv " +
-                                      (pageTitle == "Favorites" &&
-                                        "text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600")
-                                    }
-                                  >
-                                    {pageTitle == "Favorites" ? (
-                                      <HeartIconFilled className="icon text-red-500" />
-                                    ) : (
-                                      <HeartIcon className="icon" />
-                                    )}
-                                    <p
+                                      {pageTitle == "Profile" ? (
+                                        <UserIconFilled className="icon text-red-500" />
+                                      ) : (
+                                        <UserIcon className="icon" />
+                                      )}
+                                      <p
+                                        className={
+                                          "menuText " +
+                                          (pageTitle == "Profile" &&
+                                            "font-semibold")
+                                        }
+                                      >
+                                        Profile
+                                      </p>
+                                    </a>
+                                  </Link>
+                                  <Link href="/favorites">
+                                    <a
                                       className={
-                                        "menuText " +
+                                        "navDiv " +
                                         (pageTitle == "Favorites" &&
-                                          "font-semibold")
+                                          "text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600")
                                       }
                                     >
-                                      Favorites
-                                    </p>
-                                  </a>
-                                </Link>
-                                <div className="flex justify-center">
-                                  <button
-                                    onClick={() => setOpen(true)}
-                                    className="mt-3 p-1 bg-gradient-to-l from-purple-500 to-red-500 hover:to-purple-700 rounded-lg shadow-xl text-white w-6/12 min-w-max"
-                                  >
-                                    Post
-                                  </button>
-                                </div>
-                              </>
-                            ) : (
-                              <>
-                                <Link href="/">
-                                  <a className="navDiv text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600">
-                                    <HomeIconFilled
-                                      className="icon"
-                                      color="red"
-                                    />
-                                    <p>Home</p>
-                                  </a>
-                                </Link>
-                                <a
-                                  disabled={true}
-                                  className="navDiv text-gray-500 cursor-not-allowed"
-                                >
-                                  <UserGroupIcon className="icon" />
-                                  <p>Discover</p>
-                                </a>
-                                <a
-                                  disabled={true}
-                                  className="navDiv text-gray-500 cursor-not-allowed"
-                                >
-                                  <BellIcon className="icon" />
-                                  <p>Notifications</p>
-                                </a>
-                                <a
-                                  disabled={true}
-                                  className="navDiv text-gray-500 cursor-not-allowed"
-                                >
-                                  <UserIcon className="icon" />
-                                  <p>Profile</p>
-                                </a>
-                                <a
-                                  disabled={true}
-                                  className="navDiv text-gray-500 cursor-not-allowed"
-                                >
-                                  <HeartIcon className="icon" />
-                                  <p>Favorites</p>
-                                </a>
-                                <div className="flex justify-center">
-                                  <button
+                                      {pageTitle == "Favorites" ? (
+                                        <HeartIconFilled className="icon text-red-500" />
+                                      ) : (
+                                        <HeartIcon className="icon" />
+                                      )}
+                                      <p
+                                        className={
+                                          "menuText " +
+                                          (pageTitle == "Favorites" &&
+                                            "font-semibold")
+                                        }
+                                      >
+                                        Favorites
+                                      </p>
+                                    </a>
+                                  </Link>
+                                  <div className="flex justify-center">
+                                    <button
+                                      onClick={() => setOpen(true)}
+                                      className="mt-3 p-1 bg-gradient-to-l from-purple-500 to-red-500 hover:to-purple-700 rounded-lg shadow-xl text-white w-6/12 min-w-max"
+                                    >
+                                      Post
+                                    </button>
+                                  </div>
+                                </>
+                              ) : (
+                                <>
+                                  <Link href="/">
+                                    <a className="navDiv text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-red-600">
+                                      <HomeIconFilled
+                                        className="icon"
+                                        color="red"
+                                      />
+                                      <p>Home</p>
+                                    </a>
+                                  </Link>
+                                  <a
                                     disabled={true}
-                                    className="mt-3 p-1 bg-gray-300 rounded-lg w-6/12 min-w-max cursor-not-allowed"
+                                    className="navDiv text-gray-500 cursor-not-allowed"
                                   >
-                                    Post
-                                  </button>
-                                </div>
-                              </>
-                            )}
-                            <div className="p-4 bg-gray-50 dark:bg-transparent">
-                              <MiniProfile />
+                                    <UserGroupIcon className="icon" />
+                                    <p>Discover</p>
+                                  </a>
+                                  <a
+                                    disabled={true}
+                                    className="navDiv text-gray-500 cursor-not-allowed"
+                                  >
+                                    <BellIcon className="icon" />
+                                    <p>Notifications</p>
+                                  </a>
+                                  <a
+                                    disabled={true}
+                                    className="navDiv text-gray-500 cursor-not-allowed"
+                                  >
+                                    <UserIcon className="icon" />
+                                    <p>Profile</p>
+                                  </a>
+                                  <a
+                                    disabled={true}
+                                    className="navDiv text-gray-500 cursor-not-allowed"
+                                  >
+                                    <HeartIcon className="icon" />
+                                    <p>Favorites</p>
+                                  </a>
+                                  <div className="flex justify-center">
+                                    <button
+                                      disabled={true}
+                                      className="mt-3 p-1 bg-gray-300 rounded-lg w-6/12 min-w-max cursor-not-allowed"
+                                    >
+                                      Post
+                                    </button>
+                                  </div>
+                                </>
+                              )}
+                              <div className="shadow-xl">
+                                <MiniProfile />
+                              </div>
+                              <div>
+                                <DarkModeSwitch />
+                              </div>
                             </div>
                           </div>
                         </div>
