@@ -5,7 +5,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.query.q) {
     const q = req.query.q;
     const responseSpotify = await searchSpotifyTracks(q);
-    if (responseSpotify) {
+    if (responseSpotify && responseSpotify.tracks) {
       const tracks = responseSpotify.tracks.items.map((track, index) => ({
         id: index,
         title: track.name,
