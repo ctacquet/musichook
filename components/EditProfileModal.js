@@ -17,6 +17,7 @@ import { ref, getDownloadURL, uploadString } from "firebase/storage"
 import classNames from "classnames";
 
 const genres = [
+    "No genre",
     "Acoustic",
     "Afrobeat",
     "Alt-rock",

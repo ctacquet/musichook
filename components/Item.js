@@ -58,44 +58,26 @@ function Item({ data }) {
 
             </div>
             <div className="mt-6 pt-3 flex flex-wrap mx-6 border-t justify-center">
-                {data.genres[0] ? (
+                {data.genres[0] && (
                     <div
                         className="text-xs mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:bg-indigo-600 hover:text-indigo-100 cursor-default">
                         {data.genres[0]}
                     </div>
-                ) :
-                    (
-                        <div
-                            className="text-xs mr-2 my-1 uppercase tracking-wider border px-2 text-gray-600 text-opacity-25 border-indigo-600 hover:bg-indigo-600 hover:text-indigo-100 cursor-default">
-                            No genres
-                        </div>
-                    )
+                )
                 }
-                {data.genres[1] ? (
+                {data.genres[1] && (
                     <div
                         className="text-xs mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:bg-indigo-600 hover:text-indigo-100 cursor-default">
                         {data.genres[1]}
                     </div>
-                ) :
-                    (
-                        <div
-                            className="text-xs mr-2 my-1 uppercase tracking-wider border px-2 text-gray-600 text-opacity-25 border-indigo-600 hover:bg-indigo-600 hover:text-indigo-100 cursor-default">
-                            No genres
-                        </div>
-                    )
+                )
                 }
-                {data.genres[2] ? (
+                {data.genres[2] && (
                     <div
                         className="text-xs mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:bg-indigo-600 hover:text-indigo-100 cursor-default">
                         {data.genres[2]}
                     </div>
-                ) :
-                    (
-                        <div
-                            className="text-xs mr-2 my-1 uppercase tracking-wider border px-2 text-gray-600 text-opacity-25 border-indigo-600 hover:bg-indigo-600 hover:text-indigo-100 cursor-default">
-                            No genres
-                        </div>
-                    )
+                )
                 }
 
             </div>
