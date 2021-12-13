@@ -13,8 +13,7 @@ import {
   ShareIcon as ShareIconFilled,
 } from "@heroicons/react/solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpotify } from "@fortawesome/free-brands-svg-icons";
-
+import { faSpotify, faDeezer, faYoutube } from "@fortawesome/free-brands-svg-icons";
 import {
   onSnapshot,
   orderBy,
@@ -42,6 +41,7 @@ function Post({
   coverLink,
   spotifyLink,
   deezerLink,
+  youtubeLink,
   artist,
   title,
   songDate,
@@ -331,27 +331,38 @@ function Post({
           <div className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 p-0.5 rounded-lg">
             <div className="rounded-md shadow-xl p-1 bg-white dark:bg-black dark:bg-opacity-100">
               <p className="font-semibold p-2 pt-0">Listen on</p>
-              {spotifyLink && (
-                <div className="flex place-content-center">
-                  <Link href={spotifyLink}>
-                    <a target="_blank">
-                      <FontAwesomeIcon
-                        icon={faSpotify}
-                        className="h-8 text-green-500 btn"
-                      />
-                    </a>
-                  </Link>
-                </div>
-              )}
-              {deezerLink && (
-                <div className="flex place-content-center pt-2">
-                  <Link href={deezerLink}>
-                    <a target="_blank" className="bg-gradient-to-tr from-amber-900 via-fuchsia-600 to-blueGray-800 rounded-full h-8 w-8 btn">
-                      <FontAwesomeIcon icon={faDeezer} className="w-6 h-6 text-white mx-auto mt-1" />
-                    </a>
-                  </Link>
-                </div>
-              )}
+              <div className="flex flex-row lg:flex-col justify-center">
+                {spotifyLink && (
+                  <div className="flex place-content-center">
+                    <Link href={spotifyLink}>
+                      <a target="_blank">
+                        <FontAwesomeIcon
+                          icon={faSpotify}
+                          className="h-8 text-green-500 btn"
+                        />
+                      </a>
+                    </Link>
+                  </div>
+                )}
+                {deezerLink && (
+                  <div className="flex place-content-center pl-2 lg:pl-0 lg:pt-2">
+                    <Link href={deezerLink}>
+                      <a target="_blank" className="bg-gradient-to-tr from-amber-900 via-fuchsia-600 to-blueGray-800 rounded-full h-8 w-8 btn">
+                        <FontAwesomeIcon icon={faDeezer} className="w-6 h-6 text-white mx-auto mt-1" />
+                      </a>
+                    </Link>
+                  </div>
+                )}
+                {youtubeLink && (
+                  <div className="flex place-content-center pl-2 lg:pl-0 lg:pt-2">
+                    <Link href={youtubeLink}>
+                      <a target="_blank" className="dark:bg-white rounded-full h-8 w-8 btn">
+                        <FontAwesomeIcon icon={faYoutube} className="w-6 h-6 text-red-500 mx-auto mt-1" />
+                      </a>
+                    </Link>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

@@ -25,7 +25,7 @@ export function Hit({ hit, closeModal }) {
             )}
             </div>
         </div>
-        <div className="inline-block pl-2 text-xl">{hit.username}</div>
+        <div className="inline-block pl-2 text-xl dark:text-white">{hit.username}</div>
       </div>
     </Link>
   );

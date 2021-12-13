@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState } from "react";
 import { SearchIcon } from "@heroicons/react/outline";
 import Image from "next/image";
+import { searchTracks as searchDeezerTracks } from "../lib/deezer";
 
 function Search(props) {
   const searchRef = useRef(null);
@@ -8,8 +9,13 @@ function Search(props) {
   const [active, setActive] = useState(false);
   const [results, setResults] = useState([]);
 
-  const getTrackInfos = (e, track) => {
+  const getTrackInfos = async (e, track) => {
     e.preventDefault();
+    const responseDeezer = await searchDeezerTracks(track.artist, track.title);
+    if(responseDeezer && responseDeezer.data && responseDeezer.data[0]){
+      track.deezerLink = responseDeezer.data[0].link;
+    }
+    
     props.setTrack(track);
   };
 

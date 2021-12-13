@@ -5,6 +5,7 @@ import RightBar from "./layouts/RightBar";
 import Footer from "./layouts/Footer";
 import Modal from "./Modal";
 import { Toaster } from 'react-hot-toast';
+import AlgoliaSearch from "./AlgoliaSearch";
 
 export default function Layout({ children, pageTitle }) {
   return (

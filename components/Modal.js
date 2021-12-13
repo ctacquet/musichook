@@ -33,6 +33,7 @@ function Modal() {
       coverLink: track.coverLink,
       spotifyLink: track.spotifyLink,
       spotifyId: track.spotifyId,
+      deezerLink: track.deezerLink,
       timestamp: serverTimestamp(),
     });
 

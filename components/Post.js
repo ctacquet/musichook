@@ -13,7 +13,7 @@ import {
   ShareIcon as ShareIconFilled,
 } from "@heroicons/react/solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpotify, faDeezer } from "@fortawesome/free-brands-svg-icons";
+import { faSpotify, faDeezer, faYoutube } from "@fortawesome/free-brands-svg-icons";
 import { faRetweet } from "@fortawesome/free-solid-svg-icons";
 import {
   onSnapshot,
@@ -42,6 +42,7 @@ function Post({
   coverLink,
   spotifyLink,
   deezerLink,
+  youtubeLink,
   artist,
   title,
   songDate,
@@ -65,9 +66,6 @@ function Post({
       ),
     [uid]
   );
-
-  // const unselectedStyle = "bg-white my-7 border rounded-sm";
-  // const selectedStyle = "bg-white my-7 border-4 border-red-500 border-opacity-100 rounded-sm";
 
   const toggleComments = (e) => {
     e.stopPropagation();
@@ -170,6 +168,7 @@ function Post({
     [shares, user]
   );
 
+  /*
   const notify = () => {
     toast.custom(
       (t) => (
@@ -266,9 +265,11 @@ function Post({
       { id: "unique-notification", position: "bottom-center" }
     );
   };
+  */
 
+  //Put this back on the div under return to turn on Sticky bottom : onClick={notify}
   return (
-    <div className="bg-white dark:bg-black dark:bg-opacity-25 my-7 border dark:border-gray-500 dark:border-opacity-50 rounded-sm mx-7 lg:mx-0" onClick={notify}>
+    <div className="bg-white dark:bg-black dark:bg-opacity-25 my-7 border dark:border-gray-500 dark:border-opacity-50 rounded-sm mx-7 lg:mx-0">
       <div className="flex items-start justify-end p-1">
         <div className="flex" onClick={handleClick}>
           <Dropdown postId={id} uid={uid} />
@@ -339,27 +340,38 @@ function Post({
           <div className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 p-0.5 rounded-lg">
             <div className="rounded-md shadow-xl p-1 bg-white dark:bg-black dark:bg-opacity-100">
               <p className="font-semibold p-2 pt-0">Listen on</p>
-              {spotifyLink && (
-                <div className="flex place-content-center">
-                  <Link href={spotifyLink}>
-                    <a target="_blank">
-                      <FontAwesomeIcon
-                        icon={faSpotify}
-                        className="h-8 text-green-500 btn"
-                      />
-                    </a>
-                  </Link>
-                </div>
-              )}
-              {deezerLink && (
-                <div className="flex place-content-center pt-2">
-                  <Link href={deezerLink}>
-                    <a target="_blank" className="bg-gradient-to-tr from-amber-900 via-fuchsia-600 to-blueGray-800 rounded-full h-8 w-8 btn">
-                      <FontAwesomeIcon icon={faDeezer} className="w-6 h-6 text-white mx-auto mt-1" />
-                    </a>
-                  </Link>
-                </div>
-              )}
+              <div className="flex flex-row lg:flex-col justify-center">
+                {spotifyLink && (
+                  <div className="flex place-content-center">
+                    <Link href={spotifyLink}>
+                      <a target="_blank">
+                        <FontAwesomeIcon
+                          icon={faSpotify}
+                          className="h-8 text-green-500 btn"
+                        />
+                      </a>
+                    </Link>
+                  </div>
+                )}
+                {deezerLink && (
+                  <div className="flex place-content-center pl-2 lg:pl-0 lg:pt-2">
+                    <Link href={deezerLink}>
+                      <a target="_blank" className="bg-gradient-to-tr from-amber-900 via-fuchsia-600 to-blueGray-800 rounded-full h-8 w-8 btn">
+                        <FontAwesomeIcon icon={faDeezer} className="w-6 h-6 text-white mx-auto mt-1" />
+                      </a>
+                    </Link>
+                  </div>
+                )}
+                {youtubeLink && (
+                  <div className="flex place-content-center pl-2 lg:pl-0 lg:pt-2">
+                    <Link href={youtubeLink}>
+                      <a target="_blank" className="dark:bg-white rounded-full h-8 w-8 btn">
+                        <FontAwesomeIcon icon={faYoutube} className="w-6 h-6 text-red-500 mx-auto mt-1" />
+                      </a>
+                    </Link>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
