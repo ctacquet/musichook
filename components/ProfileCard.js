@@ -37,8 +37,6 @@ function StatsPopover({ type, user }) {
   useEffect(() => {
     switch (type) {
       case 1: {
-        setTitle("Followers");
-        setTitleText("Users that are following this user :");
         if (user && user.uid) {
           onSnapshot(
             collection(db, "users", user.uid, "followers"),
@@ -46,12 +44,13 @@ function StatsPopover({ type, user }) {
               setAccounts(snapshot.docs);
             }
           );
+          if (accounts && accounts.length > 1) setTitle("Followers");
+          else setTitle("Follower");
+          setTitleText("Users that are following this user :");
         }
         return;
       }
       case 2: {
-        setTitle("Following");
-        setTitleText("Users that this user is following :");
         if (user && user.uid) {
           onSnapshot(
             collection(db, "users", user.uid, "following"),
@@ -59,6 +58,8 @@ function StatsPopover({ type, user }) {
               setAccounts(snapshot.docs);
             }
           );
+          setTitle("Following");
+          setTitleText("Users that this user is following :");
         }
         return;
       }
@@ -99,49 +100,47 @@ function StatsPopover({ type, user }) {
               >
                 <Popover.Panel className="absolute z-10 w-screen max-w-sm px-4 mt-3 transform -translate-x-1/2 left-1/2 sm:px-0 lg:max-w-3xl">
                   {({ close }) => (
-                    <div className="overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-10">
-                      <div className="relative grid gap-2 lg:gap-4 bg-white dark:bg-black dark:bg-opacity-90 dark:text-black border p-7 lg:grid-cols-2">
+                    <div className="max-h-60 overflow-y-scroll scrollbar-thumb-black dark:scrollbar-thumb-white scrollbar-thin rounded-lg bg-white shadow-lg ring-1 ring-black dark:ring-white ring-opacity-10">
+                      <div className="relative grid gap-2 lg:gap-4 bg-white dark:bg-black dark:bg-opacity-90 dark:text-black p-7 lg:grid-cols-2">
                         <div className="lg:col-span-2">
                           <p className="text-black dark:text-white text-xl text-center">
                             {titleText}
                           </p>
                           <br />
                         </div>
-                        <div className="max-h-60 overflow-y-scroll scrollbar-thumb-black dark:scrollbar-thumb-white scrollbar-thin">
-                          {accounts &&
-                            accounts.length > 0 &&
-                            accounts.map((hit) => (
-                              <Link href={`/profiles/${hit.id}`} key={hit.id}>
-                                <div
-                                  onClick={close}
-                                  className="cursor-pointer w-full p-2 my-1 bg-white dark:bg-black dark:text-black border hover:bg-purple-500 ring-inset focus:ring-2 focus:ring-purple-600 focus:ring-opacity-75 focus:bg-purple-300 rounded-lg"
-                                >
-                                  <div className="inline-block pl-1">
-                                    <div className="translate-y-1 w-6">
-                                      {hit.data().userImg ? (
-                                        <Image
-                                          className="rounded-full"
-                                          src={hit.data().userImg}
-                                          alt=""
-                                          width="100%"
-                                          height="100%"
-                                          layout="responsive"
-                                          objectFit="cover"
-                                        />
-                                      ) : (
-                                        <UserCircleIcon className="w-6 dark:text-white" />
-                                      )}
-                                    </div>
-                                  </div>
-                                  <div className="inline-block pl-2 text-xl text-black dark:text-white">
-                                    {hit.data().username
-                                      ? hit.data().username
-                                      : "No username"}
+                        {accounts &&
+                          accounts.length > 0 &&
+                          accounts.map((hit) => (
+                            <Link href={`/profiles/${hit.id}`} key={hit.id}>
+                              <div
+                                onClick={close}
+                                className="cursor-pointer w-full p-2 my-1 bg-white dark:bg-black dark:text-black border hover:bg-purple-500 ring-inset focus:ring-2 focus:ring-purple-600 focus:ring-opacity-75 focus:bg-purple-300 rounded-lg"
+                              >
+                                <div className="inline-block pl-1">
+                                  <div className="translate-y-1 w-6">
+                                    {hit.data().userImg ? (
+                                      <Image
+                                        className="rounded-full"
+                                        src={hit.data().userImg}
+                                        alt=""
+                                        width="100%"
+                                        height="100%"
+                                        layout="responsive"
+                                        objectFit="cover"
+                                      />
+                                    ) : (
+                                      <UserCircleIcon className="w-6 dark:text-white" />
+                                    )}
                                   </div>
                                 </div>
-                              </Link>
-                            ))}
-                        </div>
+                                <div className="inline-block pl-2 text-xl text-black dark:text-white">
+                                  {hit.data().username
+                                    ? hit.data().username
+                                    : "No username"}
+                                </div>
+                              </div>
+                            </Link>
+                          ))}
                       </div>
                     </div>
                   )}
@@ -271,7 +270,7 @@ function ProfileCard() {
               <div className="text-transparent bg-clip-text bg-gradient-to-br from-purple-600 to-red-600 inline-block pr-3">
                 {userData?.posts}
               </div>
-              <div className="inline-block">Posts</div>
+              <div className="inline-block">{userData && userData.posts && userData.posts > 1 ? ("Posts") : ("Post")}</div>
             </div>
 
             <div className="flex-none text-xl text-center">

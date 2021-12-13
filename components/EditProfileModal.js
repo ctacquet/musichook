@@ -438,7 +438,7 @@ function EditModal() {
                                                 type="text"
                                                 ref={usernameRef}
                                                 required                                           
-                                                value={username}
+                                                placeholder={username}
                                                 onChange={(e) => setUsername(e.target.value)}
 
                                             />
@@ -448,7 +448,7 @@ function EditModal() {
                                                 ref={descriptionRef}
                                                 required
                                                 maxLength={150}
-                                                value={description}
+                                                placeholder={description}
                                                 onChange={(e) => setDescription(e.target.value)}
                                             />
                                         </div>

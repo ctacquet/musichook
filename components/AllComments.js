@@ -41,7 +41,7 @@ function Comments({ id, comments, setComments, isCommentOpen }) {
       >
         {user && (
           <form className="flex items-center p-4">
-            <ChatIcon className="h-7 text-black" />
+            <ChatIcon className="h-7 text-black dark:text-white" />
             <input
               type="text"
               value={comment}

@@ -60,9 +60,8 @@ function Notification({
     }
   };
 
-  const oldNotificationStyle = "bg-white dark:bg-black dark:bg-opacity-25 my-7 border dark:border-gray-500 dark:border-opacity-50 rounded-sm";
-  const newNotificationStyle =
-    "bg-white dark:bg-black dark:bg-opacity-25 my-7 border dark:border-gray-500 dark:border-opacity-50 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 px-1 py-1 rounded-lg shadow-md text-base font-medium";
+  const oldNotificationStyle = "bg-white dark:bg-black dark:bg-opacity-10 my-7 border dark:border-gray-500 dark:border-opacity-50 rounded-sm";
+  const newNotificationStyle = "bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 my-7 border dark:border-gray-500 dark:border-opacity-50 px-1 py-1 rounded-lg shadow-md text-base font-medium";
 
   return (
     <Link action={updateSeen} href={`/posts/${postId}`}>

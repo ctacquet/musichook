@@ -39,8 +39,6 @@ function StatsPopover({ type, user }) {
   useEffect(() => {
     switch (type) {
       case 1: {
-        setTitle("Followers");
-        setTitleText("Users that are following this user :");
         if (user && user.uid) {
           onSnapshot(
             collection(db, "users", user.uid, "followers"),
@@ -49,11 +47,12 @@ function StatsPopover({ type, user }) {
             }
           );
         }
+        if (accounts && accounts.length > 1) setTitle("Followers");
+        else setTitle("Follower");
+        setTitleText("Users that are following this user :");
         return;
       }
       case 2: {
-        setTitle("Following");
-        setTitleText("Users that this user is following :");
         if (user && user.uid) {
           onSnapshot(
             collection(db, "users", user.uid, "following"),
@@ -62,10 +61,12 @@ function StatsPopover({ type, user }) {
             }
           );
         }
+        setTitle("Following");
+        setTitleText("Users that this user is following :");
         return;
       }
     }
-  }, [type, db, user]);
+  }, [type, db, user, accounts]);
 
   if (accounts && accounts.length > 0) {
     return (
@@ -101,49 +102,47 @@ function StatsPopover({ type, user }) {
               >
                 <Popover.Panel className="absolute z-10 w-screen max-w-sm px-4 mt-3 transform -translate-x-1/2 left-1/2 sm:px-0 lg:max-w-3xl">
                   {({ close }) => (
-                    <div className="overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-10">
-                      <div className="relative grid gap-2 lg:gap-4 bg-white dark:bg-black dark:bg-opacity-90 dark:text-black border p-7 lg:grid-cols-2">
+                    <div className="max-h-60 overflow-y-scroll scrollbar-thumb-black dark:scrollbar-thumb-white scrollbar-thin rounded-lg bg-white shadow-lg ring-1 ring-black dark:ring-white ring-opacity-10">
+                      <div className="relative grid gap-2 lg:gap-4 bg-white dark:bg-black dark:bg-opacity-90 dark:text-black p-7 lg:grid-cols-2">
                         <div className="lg:col-span-2">
                           <p className="text-black dark:text-white text-xl text-center">
                             {titleText}
                           </p>
                           <br />
                         </div>
-                        <div className="max-h-60 overflow-y-scroll scrollbar-thumb-black dark:scrollbar-thumb-white scrollbar-thin">
-                          {accounts &&
-                            accounts.length > 0 &&
-                            accounts.map((hit) => (
-                              <Link href={`/profiles/${hit.id}`} key={hit.id}>
-                                <div
-                                  onClick={close}
-                                  className="cursor-pointer w-full p-2 my-1 bg-white dark:bg-black dark:text-black border hover:bg-purple-500 ring-inset focus:ring-2 focus:ring-purple-600 focus:ring-opacity-75 focus:bg-purple-300 rounded-lg"
-                                >
-                                  <div className="inline-block pl-1">
-                                    <div className="translate-y-1 w-6">
-                                      {hit.data().userImg ? (
-                                        <Image
-                                          className="rounded-full"
-                                          src={hit.data().userImg}
-                                          alt=""
-                                          width="100%"
-                                          height="100%"
-                                          layout="responsive"
-                                          objectFit="cover"
-                                        />
-                                      ) : (
-                                        <UserCircleIcon className="w-6 dark:text-white" />
-                                      )}
-                                    </div>
-                                  </div>
-                                  <div className="inline-block pl-2 text-xl text-black dark:text-white">
-                                    {hit.data().username
-                                      ? hit.data().username
-                                      : "No username"}
+                        {accounts &&
+                          accounts.length > 0 &&
+                          accounts.map((hit) => (
+                            <Link href={`/profiles/${hit.id}`} key={hit.id}>
+                              <div
+                                onClick={close}
+                                className="cursor-pointer w-full p-2 my-1 bg-white dark:bg-black dark:text-black border hover:bg-purple-500 ring-inset focus:ring-2 focus:ring-purple-600 focus:ring-opacity-75 focus:bg-purple-300 rounded-lg"
+                              >
+                                <div className="inline-block pl-1">
+                                  <div className="translate-y-1 w-6">
+                                    {hit.data().userImg ? (
+                                      <Image
+                                        className="rounded-full"
+                                        src={hit.data().userImg}
+                                        alt=""
+                                        width="100%"
+                                        height="100%"
+                                        layout="responsive"
+                                        objectFit="cover"
+                                      />
+                                    ) : (
+                                      <UserCircleIcon className="w-6 dark:text-white" />
+                                    )}
                                   </div>
                                 </div>
-                              </Link>
-                            ))}
-                        </div>
+                                <div className="inline-block pl-2 text-xl text-black dark:text-white">
+                                  {hit.data().username
+                                    ? hit.data().username
+                                    : "No username"}
+                                </div>
+                              </div>
+                            </Link>
+                          ))}
                       </div>
                     </div>
                   )}
@@ -304,14 +303,14 @@ function VisitorProfileCard({ id }) {
                     <div className="flex flex-col items-center py-3 px-2">
                       <button
                         type="button"
-                        className="btn inline-block text-xl mr-2 my-1 tracking-wider rounded-sm  px-2 cursor-pointer bg-gradient-to-l from-blue-400  to-green-400  text-white hover:from-purple-500 hover:to-red-500"
+                        className="btn inline-block text-xl my-1 tracking-wider rounded-sm px-2 cursor-pointer bg-gradient-to-l from-blue-400  to-green-400  text-white hover:from-purple-500 hover:to-red-500"
                         ref={followButtonRef}
                         onClick={() => {
                           handleFollow();
                           setFollowed(false);
                         }}
                       >
-                        {followed ? "UnFollow" : "Follow"}
+                        Unfollow
                       </button>
 
                       {loading && (
@@ -341,7 +340,7 @@ function VisitorProfileCard({ id }) {
                             setFollowed(true);
                           }}
                         >
-                          {followed ? "UnFollow" : "Follow"}
+                          Follow
                         </button>
                         {loading && (
                           <div className="w-8">
@@ -377,7 +376,7 @@ function VisitorProfileCard({ id }) {
               <div className="text-transparent bg-clip-text bg-gradient-to-br from-purple-600 to-red-600 inline-block pr-3">
                 {otherUser?.posts}
               </div>
-              <div className="inline-block">Posts</div>
+              <div className="inline-block">{otherUser && otherUser.posts && otherUser.posts > 1 ? ("Posts") : ("Post")}</div>
             </div>
 
             <div className="flex-none text-xl text-center">

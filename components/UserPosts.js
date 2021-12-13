@@ -73,6 +73,7 @@ function UserPosts() {
                                     userImg={post.data().userImg}
                                     coverLink={post.data().coverLink}
                                     spotifyLink={post.data().spotifyLink}
+                                    deezerLink={post.data().deezerLink}
                                     artist={post.data().artist}
                                     title={post.data().title}
                                     timestamp={post.data().timestamp}

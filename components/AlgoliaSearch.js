@@ -107,16 +107,16 @@ function AlgoliaSearch() {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white border dark:bg-black dark:dg-opacity-75 shadow-2xl rounded-2xl">
+              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white dark:bg-black border shadow-2xl rounded-2xl">
                 <InstantSearch indexName="users" searchClient={searchClient} className="block relative rounded-md">
-                    <div className="w-full pb-2 border-b">
-                    <CustomSearchBox
-                      className="bg-white dark:bg-gray-400 sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md"
-                    />
-                    </div>
-                    <div className="pt-2">
-                      <Hits hitComponent={TheHit} className="h-60 overflow-y-scroll scrollbar-thumb-black dark:scrollbar-thumb-white scrollbar-thin"/>
-                    </div>
+                  <div className="w-full pb-2 border-b">
+                  <CustomSearchBox
+                    className="bg-white dark:bg-gray-400 sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md"
+                  />
+                  </div>
+                  <div className="pt-2">
+                    <Hits hitComponent={TheHit} className="h-60 overflow-y-scroll scrollbar-thumb-black dark:scrollbar-thumb-white scrollbar-thin"/>
+                  </div>
                 </InstantSearch>
                 <div className="pt-5 text-right">
                   <a href="https://www.algolia.com/" target="_blank">

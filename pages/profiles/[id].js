@@ -15,7 +15,7 @@ const Profile = () => {
   const { id } = router.query;
 
   useEffect(() => {
-    if (user && user.id == id) {
+    if (user && user.uid == id) {
       setProfileCard(<ProfileCard />);
     } else {
       setProfileCard(<VisitorProfileCard id={id} />);
