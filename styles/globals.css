@@ -42,7 +42,7 @@
     }
 
     .card{
-        @apply rounded-sm ;
+        @apply rounded-sm;
     }
     .cardWrapper{
         @apply w-full h-full rounded-sm border;
@@ -56,7 +56,7 @@
     }
 
     .slide{
-        @apply flex-wrap content-center px-3.5  pr-10 ;
+        @apply flex-wrap content-center px-3.5 pr-10;
     }
 
     .toastWrapper{
@@ -65,25 +65,25 @@
 
     .notificationWrapper {
         @apply flex flex-row items-center justify-between w-full h-auto bg-white dark:bg-transparent px-4 py-6 shadow-2xl hover:shadow-none transform-gpu translate-y-0  rounded-lg relative transition-all duration-500 ease-in-out mr-4 ;
-      }
-      
-      .iconWrapper {
-        @apply text-xl ;
-      }
-      
-      .contentWrapper {
+    }
+    
+    .iconWrapper {
+        @apply text-xl;
+    }
+    
+    .contentWrapper {
         @apply flex flex-col items-start justify-center ml-4;
-      }
-      
-      .contentWrapper h1 {
+    }
+    
+    .contentWrapper h1 {
         @apply text-base text-gray-900 dark:text-white font-semibold leading-none tracking-wider;
-      }
-      
-      .contentWrapper p {
+    }
+    
+    .contentWrapper p {
         @apply text-sm text-gray-600 dark:text-white mt-2 leading-relaxed tracking-wider;
-      }
-      
-      .closeIcon {
+    }
+    
+    .closeIcon {
         @apply absolute top-2 right-2 cursor-pointer text-lg;
-      }
+    }
 }

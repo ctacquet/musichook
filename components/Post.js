@@ -35,6 +35,8 @@ import Comments from "./Comments";
 import Image from "next/image";
 import classNames from "classnames";
 import toast from "react-hot-toast";
+import ReactTooltip from 'react-tooltip';
+import { useTheme } from 'next-themes';
 
 function Post({
   id,
@@ -58,14 +60,17 @@ function Post({
   const [hasFaved, setHasFaved] = useState(false);
   const [hasShared, setHasShared] = useState(false);
   const [isCommentOpen, setCommentIsOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const { theme } = useTheme();
+  const [currentTheme, setCurrentTheme] = useState(null);
 
-  useEffect(
-    () =>
-      onSnapshot(doc(db, "users", uid), (doc) =>
-        setUserWhoPosted(doc.data())
-      ),
-    [uid]
-  );
+  useEffect( () => {
+    onSnapshot(doc(db, "users", uid), (doc) =>
+      setUserWhoPosted(doc.data())
+    );
+    setIsMounted(true);
+    setCurrentTheme(theme);
+  }, [db, uid, theme]);
 
   const toggleComments = (e) => {
     e.stopPropagation();
@@ -168,108 +173,9 @@ function Post({
     [shares, user]
   );
 
-  /*
-  const notify = () => {
-    toast.custom(
-      (t) => (
-        <div
-          className={classNames([
-            "toastWrapper",
-            t.visible ? "visible " : "hidden",
-          ])}
-        >
-          <div
-            className={classNames([
-              "notificationWrapper",
-              t.visible ? "top-0" : "top-96",
-            ])}
-          >
-            <Link href={spotifyLink}>
-              <div className="flex border rounded-lg shadow-xl p-2 cursor-pointer hover:scale-110 transition-all duration-150 ease-out select-none">
-                {coverLink && (
-                <div className="iconWrapper">
-                  <div className="w-16 border">
-                    <Image
-                      src={coverLink}
-                      className="object-cover z-0"
-                      alt=""
-                      quality={100}
-                      priority="false"
-                      width="100%"
-                      height="100%"
-                      layout="responsive"
-                      objectFit="contain"
-                    />
-                  </div>
-                </div>)}
-                <div className="contentWrapper">
-                      <a>
-                        <h1 className="dark:text-white">{artist}</h1>
-                      </a>
-                      <a>
-                        <p className="dark:text-white">{title}</p>
-                      </a>
-                </div>
-              </div>
-            </Link>
-            <div className="closeIcon" onClick={() => toast.dismiss(t.id)}>
-              <XIcon className="btn h-4" />
-            </div>
-
-            <div className="flex flex-col lg:flex-row space-x-4">
-              <div className="space-x-1 ml-4">
-                {user && hasLiked ? (
-                  <ThumbUpIconFilled
-                    onClick={likePost}
-                    className="text-purple-600 btn inline-block"
-                  />
-                ) : (
-                  <ThumbUpIcon
-                    onClick={user && likePost}
-                    className="btn inline-block"
-                  />
-                )}
-                {likes.length > 0 && (
-                  <p className="font-bold inline-block">{likes.length}</p>
-                )}
-              </div>
-              <div className="space-x-1 mx-auto">
-                {user && hasShared ? (
-                  <FontAwesomeIcon
-                    icon={faRetweet}
-                    className="text-purple-600 btn inline-block"
-                    onClick={sharePost}
-                  />
-                ) : (
-                  <FontAwesomeIcon
-                    icon={faRetweet}
-                    className="btn inline-block h-7 w-7"
-                    onClick={user && sharePost}
-                  />
-                )}
-                {shares.length > 0 && (
-                  <p className="font-bold inline-block">{shares.length}</p>
-                )}
-              </div>
-              <div className="space-x-1 mx-auto">
-                  <Link href={`/posts/${id}`}>
-                    <a>
-                      <InformationCircleIcon className="btn inline-block hover:text-purple-600"/>
-                    </a>
-                  </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      ),
-      { id: "unique-notification", position: "bottom-center" }
-    );
-  };
-  */
-
-  //Put this back on the div under return to turn on Sticky bottom : onClick={notify}
   return (
     <div className="bg-white dark:bg-black dark:bg-opacity-25 my-7 border dark:border-gray-500 dark:border-opacity-50 rounded-sm mx-7 lg:mx-0">
+      <ReactTooltip place="top" type={currentTheme === "light" ? "dark" : "light"} effect="solid" />
       <div className="flex items-start justify-end p-1">
         <div className="flex" onClick={handleClick}>
           <Dropdown postId={id} uid={uid} />
@@ -344,7 +250,7 @@ function Post({
                 {spotifyLink && (
                   <div className="flex place-content-center">
                     <Link href={spotifyLink}>
-                      <a target="_blank">
+                      <a target="_blank" data-tip="Spotify">
                         <FontAwesomeIcon
                           icon={faSpotify}
                           className="h-8 text-green-500 btn"
@@ -356,7 +262,7 @@ function Post({
                 {deezerLink && (
                   <div className="flex place-content-center pl-2 lg:pl-0 lg:pt-2">
                     <Link href={deezerLink}>
-                      <a target="_blank" className="bg-gradient-to-tr from-amber-900 via-fuchsia-600 to-blueGray-800 rounded-full h-8 w-8 btn">
+                      <a target="_blank" data-tip="Deezer" className="bg-gradient-to-tr from-amber-900 via-fuchsia-600 to-blueGray-800 rounded-full h-8 w-8 btn">
                         <FontAwesomeIcon icon={faDeezer} className="w-6 h-6 text-white mx-auto mt-1" />
                       </a>
                     </Link>
@@ -365,7 +271,7 @@ function Post({
                 {youtubeLink && (
                   <div className="flex place-content-center pl-2 lg:pl-0 lg:pt-2">
                     <Link href={youtubeLink}>
-                      <a target="_blank" className="dark:bg-white rounded-full h-8 w-8 btn">
+                      <a target="_blank" data-tip="Youtube" className="dark:bg-white rounded-full h-8 w-8 btn">
                         <FontAwesomeIcon icon={faYoutube} className="w-6 h-6 text-red-500 mx-auto mt-1" />
                       </a>
                     </Link>
@@ -381,26 +287,25 @@ function Post({
       <div className="flex justify-between p-4">
         <div className="flex space-x-4">
           {user && hasFaved ? (
-            <HeartIconFilled
-              onClick={favPost}
-              className="btn text-red-600 inline-block"
-            />
+            <a onClick={favPost} data-tip="Remove from favorite" >
+              <HeartIconFilled className="btn text-red-600 inline-block" />
+            </a>
           ) : (
-            <HeartIcon onClick={user && favPost} className="btn inline-block" />
+            <a onClick={user && favPost} data-tip="Add to favorite" >
+              <HeartIcon className="btn inline-block" />
+            </a>
           )}
         </div>
         <div className="flex space-x-4">
           <div className="space-x-1 items-center">
             {user && hasLiked ? (
-              <ThumbUpIconFilled
-                onClick={likePost}
-                className="btn text-purple-600 inline-block"
-              />
+              <a onClick={likePost} data-tip="Unlike">
+                <ThumbUpIconFilled className="btn text-purple-600 inline-block" />
+              </a>
             ) : (
-              <ThumbUpIcon
-                onClick={user && likePost}
-                className="btn inline-block"
-              />
+              <a onClick={user && likePost} data-tip="Like">
+                <ThumbUpIcon className="btn inline-block" />
+              </a>
             )}
             {likes.length > 0 && (
               <p className="font-bold inline-block">{likes.length}</p>
@@ -409,37 +314,39 @@ function Post({
           <div className="space-x-1 items-center">
             {(user == null && comments.length > 0 && isCommentOpen) ||
             (user && isCommentOpen) ? (
-              <AnnotationIconFilled
-                className="btn inline-block text-purple-600"
-                onClick={toggleComments}
-              />
+              <a onClick={toggleComments} data-tip="Hide comments">
+                <AnnotationIconFilled className="btn inline-block text-purple-600" />
+              </a>
             ) : (
-              <AnnotationIcon
-                className={"btn inline-block"}
-                onClick={toggleComments}
-              />
+              <a onClick={toggleComments} data-tip="Show comments">
+                <AnnotationIcon className={"btn inline-block"} />
+              </a>
             )}
             {comments.length > 0 && (
               <p className="font-bold inline-block">{comments.length}</p>
             )}
           </div>
           <div className="space-x-1 items-center">
-            {user && hasShared ? (
-              <FontAwesomeIcon
-                icon={faRetweet}
-                className="text-purple-600 btn inline-block"
-                onClick={sharePost}
-              />
-            ) : (
-              <FontAwesomeIcon
-                icon={faRetweet}
-                className="btn inline-block h-7 w-7"
-                onClick={user && sharePost}
-              />
-            )}
-            {shares.length > 0 && (
-              <p className="font-bold inline-block">{shares.length}</p>
-            )}
+            <div className="bg-transparent border-0 border-transparent ring-0">
+              {user && hasShared ? (
+                <FontAwesomeIcon
+                  icon={faRetweet}
+                  className="text-purple-600 btn inline-block"
+                  onClick={sharePost}
+                  data-tip="Remove share"
+                />
+              ) : (
+                <FontAwesomeIcon
+                  icon={faRetweet}
+                  className="btn inline-block h-7 w-7"
+                  onClick={user && sharePost}
+                  data-tip="Share on this platform"
+                />
+              )}
+              {shares.length > 0 && (
+                <p className="font-bold inline-block pl-1">{shares.length}</p>
+              )}
+            </div>
           </div>
         </div>
       </div>

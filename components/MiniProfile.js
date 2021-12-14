@@ -25,7 +25,7 @@ function MiniProfile() {
         });
     }
 
-}, [user]);
+}, [db, user]);
 
   const logout = () => {
     signOut(auth);

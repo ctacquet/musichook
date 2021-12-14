@@ -1,4 +1,4 @@
-import {useTheme} from 'next-themes';
+import { useTheme } from 'next-themes';
 import { useState, useEffect } from "react";
 import { Switch } from "@headlessui/react";
 import { MoonIcon, SunIcon } from "@heroicons/react/outline";
