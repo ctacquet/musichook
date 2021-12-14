@@ -12,6 +12,7 @@ module.exports = {
         "slide-in": "slide-in 1.2s cubic-bezier(.41,.73,.51,1.02)",
         leave: "leave 150ms ease-in forwards",
         'ping-slow': 'ping 4s cubic-bezier(0, 0, 0.2, 1) infinite;',
+        'spin-slow': 'spin 4s linear infinite',
       },
       keyframes: {
         enter: {
