@@ -58,8 +58,8 @@ function Caroussel() {
               </div>
                 {
                     currentUser.genres[0] &&
-                    currentUser.genres[0] !== "no genres" &&
-                    currentUser.genres[0] !== "No genre" && (
+                    currentUser.genres[0].toLowerCase() !== "no genres" &&
+                    currentUser.genres[0].toLowerCase() !== "no genre" && (
                     <a
                         disabled
                         className="text-xl mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:text-indigo-100 hover:bg-gray-600 cursor-not-allowed select-none"
@@ -70,8 +70,8 @@ function Caroussel() {
                 }
                 {
                     currentUser.genres[1] &&
-                    currentUser.genres[1] !== "no genres" &&
-                    currentUser.genres[1] !== "No genre" && (
+                    currentUser.genres[1].toLowerCase() !== "no genres" &&
+                    currentUser.genres[1].toLowerCase() !== "no genre" && (
                     <a
                         disabled
                         className="text-xl mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:text-indigo-100 hover:bg-gray-600 cursor-not-allowed select-none"
@@ -83,8 +83,8 @@ function Caroussel() {
               
                 {
                     currentUser.genres[2] &&
-                    currentUser.genres[2] !== "no genres" &&
-                    currentUser.genres[2] !== "No genre" && (
+                    currentUser.genres[2].toLowerCase() !== "no genres" &&
+                    currentUser.genres[2].toLowerCase() !== "no genre" && (
                     <a
                         disabled
                         className="text-xl mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:text-indigo-100 hover:bg-gray-600 cursor-not-allowed select-none"

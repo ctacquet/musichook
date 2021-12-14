@@ -1,10 +1,7 @@
 import {
   AnnotationIcon,
   HeartIcon,
-  ShareIcon,
   ThumbUpIcon,
-  XIcon,
-  InformationCircleIcon,
 } from "@heroicons/react/outline";
 import {
   HeartIcon as HeartIconFilled,
@@ -33,8 +30,6 @@ import Dropdown from "./Dropdown";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Comments from "./Comments";
 import Image from "next/image";
-import classNames from "classnames";
-import toast from "react-hot-toast";
 import ReactTooltip from 'react-tooltip';
 import { useTheme } from 'next-themes';
 
