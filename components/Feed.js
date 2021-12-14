@@ -12,11 +12,11 @@ function TabList({text, key}) {
         key={key}
         className={({ selected }) =>
             classNames(
-            'w-full py-2.5 text-sm leading-5text-black dark:text-white rounded-lg',
+            'w-full py-2.5 text-sm leading-5text-black dark:text-white rounded-lg border dark:border-opacity-20',
             'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-purple-400 ring-white ring-opacity-60',
             selected
-                ? 'bg-gray-100 font-bold dark:bg-white dark:bg-opacity-20 shadow text-purple-700 dark:text-purple-500'
-                : 'hover:bg-black/[0.12] hover:text-black'
+                ? 'bg-gray-100 font-bold dark:bg-white dark:bg-opacity-20 dark:border-opacity-5 shadow text-purple-700 dark:text-purple-500'
+                : 'hover:bg-black/[0.12] hover:text-black dark:hover:bg-white/[0.12] dark:hover:text-white'
             )
         } >
             {text}
@@ -42,7 +42,7 @@ function Feed() {
     return (
         <section className="col-span-2">
             <Tab.Group>
-                <Tab.List className="sticky top-20 z-10 mt-7 flex p-1 space-x-1 bg-white dark:bg-black dark:bg-opacity-30 border dark:border-opacity-20 rounded-xl">
+                <Tab.List className="sticky top-20 z-10 mt-7 flex p-1 space-x-1 bg-white dark:bg-black border dark:border-opacity-20 rounded-xl">
                     <TabList text={"All posts"} key="1" />
                     <TabList text={"Your feed"} key="2" />
                 </Tab.List>
