@@ -167,7 +167,7 @@ function TopBar({ pageTitle }) {
                       leaveFrom="opacity-100 translate-y-0"
                       leaveTo="opacity-0 translate-y-1"
                     >
-                      <Popover.Panel className="absolute z-10 w-screen max-w-sm mt-3 transform ml-3 -translate-x-full left-full sm:px-0 lg:max-w-3xl">
+                      <Popover.Panel className="absolute z-30 w-screen max-w-sm mt-3 transform ml-3 -translate-x-full left-full sm:px-0 lg:max-w-3xl">
                         <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black dark:ring-white ring-opacity-20 dark:ring-opacity-20">
                           <div className="relative bg-white">
                             <div className="relative grid gap-8 bg-white dark:bg-black dark:bg-opacity-80 p-7 lg:grid-cols-2">
