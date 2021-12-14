@@ -39,7 +39,7 @@ export default function Layout({ children, pageTitle }) {
           <RightBar />
           <Modal />
         </div>
-        <footer className="sticky bottom-0 z-10">
+        <footer className="lg:sticky lg:bottom-0 z-10">
           <Footer />
         </footer>
         <Toaster
