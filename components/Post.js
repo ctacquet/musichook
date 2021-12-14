@@ -175,7 +175,7 @@ function Post({
 
   return (
     <div className="bg-white dark:bg-black dark:bg-opacity-25 my-7 border dark:border-gray-500 dark:border-opacity-50 rounded-sm mx-7 lg:mx-0">
-      <ReactTooltip place="top" type={currentTheme === "light" ? "dark" : "light"} effect="solid" />
+      <ReactTooltip place="top" delayHide={0} type={currentTheme === "light" ? "dark" : "light"} effect="solid" />
       <div className="flex items-start justify-end p-1">
         <div className="flex" onClick={handleClick}>
           <Dropdown postId={id} uid={uid} />

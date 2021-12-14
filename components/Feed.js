@@ -29,8 +29,7 @@ function TabPanel({children, key}) {
         <Tab.Panel
         key={key}
         className={classNames(
-            '',
-            'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-purple-400 ring-white ring-opacity-60'
+            ''
         )}
         >
             {children}
