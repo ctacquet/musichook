@@ -157,7 +157,7 @@ function Post({
 
   useEffect(() => {
     setHasFaved(favorites.findIndex((favorite) => favorite.id == id) !== -1);
-  }, [favorites, user]);
+  }, [favorites, id]);
 
   useEffect(
     () =>
@@ -340,7 +340,7 @@ function Post({
                   icon={faRetweet}
                   className="btn inline-block h-7 w-7"
                   onClick={user && sharePost}
-                  data-tip="Share on this platform"
+                  data-tip="Share on MusicHook"
                 />
               )}
               {shares.length > 0 && (

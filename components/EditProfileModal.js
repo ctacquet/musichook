@@ -400,11 +400,11 @@ function EditModal() {
                             </div>
                             <form className="flex flex-col" onSubmit={uploadData}>
                                 <div className="bg-white dark:bg-gray-500 p-8 my-7 border dark:border-white dark:border-opacity-50 rounded-sm">
-                                    <div className="grid grid-cols-3 gap-3 min-w-full items-center  place-items-center  ">
+                                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 min-w-full items-center  place-items-center  ">
 
 
                                         {selectedFile ? (
-                                            <div className="col-span-1  rounded-full  ">
+                                            <div className="col-span-1 rounded-full">
                                                 <div className="h-24 w-24">
                                                     <Image
                                                         src={selectedFile}
@@ -432,23 +432,23 @@ function EditModal() {
                                         <input type="file" onChange={addImageToPost} className="hidden" ref={filePickerRef} />
 
 
-                                        <div className="col-span-2 "  >
+                                        <div className="col-span-2">
                                             <input
-                                                className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1 dark:text-black"
+                                                className="select-all w-full sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1 dark:text-black"
                                                 type="text"
                                                 ref={usernameRef}
-                                                required                                           
-                                                placeholder={username}
+                                                require
+                                                value={username}
+                                                placeholder="Username"
                                                 onChange={(e) => setUsername(e.target.value)}
-
-                                            />
+                                                />
                                             <textarea
-                                                className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md w-full dark:text-black"
+                                                className="select-all w-full sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md dark:text-black"
                                                 type="text"
                                                 ref={descriptionRef}
-                                                required
                                                 maxLength={150}
-                                                placeholder={description}
+                                                value={description}
+                                                placeholder="Description"
                                                 onChange={(e) => setDescription(e.target.value)}
                                             />
                                         </div>
@@ -467,66 +467,79 @@ function EditModal() {
 
                                     {!displayed && (<button type="button" className="w-64 h-9 text-blue-500 dark:font-bold text-left" onClick={toggleLinks}> + ADD LINK </button>)}
 
-                                    <div className={classNames([displayed ? "grid grid-cols-7 bg-white dark:bg-gray-500 border rounded-lg border-gray-300 p-4 visible " : "hidden"])}>
-                                        <div className="col-span-1 text-center">
-                                            <p className="text-lg translate-y-2">Title</p>
+                                    <div className={classNames([displayed ? "grid grid-cols-5 lg:grid-flow-col lg:grid-rows-1 gap-2 bg-white dark:bg-gray-500 border rounded-lg border-gray-300 p-4 visible " : "hidden"])}>
+                                        <div className="col-span-5">
+                                            <div className="text-center">
+                                                <p className="text-lg">Title</p>
+                                            </div>
+                                            <div className="mt-3">
+                                                <select className="overflow-auto sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1 w-full dark:text-black" ref={domainRef} value={newDomain} onChange={(e) => setDomain(e.target.value)} >
+                                                    <option value="">--Choose one--</option>
+                                                    <option value="Facebook">Facebook</option>
+                                                    <option value="Twitter">Twitter</option>
+                                                    <option value="Instagram">Instagram</option>
+                                                    <option value="Github">GitHub</option>
+                                                    <option value="Other">Other</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div className="col-span-2">
-                                            <select className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1 dark:text-black" ref={domainRef} value={newDomain} onChange={(e) => setDomain(e.target.value)} >
-                                                <option value="">--Choose one--</option>
-                                                <option value="Facebook">Facebook</option>
-                                                <option value="Twitter">Twitter</option>
-                                                <option value="Instagram">Instagram</option>
-                                                <option value="Github">GitHub</option>
-                                                <option value="Other">Other</option>
-                                            </select>
+                                        <div className="col-span-5">
+                                            <div className="text-center">
+                                                <p className="text-lg">URL</p>
+                                            </div>
+                                            <div className="mt-3">
+                                                <input
+                                                    className="overflow-auto sm:text-sm border-gray-300 dark:border-white focus:ring-black focus:border-black rounded-md mb-1 w-full dark:text-black"
+                                                    type="text"
+                                                    required={displayed}
+                                                    placeholder="Type URL here"
+                                                    ref={urlRef}
+                                                    value={newUrl}
+                                                    pattern={ getPattern(newDomain) }
+                                                    onInput={(e) => handleChange(e)}
+                                                    onChange={(e) => setUrl(e.target.value)}
+                                                />
+                                            </div>
                                         </div>
-                                        <div className="col-span-1 text-center">
-                                            <p className="text-lg translate-y-2">URL</p>
-                                        </div>
-                                        <div className="col-span-2">
-                                            <input
-                                                className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 dark:border-white focus:ring-black focus:border-black rounded-md mb-1 dark:text-black"
-                                                type="text"
-                                                required={displayed}
-                                                placeholder="Type URL here"
-                                                ref={urlRef}
-                                                value={newUrl}
-                                                pattern={ getPattern(newDomain) }
-                                                onInput={(e) => handleChange(e)}
-                                                onChange={(e) => setUrl(e.target.value)}
-                                            />
-                                        </div>
-                                        <div className="col-span-1 px-5 w-full" onClick={() => setDisplayed(!displayed)} >
-                                            <p className="text-center text-red-500 dark:text-red dark:font-bold cursor-pointer w-full translate-y-2 translate-x-4">
+                                        <div className="col-span-5 lg:col-span-1 row-span-1 m-auto" onClick={() => setDisplayed(!displayed)} >
+                                            <p className="text-center bg-white border hover:bg-red-500 hover:text-white p-2 text-red-500 dark:text-red dark:font-bold cursor-pointer">
                                                 Cancel
                                             </p>
                                         </div>
                                     </div>
 
-                                    <div className="h-40 overflow-y-scroll scrollbar-thumb-black scrollbar-thin my-4">
+                                    <div className="h-40 overflow-scroll scrollbar-thumb-black scrollbar-thin my-4">
                                         {links && links.map((link) => (
-                                            <div className="grid grid-cols-7 gap-4 bg-white dark:bg-gray-500 border dark:border-white rounded-lg border-gray-300 mb-4 p-4" key={link.id} id={link.id}>
-                                                <div className="col-span-1 text-center ">
-                                                    <p className="text-lg inline-block">Title</p>
+                                            <div className="grid grid-cols-5 grid-flow-col grid-rows-3 lg:grid-rows-1 gap-2 bg-white dark:bg-gray-500 border dark:border-white rounded-lg border-gray-300 mb-4 p-4" key={link.id} id={link.id}>
+                                                <div className="row-span-1 col-span-5 flex lg:hidden mx-auto" id={link.id} ref={deleteLinkRef} onClick={(e) => { deleteFromLinks(e); setDeleted(true); }}  >
+                                                    <TrashIcon className="h-8 cursor-pointer" />
                                                 </div>
-                                                <div className="col-span-2 ">
-                                                    <p
-                                                        className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 dark:border-white focus:ring-black focus:border-black rounded-md mb-1">
-                                                        {link.data().domain}
-                                                    </p>
+                                                <div className="col-span-5 lg:col-span-1 text-center">
+                                                    <div className="row-span-1">
+                                                        <div className="">
+                                                            <p className="text-lg inline-block">Title</p>
+                                                            <div className="row-span-1">
+                                                                <p
+                                                                    className="sm:text-sm border-gray-300 dark:border-white focus:ring-black focus:border-black rounded-md mb-1">
+                                                                    {link.data().domain}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div className="col-span-1  text-center ">
-                                                    <p className="text-lg inline-block">URL</p>
-                                                </div>
-                                                <div className="col-span-2 space-x-2">
-                                                    <p
-                                                        className="overflow-ellipsis overflow-hidden sm:text-sm border-gray-300 dark:border-white focus:ring-black focus:border-black rounded-md mb-1" >
-                                                        {link.data().url}
+                                                <div className="row-span-1 col-span-5 text-center">
+                                                    <div>
+                                                        <p className="text-lg inline-block">URL</p>
+                                                    </div>
+                                                    <div>
+                                                        <p
+                                                            className="overflow-auto sm:text-sm border-gray-300 dark:border-white focus:ring-black focus:border-black rounded-md mb-1" >
+                                                            {link.data().url}
 
-                                                    </p>
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                                <div className="col-span-1 px-8 w-full" id={link.id} ref={deleteLinkRef} onClick={(e) => { deleteFromLinks(e); setDeleted(true); }}  >
+                                                <div className="hidden lg:flex col-span-1 px-8 w-full" id={link.id} ref={deleteLinkRef} onClick={(e) => { deleteFromLinks(e); setDeleted(true); }}  >
                                                     <TrashIcon className="h-8 cursor-pointer" />
                                                 </div>
                                             </div>

@@ -149,7 +149,7 @@ function Post({
 
   useEffect(() => {
     setHasFaved(favorites.findIndex((favorite) => favorite.id == id) !== -1);
-  }, [favorites, user]);
+  }, [favorites, id]);
 
   useEffect(
     () =>

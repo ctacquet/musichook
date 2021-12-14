@@ -64,7 +64,7 @@ function Modal() {
         className="fixed z-10 inset-0 overflow-y-auto"
         onClose={setOpen}
       >
-        <div className="flex items-end justify-center min-h-[800px] sm:min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div className="block xl:flex items-end justify-center min-h-[800px] sm:min-h-screen pt-4 px-4 xl:p-0 text-center">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -79,7 +79,7 @@ function Modal() {
 
           {/* This element is to trick the browser into centering the modal content */}
           <span
-            className="hidden sm:inline-block sm:align-middle sm:h-screen"
+            className="inline-block align-middle xl:hidden"
             aria-hidden="true"
           >
             &#8203;
@@ -95,7 +95,7 @@ function Modal() {
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <div
-              className="inline-block align-bottom bg-white dark:bg-gray-500 rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all lg:max-w-xl sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6"
+              className="inline-block align-bottom bg-white dark:bg-gray-500 rounded-lg p-4 mx-2 my-32 md:my-96 lg:my-12 xl:my-auto max-w-full w-full lg:max-w-xl xl:max-w-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle"
             >
               <div>
                 <Search setTrack={setTrack} />
@@ -112,11 +112,11 @@ function Modal() {
                   )}
                 </div>
 
-                <div className="mt-2 sm:mt-4">
+                <div className="mt-2 py-6 px-6">
                   <button
                     type="button"
                     onClick={uploadPost}
-                    className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-gradient-to-l from-purple-600 to-red-600 text-base font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:text-sm disabled:bg-gray-300 disabled:cursor-not-allowed disabled:hover:bg-gray-300"
+                    className="inline-flex justify-center w-full rounded-md shadow-sm py-3 bg-gradient-to-l from-purple-600 to-red-600 text-base font-medium text-white hover:bg-purple-700 hover:ring-2 hover:ring-black dark:hover:ring-opacity-50 sm:text-sm disabled:bg-gray-300 disabled:cursor-not-allowed"
                   >
                     {loading ? "Uploading..." : "Upload Song"}
                   </button>
