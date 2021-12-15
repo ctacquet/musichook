@@ -12,6 +12,7 @@ import Error from "../../components/Error";
 
 import background from "../../public/bg.png";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 // Browser...
 function signIn() {
@@ -32,6 +33,7 @@ function signIn() {
   else if (user) {
     // user is already logged in, redirect to home page
     router.push("/");
+    toast.loading("Logging in...");
   }
 
   const authConfig = uiConfig;

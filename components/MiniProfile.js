@@ -13,6 +13,7 @@ import {
 } from "@firebase/firestore";
 import Image from "next/image";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 function MiniProfile() {
   const [user] = useAuthState(auth);
@@ -28,6 +29,7 @@ function MiniProfile() {
 }, [db, user]);
 
   const logout = () => {
+    toast.error("You are now disconnected.");
     signOut(auth);
   };
 

@@ -1,6 +1,8 @@
 import Posts from "./Posts";
 import { Tab } from '@headlessui/react';
 import { CogIcon } from "@heroicons/react/outline";
+import { auth } from "../lib/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -36,8 +38,10 @@ function TabPanel({children}) {
 }
 
 function Feed() {
+    const [user] = useAuthState(auth);
     return (
         <section className="col-span-2">
+            {user ? (
             <Tab.Group>
                 <Tab.List className="sticky top-20 z-10 mt-7 mx-7 lg:mx-0 flex p-1 space-x-1 bg-white dark:bg-black border dark:border-opacity-20 rounded-xl">
                     <TabList text={"All posts"} key={1} />
@@ -61,6 +65,7 @@ function Feed() {
                     </TabPanel>
                 </Tab.Panels>
             </Tab.Group>
+            ) : (<Posts />)}
         </section>
     )
 }
