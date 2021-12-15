@@ -30,7 +30,7 @@ export default function Layout({ children, pageTitle }) {
         <link rel="apple-touch-icon" href="/favicon.ico" />
       </Head>
       <main className="bg-gray-50 h-screen overflow-y-scroll scrollbar-hide dark:bg-black dark:bg-opacity-80">
-        <header className="sticky top-0 z-10">
+        <header className="sticky top-0 z-50">
           <TopBar pageTitle={pageTitle} />
         </header>
         <div className="mainStyle">

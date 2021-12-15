@@ -11,7 +11,7 @@ function TabList({text}) {
         <Tab
         className={({ selected }) =>
             classNames(
-            'w-full py-2.5 text-sm leading-5text-black dark:text-white rounded-lg border dark:border-opacity-20',
+            'w-full py-2.5 text-sm leading-5 text-black dark:text-white rounded-lg border dark:border-opacity-20',
             'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-purple-400 ring-white ring-opacity-60',
             selected
                 ? 'bg-gray-100 font-bold dark:bg-white dark:bg-opacity-20 dark:border-opacity-5 shadow text-purple-700 dark:text-purple-500'

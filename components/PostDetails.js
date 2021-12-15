@@ -61,6 +61,7 @@ function Post({
   const [isMounted, setIsMounted] = useState(false);
   const { theme } = useTheme();
   const [currentTheme, setCurrentTheme] = useState(null);
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   useEffect( () => {
     onSnapshot(doc(db, "users", uid), (doc) =>
@@ -167,7 +168,7 @@ function Post({
 
   return (
     <div className="bg-white dark:bg-black dark:bg-opacity-25 my-7 border dark:border-gray-500 dark:border-opacity-50 rounded-sm mx-7 lg:mx-0">
-      <ReactTooltip place="top" type={currentTheme === "light" ? "dark" : "light"} effect="solid" />
+      <ReactTooltip disable={isMobile} place="top" type={currentTheme === "light" ? "dark" : "light"} effect="solid" />
       <div className="flex items-start justify-end p-1">
         <div className="flex" onClick={handleClick}>
           <Dropdown postId={id} uid={uid} />
