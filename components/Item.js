@@ -37,13 +37,13 @@ function Item({ data }) {
                 {
                     data.username ? (
                         <Link href={`/profiles/${data.uid}`}>
-                            <h1 className="text-lg text-center font-semibold cursor-pointer">
+                            <h1 className="text-lg text-center font-semibold cursor-pointer select-none">
                                 {data.username}
                             </h1>
                         </Link>
                     ) : (
                         <Link href={`/profiles/${data.uid}`}>
-                            <h1 className="text-lg text-center font-semibold text-gray-600 text-opacity-25 cursor-pointer">
+                            <h1 className="text-lg text-center font-semibold text-gray-600 text-opacity-25 cursor-pointer select-none">
                                 No username
                             </h1>
                         </Link>
@@ -52,25 +52,25 @@ function Item({ data }) {
 
                 {
                     data.description ? (
-                        <p className="text-sm text-gray-600 text-center px-4 truncate">
+                        <p className="text-sm text-gray-600 text-center px-4 truncate select-none">
                             {data.description}
                         </p>
                     ) : (
-                        <p className="text-sm text-gray-600 text-center  text-opacity-25">
+                        <p className="text-sm text-gray-600 text-center  text-opacity-25 select-none">
                             No description
                         </p>
                     )
                 }
 
             </div>
-            <div className="mt-6 pt-3 flex flex-wrap mx-6 border-t justify-center">
+            <div className="mt-6 pt-3 flex flex-wrap mx-6 border-t justify-center select-none">
                 {
                     data.genres[0] &&
                     data.genres[0].toLowerCase() !== "no genres" &&
                     data.genres[0].toLowerCase() !== "no genre" && (
                     <a
                         disabled
-                        className="text-xs mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:text-indigo-100 hover:bg-gray-600 cursor-not-allowed select-none"
+                        className="text-xs mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600"
                       >
                           {data?.genres[0]}
                     </a>
@@ -83,7 +83,7 @@ function Item({ data }) {
                     data.genres[1].toLowerCase() !== "no genre" && (
                     <a
                         disabled
-                        className="text-xs mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:text-indigo-100 hover:bg-gray-600 cursor-not-allowed select-none"
+                        className="text-xs mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600"
                       >
                           {data?.genres[1]}
                     </a>
@@ -96,7 +96,7 @@ function Item({ data }) {
                     data.genres[2].toLowerCase() !== "no genre" && (
                     <a
                         disabled
-                        className="text-xs mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:text-indigo-100 hover:bg-gray-600 cursor-not-allowed select-none"
+                        className="text-xs mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600"
                       >
                           {data?.genres[2]}
                     </a>
