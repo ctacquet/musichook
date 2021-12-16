@@ -49,7 +49,7 @@ function Notification({
       onSnapshot(doc(db, "users", uid), (doc) =>
         setUserWhoNotified(doc.data())
       ),
-    [uid]
+    [db, uid]
   );
 
   const updateSeen = async () => {

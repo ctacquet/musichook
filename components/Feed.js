@@ -43,7 +43,7 @@ function Feed() {
         <section className="col-span-2">
             {user ? (
             <Tab.Group>
-                <Tab.List className="sticky top-10 z-20 mt-7 mx-7 lg:mx-0 flex p-1 space-x-1 bg-white dark:bg-black border dark:border-opacity-20 rounded-xl">
+                <Tab.List className="sticky top-20 z-20 mt-7 mx-7 lg:mx-0 flex p-1 space-x-1 bg-white dark:bg-black border dark:border-opacity-20 rounded-xl">
                     <TabList text={"All posts"} key={1} />
                     <TabList text={"Your feed"} key={2} />
                 </Tab.List>

@@ -41,58 +41,51 @@ function FeedPosts() {
     }, [db, user, followingAccounts]
   );
 
+  if(loading) { return (
+    <div className="h-64">
+      <ReactLoading
+        type="spin"
+        color="black"
+        className="mx-auto flex content-center"
+        width={64}
+        height={"100%"}
+      />
+    </div>
+  )} else {
   return (
     <>
-      { 
-        posts.map((post) => (
-          <Post
-            key={post.id}
-            id={post.id}
-            uid={post.data().uid}
-            coverLink={post.data().coverLink}
-            spotifyLink={post.data().spotifyLink}
-            deezerLink={post.data()?.deezerLink}
-            artist={post.data().artist}
-            title={post.data().title}
-            songDate={post.data().songDate}
-            timestamp={post.data().timestamp}
-          />
-        ))
-      }
-      {loading ? (
-        <div className="h-64">
-          <ReactLoading
-            type="spin"
-            color="black"
-            className="mx-auto flex content-center"
-            width={64}
-            height={"100%"}
-          />
-        </div>
-      ) : (
-        <div className="flex justify-center">
-          {followSomeUsers ? (
-            <div
-                className="mx-2 md:mx-4 lg:mx-6 xl:mx-8 flex bg-purple-100 dark:bg-purple-600 rounded-lg p-4 m-4 text-sm text-purple-700 dark:text-white"
-                role="alert"
-            >
-                <UserAddIcon className="h-6 w-6 animate-pulse" />
-                <div className="pl-2 w-full translate-y-0.5">
-                <span className="font-bold pr-2">You are actually following no one.</span> <br/>
-                <p className="inline">When you follow someone, his posts will be appear here. <br/>Let's follow some users ! You should check </p> 
-                <Link href="/discover">
-                  <a className="inline font-bold underline hover:text-blue-400">discover</a>
-                </Link>
-                <p className="inline"> page 😉</p>
-                </div>
-            </div>
-          ) : (
-            <h4 className="p-4">No more posts</h4>
-          )}
-        </div>
-      )}
+        {posts.map((post) => (
+        <Post
+          key={post.id}
+          id={post.id}
+          uid={post.data().uid}
+          coverLink={post.data().coverLink}
+          spotifyLink={post.data().spotifyLink}
+          deezerLink={post.data()?.deezerLink}
+          artist={post.data().artist}
+          title={post.data().title}
+          songDate={post.data().songDate}
+          timestamp={post.data().timestamp}
+        />
+      ))}
+      <div className="flex justify-center">
+          <div
+              className="mx-2 md:mx-4 lg:mx-6 xl:mx-8 flex bg-purple-100 dark:bg-purple-600 rounded-lg p-4 m-4 text-sm text-purple-700 dark:text-white"
+              role="alert"
+          >
+              <UserAddIcon className="h-6 w-6 animate-pulse" />
+              <div className="pl-2 w-full translate-y-0.5">
+              <span className="font-bold pr-2">You need to follow some users to see more posts.</span> <br/>
+              <p className="inline">When you follow someone, his posts will be appear here. <br/>Let's follow some users ! You should check </p> 
+              <Link href="/discover">
+                <a className="inline font-bold underline hover:text-blue-400">discover</a>
+              </Link>
+              <p className="inline"> page 😉</p>
+              </div>
+          </div>
+      </div>
     </>
-  );
+  )}
 }
 
 export default FeedPosts;

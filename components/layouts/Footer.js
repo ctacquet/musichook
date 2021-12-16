@@ -10,7 +10,7 @@ export default function Footer() {
             <div className="hidden lg:inline lg:col-span-1" />
             <div className="hidden lg:inline lg:col-span-2" />
             <div className="pointer-events-auto col-span-4 lg:col-span-1 text-black dark:text-white text-opacity-25 dark:text-opacity-25 text-center p-4">
-                <p className="inline pr-3">@2021 MusicHook</p>
+                <p className="inline pr-3">© MusicHook - 2021</p>
                 <Link href="https://www.linkedin.com/company/musichook">
                     <a target="_blank">
                         <FontAwesomeIcon

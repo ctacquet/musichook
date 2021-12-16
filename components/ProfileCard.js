@@ -64,7 +64,7 @@ function StatsPopover({ type, user }) {
         return;
       }
     }
-  }, [type, db, user]);
+  }, [type, db, user, accounts]);
 
   if (accounts && accounts.length > 0) {
     return (
