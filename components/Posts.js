@@ -7,28 +7,24 @@ import ReactLoading from "react-loading";
 function Posts() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
 
-  /*
   const fetchMorePost = async () => {
     setLoading(true);
-    const next = query(collection(db, "posts"), orderBy("timestamp", "desc"), startAfter(posts.length), limit(5));
+    const next = query(collection(db, "posts"), orderBy("timestamp", "desc"), startAfter(posts.at(-1)), limit(15));
     onSnapshot(next, (snapshot) => {
-        const newOnes = [];
-        snapshot.forEach((doc) => {
-          newOnes.push(doc.data());
-        });
-        console.log(newOnes);
-        setPosts((post) => [...post, ...newOnes]);
+        if(!snapshot.empty){
+          setPosts((post) => [...post, ...snapshot.docs]);
+        } else setIsEnd(true);
         setLoading(false);
       }
     );
   };
-  */
 
   useEffect(
     () =>
       onSnapshot(
-        query(collection(db, "posts"), orderBy("timestamp", "desc")), //, limit(5)
+        query(collection(db, "posts"), orderBy("timestamp", "desc"), limit(15)),
         (snapshot) => {
           setPosts(snapshot.docs);
           setLoading(false);
@@ -66,11 +62,13 @@ function Posts() {
           />
         </div>
       ) : (
-        <>
-          {/*
-            <button className="bg-black dark:bg-black bg-opacity-50 text-white p-4 rounded-lg w-full hover:bg-gray-500 dark:hover:bg-gray-600" onClick={() => fetchMorePost()}>More Posts</button>
-          */}
-        </>
+        <div className="w-full">
+          {!isEnd ? (
+            <button className="bg-black dark:bg-black bg-opacity-50 text-white py-4 px-8 rounded-lg hover:bg-gray-500 dark:hover:bg-gray-600" onClick={() => fetchMorePost()}>More Posts</button>
+          ) : (
+            <h4>No more posts</h4>
+          )}
+        </div>
       )}
     </>
   );

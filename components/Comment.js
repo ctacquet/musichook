@@ -3,6 +3,7 @@ import { db } from "../lib/firebase";
 import { doc, onSnapshot } from "@firebase/firestore";
 import Moment from "react-moment";
 import Image from "next/image";
+import Link from 'next/link';
 
 function Comment({ uid, comment, date }) {
   const [userWhoCommented, setUserWhoCommented] = useState(null);
@@ -17,21 +18,47 @@ function Comment({ uid, comment, date }) {
 
   return (
     <div className="flex items-center space-x-2 mb-3 last:mb-1">
-      <div className="w-7">
-        {userWhoCommented && (
-          <Image
-            src={userWhoCommented?.userImg}
-            className="rounded-full"
-            alt=""
-            width="100%"
-            height="100%"
-            layout="responsive"
-            objectFit="cover"
-          />
-        )}
-      </div>
+      {uid ? (
+      <Link href={`/profiles/${uid}`}>
+        <a className="w-7">
+          {userWhoCommented && (
+            <Image
+              src={userWhoCommented?.userImg}
+              className="rounded-full"
+              alt=""
+              width="100%"
+              height="100%"
+              layout="responsive"
+              objectFit="cover"
+            />
+          )}
+        </a>
+      </Link>
+      ) : (
+        <div className="w-7">
+          {userWhoCommented && (
+            <Image
+              src={userWhoCommented?.userImg}
+              className="rounded-full"
+              alt=""
+              width="100%"
+              height="100%"
+              layout="responsive"
+              objectFit="cover"
+            />
+          )}
+        </div>
+      )}
       <p className="text-sm flex-1 dark:text-white">
-        <span className="font-bold">{userWhoCommented?.username}</span>{" "}
+        {uid ? (
+          <Link href={`/profiles/${uid}`}>
+            <a>  
+              <span className="font-bold">{userWhoCommented?.username}</span>{" "}
+            </a>
+          </Link>
+        ) : (
+          <span className="font-bold">{userWhoCommented?.username} </span>
+        )}
         {comment}
       </p>
 

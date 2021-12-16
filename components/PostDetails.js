@@ -121,7 +121,7 @@ function Post({
       onSnapshot(
         query(
           collection(db, "posts", id, "comments"),
-          orderBy("timestamp", "desc")
+          orderBy("timestamp", "asc")
         ),
         (snapshot) => setComments(snapshot.docs)
       ),
