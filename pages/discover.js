@@ -24,8 +24,8 @@ export default function Discover() {
             <p className="font-light inline">page,</p>
             <br/>
             <p className="font-light text-base inline">
-              Here you can see a list of all users that like the same genres as yours. <br/>
-              You can sort by genre by clicking on genres on the top of the list.
+              You can choose genres to match with people who listen to song of the same genres. <br/>
+              Sort them by clicking on different categories.
             </p>
           </div>
         </MainSectionHeader>

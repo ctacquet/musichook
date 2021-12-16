@@ -34,7 +34,7 @@ function Posts() {
   );
 
   return (
-    <>
+    <div className="z-10">
       { 
         posts.map((post) => (
           <Post
@@ -62,15 +62,15 @@ function Posts() {
           />
         </div>
       ) : (
-        <div className="w-full">
+        <div className="flex justify-center">
           {!isEnd ? (
-            <button className="bg-black dark:bg-black bg-opacity-50 text-white py-4 px-8 rounded-lg hover:bg-gray-500 dark:hover:bg-gray-600" onClick={() => fetchMorePost()}>More Posts</button>
+            <button className="bg-white border dark:bg-black bg-opacity-50 text-black dark:text-white w-full mx-8 lg:mx-0 py-4 px-8 rounded-lg hover:bg-gray-200 dark:hover:bg-white dark:hover:bg-opacity-5" onClick={() => fetchMorePost()}>Load more</button>
           ) : (
             <h4>No more posts</h4>
           )}
         </div>
       )}
-    </>
+    </div>
   );
 }
 

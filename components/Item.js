@@ -18,13 +18,18 @@ function Item({ data }) {
             <div className="relative shadow mx-auto h-24 w-24 -my-12 border-white rounded-full overflow-hidden border-4 cursor-pointer">
                 {data.userImg && (
                 <Link href={`/profiles/${data.uid}`}>
-                    <Image
+                    <a>
+                        <Image
+                        className="rounded-full"
                         src={data.userImg}
                         alt=""
-                        layout="fill"
+                        width="100%"
+                        height="100%"
+                        layout="responsive"
                         objectFit="cover"
                         priority="false"
-                    />
+                        />
+                    </a>
                 </Link>
                 )}
             </div>
