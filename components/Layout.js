@@ -47,6 +47,9 @@ export default function Layout({ children, pageTitle }) {
             custom: {
               duration: 1000000,
             },
+            error: {
+              duration: 2000,
+            }
           }}
         />
       </main>

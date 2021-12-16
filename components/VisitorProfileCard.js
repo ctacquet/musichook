@@ -390,23 +390,23 @@ function VisitorProfileCard({ id }) {
             {otherUser?.genres && (
               <>
                 {otherUser.genres[0] &&
-                  otherUser.genres[0] !== "no genres" &&
-                  otherUser.genres[0] !== "No genre" && (
-                    <div className="text-xl mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:bg-indigo-600 hover:text-indigo-100 cursor-default select-none">
+                  otherUser.genres[0].toLowerCase() !== "no genres" &&
+                  otherUser.genres[0].toLowerCase() !== "no genre" && (
+                    <div className="text-xl mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 select-none">
                       {otherUser?.genres[0]}
                     </div>
                   )}
                 {otherUser.genres[1] &&
-                  otherUser.genres[1] !== "no genres" &&
-                  otherUser.genres[1] !== "No genre" && (
-                    <div className="text-xl mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:bg-indigo-600 hover:text-indigo-100 cursor-default select-none">
+                  otherUser.genres[1].toLowerCase() !== "no genres" &&
+                  otherUser.genres[1].toLowerCase() !== "no genre" && (
+                    <div className="text-xl mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 select-none">
                       {otherUser?.genres[1]}
                     </div>
                   )}
                 {otherUser.genres[2] &&
-                  otherUser.genres[2] !== "no genres" &&
-                  otherUser.genres[2] !== "No genre" && (
-                    <div className="text-xl mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:bg-indigo-600 hover:text-indigo-100 cursor-default select-none">
+                  otherUser.genres[2].toLowerCase() !== "no genres" &&
+                  otherUser.genres[2].toLowerCase() !== "no genre" && (
+                    <div className="text-xl mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 select-none">
                       {otherUser?.genres[2]}
                     </div>
                   )}

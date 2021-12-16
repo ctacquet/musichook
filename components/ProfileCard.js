@@ -286,21 +286,21 @@ function ProfileCard() {
                 {userData.genres[0] &&
                   userData.genres[0].toLowerCase() !== "no genres" &&
                   userData.genres[0].toLowerCase() !== "no genre" && (
-                    <div className="text-xl mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:bg-indigo-600 hover:text-indigo-100 cursor-default select-none">
+                    <div className="text-xl mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 select-none">
                       {userData?.genres[0]}
                     </div>
                   )}
                 {userData.genres[1] &&
                   userData.genres[1].toLowerCase() !== "no genres" &&
                   userData.genres[1].toLowerCase() !== "no genre" && (
-                    <div className="text-xl mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:bg-indigo-600 hover:text-indigo-100 cursor-default select-none">
+                    <div className="text-xl mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 select-none">
                       {userData?.genres[1]}
                     </div>
                   )}
                 {userData.genres[2] &&
                   userData.genres[2].toLowerCase() !== "no genres" &&
                   userData.genres[2].toLowerCase() !== "no genre" && (
-                    <div className="text-xl mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:bg-indigo-600 hover:text-indigo-100 cursor-default select-none">
+                    <div className="text-xl mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 select-none">
                       {userData?.genres[2]}
                     </div>
                   )}
