@@ -21,7 +21,7 @@ function MiniProfile() {
 
   useEffect(() => {
     if (user) {
-        onSnapshot(doc(db, "users", user?.uid), (doc) => {
+        onSnapshot(doc(db, "users", user.uid), (doc) => {
             setCurrentUser(doc.data())
         });
     }
@@ -59,7 +59,7 @@ function MiniProfile() {
                 </div>
                 <div className="inline-block">
                   <p className="text-base leading-6 font-medium text-black dark:text-white group-hover:text-gray-300 transition ease-in-out duration-150">
-                    {currentUser?.username}
+                    {currentUser && currentUser?.username}
                   </p>
                   <p className="text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">
                     Go to profile

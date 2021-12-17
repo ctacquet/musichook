@@ -183,7 +183,7 @@ function ProfileCard() {
 
   useEffect(() => {
     if (user) {
-      onSnapshot(collection(db, "users", user?.uid, "links"), (snapshot) => {
+      onSnapshot(collection(db, "users", user.uid, "links"), (snapshot) => {
         setLinks(snapshot.docs);
       });
     }

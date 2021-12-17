@@ -39,7 +39,7 @@ function Caroussel() {
 
   useEffect(() => {
     if (user) {
-      onSnapshot(doc(db, "users", user?.uid), (doc) => {
+      onSnapshot(doc(db, "users", user.uid), (doc) => {
         setCurrentUser(doc.data());
       });
       onSnapshot(

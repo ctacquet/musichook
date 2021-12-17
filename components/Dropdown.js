@@ -28,7 +28,7 @@ function Dropdown({ postId, uid }) {
   const [user] = useAuthState(auth);
   const [hasPosted, setHasPosted] = useState(false);
 
-  useEffect(() => setHasPosted(uid == user?.uid), [uid]);
+  useEffect(() => setHasPosted(uid == user?.uid), [uid, user]);
 
   const deletePost = async () => {
     if (hasPosted) {

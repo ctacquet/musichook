@@ -13,7 +13,7 @@ function Comment({ uid, comment, date }) {
       onSnapshot(doc(db, "users", uid), (doc) =>
         setUserWhoCommented(doc.data())
       ),
-    [uid]
+    [db, uid]
   );
 
   return (

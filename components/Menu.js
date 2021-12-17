@@ -36,7 +36,7 @@ function Menu() {
           setLength(snapshot.size);
         }
       ),
-        [db];
+        [db, user];
     }
   });
 

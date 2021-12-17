@@ -46,8 +46,7 @@ function TopBar({ pageTitle }) {
         (snapshot) => {
           setLength(snapshot.size);
         }
-      ),
-        [db];
+      ), [db, user];
     }
   });
 

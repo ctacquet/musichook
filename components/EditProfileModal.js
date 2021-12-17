@@ -165,7 +165,7 @@ function renderGenreListBox(genreNumber, setGenreNumber) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
         >
-            <Listbox.Options className="absolute z-20 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <Listbox.Options className="absolute z-40 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
             {genres.map((genre, genreIdx) => (
                 <Listbox.Option
                 key={genreIdx}
@@ -309,7 +309,7 @@ function EditModal() {
     useEffect(() => {
 
         if (user) {
-            onSnapshot(doc(db, "users", user?.uid), (doc) => {
+            onSnapshot(doc(db, "users", user.uid), (doc) => {
                 setCurrentUserData(doc.data())
                 setUsername(doc.data().username);
                 setDescription(doc.data().description);
@@ -318,14 +318,14 @@ function EditModal() {
                 setGenre3(doc.data().genres[2]);
 
             });
-            onSnapshot(collection(db, "users", user?.uid, "links"), (snapShot) => {
+            onSnapshot(collection(db, "users", user.uid, "links"), (snapShot) => {
                 setCurrentLinksData(snapShot.docs);
                 setDomain("");
                 setUrl("");
             });
         }
 
-    }, [user]);
+    }, [db, user]);
 
     const [displayed, setDisplayed] = useState(false);
 
@@ -361,7 +361,7 @@ function EditModal() {
         <Transition.Root show={openEdit} as={Fragment}>
             <Dialog
                 as="div"
-                className="fixed z-10 inset-0 overflow-y-auto"
+                className="fixed z-30 inset-0 overflow-y-auto"
                 onClose={setOpenEdit}
             >
                 <div className="flex items-end justify-center min-h-[00px] sm:min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -437,7 +437,7 @@ function EditModal() {
                                                 className="select-all w-full sm:text-sm border-gray-300 focus:ring-black focus:border-black rounded-md mb-1 dark:text-black"
                                                 type="text"
                                                 ref={usernameRef}
-                                                require
+                                                required
                                                 value={username}
                                                 placeholder="Username"
                                                 onChange={(e) => setUsername(e.target.value)}
