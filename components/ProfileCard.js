@@ -28,6 +28,7 @@ import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 import Moment from "react-moment";
 import { Popover, Transition } from "@headlessui/react";
 import ReactLoading from "react-loading";
+import DeleteAccount from "./DeleteAccount";
 
 function StatsPopover({ type, user }) {
   const [title, setTitle] = useState("");
@@ -263,6 +264,7 @@ function ProfileCard() {
               <button onClick={() => setOpenEdit(true)}>
                 <PencilAltIcon className="h-7 text-black dark:text-white" />
               </button>
+              <DeleteAccount />
             </div>
           </div>
           <div className="mt-6 pt-3 flex flex-col lg:flex-row mx-6 justify-center lg:space-x-20">
