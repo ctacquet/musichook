@@ -4,7 +4,7 @@ describe('The Login Page', () => {
   it('should login with user and password', () => {
     cy.viewport(1920, 1080)
     // Start from the index page
-    cy.visit('http://localhost:3000/auth/signin')
+    cy.visit('https://musichook.vercel.app/auth/signin')
     cy.contains('Sign in with email').click();
     cy.get('input[type=email]').type(email); 
     cy.get('button[type=submit]').click(); 
