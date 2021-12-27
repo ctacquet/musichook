@@ -68,7 +68,7 @@ function MiniProfile() {
               </div>
             </Link>
             <div className="inline-block">
-              <a onClick={logout} className="loginBtn space-x-2 rounded-lg">
+              <a onClick={logout} className="loginBtn space-x-2 rounded-lg" id="test">
                 <LogoutIcon className="h-8 w-8 inline-block dark:text-white" />
               </a>
             </div>
